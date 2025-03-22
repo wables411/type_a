@@ -1,0 +1,170 @@
+body {
+  background: white;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  margin: 0;
+}
+
+.preview-gif {
+  width: 300px; /* Adjust size as needed */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.gif-subtitle {
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px;
+}
+
+.xp-window {
+  background: #c0c0c0;
+  border: 2px solid #000;
+  box-shadow: inset 2px 2px #fff, inset -2px -2px #808080;
+  width: 600px;
+  margin: 50px auto;
+  padding: 10px;
+}
+
+.title-bar {
+  background: linear-gradient(to right, navy, #1084d0);
+  color: white;
+  padding: 5px;
+}
+
+.content {
+  text-align: center;
+  padding: 20px;
+}
+
+.content h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.content p {
+  margin: 10px 0;
+}
+
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  margin: 10px 0;
+}
+
+.marquee {
+  display: inline-block;
+  animation: marquee 10s linear infinite;
+  color: #ff69b4; /* Match the original marquee color */
+  font-weight: bold;
+}
+
+.marquee.paused {
+  animation-play-state: paused;
+}
+
+.marquee span {
+  display: inline-block;
+  padding-right: 50px; /* Space between repeated text */
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee-toggle {
+  display: block; /* Change to block to place it below the scrolling text */
+  margin: 5px auto; /* Center the button */
+  background: #ff69b4;
+  border: 2px outset #fff;
+  padding: 2px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.winamp {
+  background: #000;
+  color: #00ff00;
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid #c0c0c0;
+  box-shadow: 2px 2px #808080;
+}
+
+.winamp-header {
+  background: linear-gradient(to right, #000080, #1084d0);
+  color: white;
+  padding: 3px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.winamp-display {
+  background: #000;
+  color: #00ff00;
+  padding: 5px;
+  margin: 5px 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+.winamp-controls {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.winamp-control {
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  padding: 2px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.winamp-control:hover {
+  background: #d0d0d0;
+}
+
+.connect-btn {
+  background: #00ff00;
+  padding: 10px 20px;
+  border: 2px outset #fff;
+  margin-right: 10px;
+}
+
+.mint-btn {
+  background: #ff69b4;
+  padding: 15px 30px;
+  border: 2px outset #fff;
+  cursor: not-allowed;
+}
+
+.mint-btn:not(:disabled) {
+  cursor: pointer;
+}
+
+.whitelist-link {
+  color: #ff69b4; /* Hot pink to match the retro theme */
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.whitelist-link:hover {
+  color: #00ff00; /* Green on hover for a retro effect */
+  text-decoration: none;
+}
+
+.footer-text {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
