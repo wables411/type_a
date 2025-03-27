@@ -1,0 +1,280 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: url('assets/plantswaving.gif') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    text-align: center;
+    position: relative;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header-gif {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.glitter-text {
+    font-size: 2.5em;
+    color: #FF69B4;
+    text-shadow: 0 0 10px #00FFFF, 0 0 20px #FF00FF;
+    animation: glitter 1.5s infinite;
+}
+
+@keyframes glitter {
+    0% { text-shadow: 0 0 10px #00FFFF, 0 0 20px #FF00FF; }
+    50% { text-shadow: 0 0 20px #00FFFF, 0 0 30px #FF00FF; }
+    100% { text-shadow: 0 0 10px #00FFFF, 0 0 20px #FF00FF; }
+}
+
+.box {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #FF00FF;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 0 15px #00FFFF;
+}
+
+.small-gif {
+    width: 150px;
+    margin: 10px 0;
+}
+
+.mp3-player {
+    margin: 20px 0;
+    width: 100%;
+    height: 200px;
+    background: url('assets/miniplayer-bg.gif') no-repeat center center;
+    background-size: cover;
+    border: 2px solid #FF00FF;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #00FFFF;
+    padding: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.winamp-display {
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.song-title {
+    color: #00FF00;
+    font-size: 16px;
+    text-shadow: 0 0 5px #00FF00;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.display-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.equalizer {
+    display: flex;
+    align-items: flex-end;
+    height: 20px;
+    width: 120px;
+    margin: 0 10px;
+}
+
+.eq-bar {
+    width: 8px;
+    background: #FF69B4;
+    margin-right: 2px;
+    height: 0;
+    box-shadow: 0 0 3px #FF69B4;
+}
+
+.song-timer {
+    color: #87CEEB;
+    font-size: 14px;
+    text-shadow: 0 0 5px #87CEEB;
+}
+
+.winamp-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.mp3-player audio {
+    display: none;
+}
+
+.winamp-button {
+    padding: 8px 15px;
+    background: #FF69B4;
+    color: #fff;
+    border: 1px solid #FF00FF;
+    border-radius: 5px;
+    cursor: pointer;
+    text-shadow: 0 0 5px #FF00FF;
+    box-shadow: 0 0 5px #FF69B4;
+    transition: background 0.3s, box-shadow 0.3s;
+    font-size: 14px;
+}
+
+.winamp-button:hover {
+    background: #FF00FF;
+    box-shadow: 0 0 10px #FF00FF;
+}
+
+.back-button {
+    background: #FF69B4;
+}
+
+.back-button:hover {
+    background: #FF00FF;
+}
+
+.play-pause-button {
+    background: #FF69B4;
+}
+
+.play-pause-button:hover {
+    background: #FF00FF;
+}
+
+.next-button {
+    background: #FF69B4;
+}
+
+.next-button:hover {
+    background: #FF00FF;
+}
+
+/* Chat Box */
+.chat textarea {
+    width: 100%;
+    height: 150px;
+    background: #000;
+    color: #00FF00;
+    border: 2px solid #FF00FF;
+    border-radius: 5px;
+    padding: 10px;
+    resize: none;
+    overflow-y: auto;
+}
+
+.wallet-prompt {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.chat-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 8px;
+    background: #000;
+    color: #00FF00;
+    border: 2px solid #FF00FF;
+    border-radius: 5px;
+    outline: none;
+    font-family: 'Arial', sans-serif;
+}
+
+.chat-input input::placeholder {
+    color: #00FF00;
+    opacity: 0.7;
+}
+
+.chat-button {
+    padding: 8px 15px;
+    background: #FF69B4;
+    color: #fff;
+    border: 1px solid #FF00FF;
+    border-radius: 5px;
+    cursor: pointer;
+    text-shadow: 0 0 5px #FF00FF;
+    box-shadow: 0 0 5px #FF69B4;
+    transition: background 0.3s, box-shadow 0.3s;
+    font-size: 14px;
+}
+
+.chat-button:hover {
+    background: #FF00FF;
+    box-shadow: 0 0 10px #FF00FF;
+}
+
+.gif-button {
+    width: 88px;
+    height: 31px;
+    margin: 20px 0;
+}
+
+.whitelist-link {
+    color: #FF00FF;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00FFFF;
+}
+
+.whitelist-link:hover {
+    color: #FFFF00;
+    text-shadow: 0 0 10px #FF69B4;
+}
+
+/* Sparkle Effect for Mouse Trail */
+.sparkle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #FF69B4;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #00FFFF, 0 0 10px #FF00FF;
+    pointer-events: none;
+    animation: sparkleFade 1s ease-out forwards;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes sparkleFade {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+}

@@ -1,0 +1,371 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background: url('/assets/initiald.gif') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+}
+
+.container {
+  max-width: 800px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.image-wrapper {
+  line-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0 !important;
+  margin: 0;
+  padding: 0;
+}
+
+.title-logo {
+  width: 75vw;
+  height: auto;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  animation: glitter 1.5s infinite;
+}
+
+.header-gif {
+  width: 60%;
+  max-width: 360px;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+.glitter-text {
+  font-size: 2.5em;
+  color: #ff69b4;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
+  animation: glitter 1.5s infinite;
+}
+
+@keyframes glitter {
+  0% {
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
+  }
+  50% {
+    text-shadow: 0 0 20px #00ffff, 0 0 30px #ff00ff;
+  }
+  100% {
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
+  }
+}
+
+.box {
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid #ff00ff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 0 15px #00ffff;
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.chat .chat-log {
+  width: 100%;
+  height: 150px;
+  background: #000;
+  color: #00ff00;
+  border: 2px solid #ff00ff;
+  border-radius: 5px;
+  padding: 10px;
+  overflow-y: auto;
+  font-family: 'Arial', sans-serif;
+  text-align: left;
+}
+
+.chat .chat-log p {
+  margin: 5px 0;
+  word-wrap: break-word;
+}
+
+.small-gif {
+  width: 150px;
+  margin: 10px auto;
+  display: block;
+}
+
+.video-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 10px auto;
+}
+
+.small-video {
+  width: 375px; /* 150px * 2.5 */
+  max-width: 100%; /* Prevent overflow */
+  height: auto;
+  display: block;
+}
+
+.whitelist-meme {
+  width: 300px;
+  height: auto;
+  margin: 10px auto;
+  display: block;
+}
+
+.mp3-player {
+  margin: 20px 0;
+  width: 100%;
+  height: 200px;
+  background: url('/assets/plantswaving.gif') no-repeat center center;
+  background-size: cover;
+  border: 2px solid #ff00ff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #00ffff;
+  padding: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.winamp-display {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 5px;
+  overflow: hidden;
+}
+
+.song-title {
+  color: #00ff00;
+  font-size: 16px;
+  text-shadow: 0 0 5px #00ff00;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.display-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.equalizer {
+  display: flex;
+  align-items: flex-end;
+  height: 20px;
+  width: 120px;
+  margin: 0 10px;
+}
+
+.eq-bar {
+  width: 8px;
+  background: #ff69b4;
+  margin-right: 2px;
+  height: 0;
+  box-shadow: 0 0 3px #ff69b4;
+}
+
+.song-timer {
+  color: #87ceeb;
+  font-size: 14px;
+  text-shadow: 0 0 5px #87ceeb;
+}
+
+.winamp-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.mp3-player audio {
+  display: none;
+}
+
+.winamp-button {
+  padding: 8px 15px;
+  background: #ff69b4;
+  color: #fff;
+  border: 1px solid #ff00ff;
+  border-radius: 5px;
+  cursor: pointer;
+  text-shadow: 0 0 5px #ff00ff;
+  box-shadow: 0 0 5px #ff69b4;
+  transition: background 0.3s, box-shadow 0.3s;
+  font-size: 14px;
+}
+
+.winamp-button:hover {
+  background: #ff00ff;
+  box-shadow: 0 0 10px #ff00ff;
+}
+
+.back-button {
+  background: #ff69b4;
+}
+
+.back-button:hover {
+  background: #ff00ff;
+}
+
+.play-pause-button {
+  background: #ff69b4;
+}
+
+.play-pause-button:hover {
+  background: #ff00ff;
+}
+
+.next-button {
+  background: #ff69b4;
+}
+
+.next-button:hover {
+  background: #ff00ff;
+}
+
+.wallet-prompt {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.chat-input {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 8px;
+  background: #000;
+  color: #00ff00;
+  border: 2px solid #ff00ff;
+  border-radius: 5px;
+  outline: none;
+  font-family: 'Arial', sans-serif;
+}
+
+.chat-input input::placeholder {
+  color: #00ff00;
+  opacity: 0.7;
+}
+
+.chat-button {
+  padding: 8px 15px;
+  background: #ff69b4;
+  color: #fff;
+  border: 1px solid #ff00ff;
+  border-radius: 5px;
+  cursor: pointer;
+  text-shadow: 0 0 5px #ff00ff;
+  box-shadow: 0 0 5px #ff69b4;
+  transition: background 0.3s, box-shadow 0.3s;
+  font-size: 14px;
+}
+
+.chat-button:hover {
+  background: #ff00ff;
+  box-shadow: 0 0 10px #ff00ff;
+}
+
+.gif-button {
+  width: 25vw;
+  height: 8.75vw;
+  min-width: 250px;
+  min-height: 87.5px;
+  margin: 20px auto;
+  display: block;
+  text-align: center;
+}
+
+.gif-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.whitelist-link {
+  color: #ff00ff;
+  text-decoration: none;
+  font-weight: bold;
+  text-shadow: 0 0 5px #00ffff;
+}
+
+.whitelist-link:hover {
+  color: #ffff00;
+  text-shadow: 0 0 10px #ff69b4;
+}
+
+.bee-trail {
+  position: absolute;
+  font-size: 16px;
+  pointer-events: none;
+  animation: beeFade 1s ease-out forwards;
+  transform-origin: center;
+}
+
+@keyframes beeFade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+}
+
+.wallet-section {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.username-input {
+  margin-bottom: 10px;
+}
+
+.username-input input {
+  padding: 5px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+}
