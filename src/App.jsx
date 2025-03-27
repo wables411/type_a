@@ -210,13 +210,16 @@ const App = () => {
       <div className="box minting">
         <p>𝙱𝚛𝚒𝚍𝚐𝚒𝚗𝚐 𝙼𝚒𝚕𝚊𝚍𝚢 𝚝𝚘 𝙰𝚙𝚝𝚘𝚜 𝚝𝚑𝚒𝚜 𝚜𝚙𝚛𝚒𝚗𝚐 🌐🤍🌷</p>
         <div className="video-wrapper">
-            <video
-              ref={videoRef}
-              src="https://raw.githubusercontent.com/wables411/type_a/main/public/assets/type_a.mp4"
-              className="small-video"
-              loop
-              playsInline
-            />
+        <video
+          ref={videoRef}
+            src="https://raw.githubusercontent.com/wables411/type_a/main/public/assets/type_a.mp4"
+            className="small-video"
+            loop
+            playsInline
+            onError={(e) => console.error('Video failed to load:', e)}
+            >
+            <p>Your browser cannot play this video. <a href="https://raw.githubusercontent.com/wables411/type_a/main/public/assets/type_a.mp4">Download it here</a>.</p>
+          </video>
           <button
             onClick={togglePlayPause}
             className="play-pause-button"
