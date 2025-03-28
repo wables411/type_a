@@ -4,10 +4,10 @@ import { database } from './firebase';
 import { ref, onValue, push } from 'firebase/database';
 import Mp3Player from './Mp3Player';
 import ErrorBoundary from './ErrorBoundary';
-import Vimeo from '@vimeo/player'; // Import Vimeo Player SDK
+import Player from '@vimeo/player';
 import './App.css';
 
-// Chat component remains unchanged
+// Chat component (unchanged)
 const Chat = () => {
   const [messages, setMessages] = useState(['welcome to milady type_a chat room! say hi to get started']);
   const [chatMessage, setChatMessage] = useState('');
@@ -92,9 +92,11 @@ const App = () => {
   const { account, connected, disconnect, wallets, connect } = useWallet();
   const [isConnecting, setIsConnecting] = useState(false);
   const [lastMouseX, setLastMouseX] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const iframeRef = useRef(null); // Ref for the iframe
-  const playerRef = useRef(null); // Ref for the Vimeo player instance
+  const [playerError, setPlayerError] = useState(null);
+  const [retryKey, setRetryKey] = useState(0);
+  const iframeRef = useRef(null);
+  const playerRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   const handleConnect = async () => {
     if (!wallets || wallets.length === 0) {
@@ -182,40 +184,58 @@ const App = () => {
     }
   }, [connected, account]);
 
-  // Initialize Vimeo Player when the component mounts
+  // Initialize Vimeo Player
   useEffect(() => {
-    if (iframeRef.current) {
-      playerRef.current = new Vimeo(iframeRef.current);
-
-      // Set initial volume to 1.0 (max)
-      playerRef.current.setVolume(1.0).catch((error) => {
-        console.error('Error setting Vimeo player volume:', error);
-      });
-
-      // Clean up on unmount
-      return () => {
-        if (playerRef.current) {
-          playerRef.current.destroy().catch((error) => {
-            console.error('Error destroying Vimeo player:', error);
-          });
-        }
-      };
-    }
-  }, []);
-
-  const togglePlayPause = async () => {
-    if (playerRef.current) {
+    if (iframeRef.current && !playerRef.current) {
+      console.log('Initializing Vimeo player...');
       try {
-        if (isPlaying) {
-          await playerRef.current.pause();
-        } else {
-          await playerRef.current.play();
-        }
-        setIsPlaying(!isPlaying);
+        playerRef.current = new Player(iframeRef.current, {
+          controls: true, // Enable default Vimeo controls
+          autoplay: false,
+        });
+
+        console.log('Vimeo player instance created:', playerRef.current);
+
+        playerRef.current.on('error', (error) => {
+          console.error('Vimeo player error:', error);
+          setPlayerError('Video player encountered an error: ' + error.message);
+        });
+
+        playerRef.current.setVolume(1.0).catch((error) => {
+          console.error('Error setting Vimeo player volume:', error);
+        });
+
+        playerRef.current.setMuted(false).catch((error) => {
+          console.error('Error unmuting Vimeo player:', error);
+        });
+
+        setPlayerError(null);
       } catch (error) {
-        console.error('Error controlling Vimeo player:', error);
+        console.error('Failed to initialize Vimeo player:', error);
+        setPlayerError('Failed to load video player.');
       }
     }
+
+    return () => {
+      if (playerRef.current) {
+        playerRef.current.unload().then(() => {
+          console.log('Vimeo player unloaded');
+          playerRef.current = null;
+        }).catch((error) => {
+          console.error('Error unloading Vimeo player:', error);
+        });
+      }
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    };
+  }, [retryKey]);
+
+  const handleRetry = () => {
+    console.log('Retrying player initialization...');
+    setPlayerError(null);
+    setRetryKey((prev) => prev + 1);
   };
 
   const walletAddress = account?.address?.toString() || 'Unknown Address';
@@ -232,97 +252,55 @@ const App = () => {
         </p>
       </div>
       <div className="box minting">
-        <p>𝙱𝚛𝚒𝚍𝚐𝚒𝚗𝚐 𝙼𝚒𝚕𝚊𝚍𝚢 𝚝𝚘 𝙰𝚙𝚝𝚘𝚜 𝚝𝚑𝚒𝚜 𝚜𝚙𝚛𝚒𝚗𝚐 🌐🤍🌷</p>
+        <p>𝙱𝚛𝚒𝚍𝚐𝚒𝚗𝚐 𝙼𝚒𝚕𝚊𝚍𝚢 𝚝𝚘 𝙰𝚙𝚝𝚘𝚜 S𝚙𝚛𝚒𝚗𝚐 2025 🌐🤍🌷</p>
         <div className="video-wrapper">
-          <div style={{ padding: '56.25% 0 0 0', position: 'relative', maxWidth: '375px', width: '100%' }}>
+          <div style={{ position: 'relative', width: '375px', height: '211px' }}>
             <iframe
+              key={retryKey}
               ref={iframeRef}
-              src="https://player.vimeo.com/video/1070103341?badge=0&autopause=0&player_id=0&app_id=58479"
-              frameBorder="0"
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+              src="https://player.vimeo.com/video/1070103341?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0&transparent=0"
               title="type_a"
+              frameBorder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
             ></iframe>
           </div>
-          <button onClick={togglePlayPause} className="play-pause-button">
-            {isPlaying ? 'Pause' : 'Play'}
-          </button>
+          {playerError && (
+            <div className="error-container">
+              <p className="error-text">{playerError}</p>
+              <button onClick={handleRetry} className="retry-button">
+                Retry
+              </button>
+            </div>
+          )}
         </div>
         <p>𝟺,𝟺𝟺𝟺 𝚜𝚞𝚙𝚙𝚕𝚢 🌐🤍 𝟷,𝟺𝟺𝟺 𝚏𝚛𝚎𝚎 𝚖𝚒𝚗𝚝𝚜</p>
         <p>𝚙𝚞𝚋𝚕𝚒𝚌 �𝚖𝚒𝚗𝚝 🌐🤍 𝟷𝟷 𝙰𝙿𝚃𝙾𝚂</p>
         <p>𝟷,𝟶𝟶𝟶 𝚍𝚒𝚜𝚌𝚘𝚞𝚗𝚝𝚎𝚍 𝚖𝚒𝚗𝚝𝚜 🌐🤍 𝟻 𝙰𝙿𝚃𝙾𝚂</p>
         <img src="assets/whitelist.png" alt="whitelist" className="whitelist-meme" />
         <p>𝙒𝙃𝙄𝙏𝙀𝙇𝙄𝙎𝙏</p>
-        <p>
-          <a href="https://miladymaker.net/" target="_blank" rel="noreferrer" className="whitelist-link">
-            𝑀𝒾𝓁𝒶𝒹𝓎 𝑀𝒶𝓀𝑒𝓇
-          </a>
-        </p>
-        <p>
-          <a href="https://remilio.org/" target="_blank" rel="noreferrer" className="whitelist-link">
-            𝑅𝑒𝒹𝒶𝒸𝓂𝒾𝓁𝒾𝑜 𝐵𝒶𝒷𝒾𝑒𝓈
-          </a>
-        </p>
-        <p>
-          <a href="https://radbro.xyz/" target="_blank" rel="noreferrer" className="whitelist-link">
-            𝑅𝒶𝒹𝒷𝓇𝑜
-          </a>
-        </p>
-        <p>
-          <a href="https://radbro.xyz/" target="_blank" rel="noreferrer" className="whitelist-link">
-            𝑅𝒶𝒹𝒸𝒶𝓉
-          </a>
-        </p>
-        <p>
-          <a href="https://www.scatter.art/kawamii" target="_blank" rel="noreferrer" className="whitelist-link">
-            𝒦𝒶𝓌𝒶𝓂𝒾𝒾 𝒯𝑒𝑒𝓃𝓈
-          </a>
-        </p>
-        <p>
-          <a href="https://www.tensor.trade/trade/midladys_fumogeddon" target="_blank" rel="noreferrer" className="whitelist-link">
-            𝑀𝒾𝒹𝓁𝒶𝒹𝓎
-          </a>
-        </p>
-        <p>
-          <a href="https://www.scatter.art/collection/pixelady-maker" target="_blank" rel="noreferrer" className="whitelist-link">
-            𝒫𝒾𝓍𝑒𝓁𝒶𝒹𝓎 𝑀𝒶𝓀𝑒𝓇
-          </a>
-        </p>
-        <p>
-          <a href="https://magiceden.us/collections/base/0xee7d1b184be8185adc7052635329152a4d0cdefa" target="_blank" rel="noreferrer" className="whitelist-link">
-            𝒦𝑒𝓂𝓸𝓃𝓸𝓀𝒶𝓀𝒾
-          </a>
-        </p>
-        <p>
-          <a href="https://x1333.net/" target="_blank" rel="noreferrer" className="whitelist-link">
-            𝟣𝟥𝟥𝟥 𝒸𝓸
-          </a>
-        </p>
-        <p>
-          <a href="https://magiceden.us/marketplace/uwu_banners" target="_blank" rel="noreferrer" className="whitelist-link">
-            𝒰𝓌𝒰 𝐵𝒶𝓃𝓃𝑒𝓇𝓈
-          </a>
-        </p>
-        <p>
-          <a href="https://www.scatter.art/twilight-rooms" target="_blank" rel="noreferrer" className="whitelist-link">
-            𝒯𝓌𝒾𝑔𝒽𝓁𝒾𝑔𝒽𝓉 𝑅𝓸𝓸𝓂𝓈
-          </a>
-        </p>
-        <p>
-          <a href="https://opensea.io/collection/7w1l1gh7z0n3-vol-1-meowmaows" target="_blank" rel="noreferrer" className="whitelist-link">
-            𝒯𝓌𝒾𝑔𝒽𝓁𝒾𝑔𝒽𝓉 𝒵𝓸𝓃𝑒
-          </a>
-        </p>
-        <p>
-          <a href="https://aptosfoundation.org/" target="_blank" rel="noreferrer" className="whitelist-link">
-            𝒜𝓅𝓉𝓸𝓈 𝒲𝒽𝒶𝓁𝑒𝓈
-          </a>
-        </p>
+        <p><a href="https://miladymaker.net/" target="_blank" rel="noreferrer" className="whitelist-link">𝑀𝒾𝓁𝒶𝒹𝓎 𝑀𝒶𝓀𝑒𝓇</a></p>
+        <p><a href="https://remilio.org/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝑒𝒹𝒶𝒸𝓂𝒾𝓁𝒾𝓸 𝐵𝒶𝒷𝒾𝑒𝓈</a></p>
+        <p><a href="https://radbro.xyz/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝒶𝒹𝒷𝓇𝓸</a></p>
+        <p><a href="https://radbro.xyz/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝒶𝒹𝒸𝒶𝓉</a></p>
+        <p><a href="https://www.scatter.art/kawamii" target="_blank" rel="noreferrer" className="whitelist-link">𝒦𝒶𝓌𝒶𝓂𝒾𝒾 𝒯𝑒𝑒𝓃𝓈</a></p>
+        <p><a href="https://www.tensor.trade/trade/midladys_fumogeddon" target="_blank" rel="noreferrer" className="whitelist-link">𝑀𝒾𝒹𝓁𝒶𝒹𝓎</a></p>
+        <p><a href="https://www.scatter.art/collection/pixelady-maker" target="_blank" rel="noreferrer" className="whitelist-link">𝒫𝒾𝓍𝑒𝓁𝒶𝒹𝓎 𝑀𝒶𝓀𝑒𝓇</a></p>
+        <p><a href="https://magiceden.us/collections/base/0xee7d1b184be8185adc7052635329152a4d0cdefa" target="_blank" rel="noreferrer" className="whitelist-link">𝒦𝑒𝓂𝓸𝓃𝓸𝓀𝒶𝓀𝒾</a></p>
+        <p><a href="https://x1333.net/" target="_blank" rel="noreferrer" className="whitelist-link">𝟣𝟥𝟥𝟥 𝒸𝓸</a></p>
+        <p><a href="https://magiceden.us/marketplace/uwu_banners" target="_blank" rel="noreferrer" className="whitelist-link">𝒰𝓌𝒰 𝐵𝒶𝓃𝓃𝑒𝓇𝓈</a></p>
+        <p><a href="https://www.scatter.art/twilight-rooms" target="_blank" rel="noreferrer" className="whitelist-link">𝒯𝓌𝒾𝑔𝒽𝓁𝒾𝑔𝒽𝓉 𝑅𝓸𝓸𝓂𝓈</a></p>
+        <p><a href="https://opensea.io/collection/7w1l1gh7z0n3-vol-1-meowmaows" target="_blank" rel="noreferrer" className="whitelist-link">𝒯𝓌𝒾𝑔𝒽𝓁𝒾𝑔𝒽𝓉 𝒵𝓸𝓃𝑒</a></p>
+        <p><a href="https://aptosfoundation.org/" target="_blank" rel="noreferrer" className="whitelist-link">𝒜𝓅𝓉𝓸𝓈 𝒲𝒽𝒶𝓁𝑒𝓈</a></p>
         <p>𝙈𝙄𝙉𝙏 𝙋𝙍𝙊𝘾𝙀𝙀𝘿𝙎</p>
         <p>𝟸𝟶% 𝚘𝚏 𝚖𝚒𝚗𝚝 𝚙𝚛𝚘𝚌𝚎𝚎𝚍𝚜 𝚍𝚒𝚛𝚎𝚌𝚝𝚎𝚍 𝚝𝚘𝚠𝚊𝚛𝚍𝚜 𝚛𝚎𝚖𝚒𝚕𝚒𝚊 𝚝𝚛𝚎𝚊𝚜𝚞𝚛𝚢</p>
         <p>𝟻% 𝚍𝚒𝚛𝚎𝚌𝚝𝚎𝚍 𝚝𝚘𝚠𝚊𝚛𝚍𝚜 𝚎𝚖𝚘𝚓𝚒𝚌𝚘𝚒𝚗 𝚊𝚜𝚜𝚎𝚝𝚜 𝚘𝚗 𝙰𝚙𝚝𝚘𝚜! 🌐🐝🧀</p>
         <p>𝟻% 𝚊𝚕𝚕𝚘𝚌𝚊𝚝𝚎𝚍 𝚏𝚘𝚛 𝚐𝚒𝚟𝚎𝚊𝚠𝚊𝚢𝚜/𝚌𝚘𝚗𝚝𝚎𝚜𝚝𝚜 𝚠𝚒𝚝𝚑𝚒𝚗 𝚝𝚑𝚎 𝚌𝚘𝚖𝚖𝚞𝚗𝚒𝚝𝚢</p>
       </div>
+      {/* Add the clickable button for bridgeaptos.gif */}
+      <a href="https://stargate.finance/bridge" target="_blank" rel="noreferrer" className="gif-button">
+        <img src="/assets/bridgeaptos.gif" alt="Bridge to Aptos" />
+      </a>
       <div className="wallet-section">
         {connected ? (
           <>

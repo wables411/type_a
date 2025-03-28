@@ -7,7 +7,7 @@ body {
   color: #fff;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Changed from center to flex-start to ensure content isn’t vertically centered off-screen */
   min-height: 100vh;
   position: relative;
 }
@@ -113,14 +113,37 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  margin: 10px auto;
+  margin: 20px auto;
+  max-width: 375px; /* Matches your desired video width */
+  width: 100%;
 }
 
-.small-video {
-  width: 375px; /* 150px * 2.5 */
-  max-width: 100%; /* Prevent overflow */
-  height: auto;
-  display: block;
+/* Removed .video-wrapper iframe since it's now handled by .video-clickable iframe */
+/* .video-wrapper video remains for potential future use */
+.video-wrapper video {
+  width: 375px; /* Fixed width as per your requirement */
+  height: 211px; /* 16:9 aspect ratio */
+  max-width: 100%; /* Responsive fallback */
+  border: 2px solid #ff00ff; /* Retro border */
+  box-shadow: 0 0 10px #00ffff; /* Neon glow */
+}
+
+.play-pause-button {
+  padding: 8px 15px;
+  background: #ff69b4;
+  color: #fff;
+  border: 1px solid #ff00ff;
+  border-radius: 5px;
+  cursor: pointer;
+  text-shadow: 0 0 5px #ff00ff;
+  box-shadow: 0 0 5px #ff69b4;
+  transition: background 0.3s, box-shadow 0.3s;
+  font-size: 14px;
+}
+
+.play-pause-button:hover {
+  background: #ff00ff;
+  box-shadow: 0 0 10px #ff00ff;
 }
 
 .whitelist-meme {
@@ -244,14 +267,6 @@ body {
   background: #ff00ff;
 }
 
-.play-pause-button {
-  background: #ff69b4;
-}
-
-.play-pause-button:hover {
-  background: #ff00ff;
-}
-
 .next-button {
   background: #ff69b4;
 }
@@ -368,4 +383,50 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 200px;
+}
+
+/* Added styles for error messages and video fallback */
+.error-text {
+  color: #ff69b4;
+  text-shadow: 0 0 5px #ff00ff;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+/* New styles for the clickable video wrapper */
+.video-clickable {
+  cursor: pointer;
+  position: relative;
+  width: 375px;
+  height: 211px;
+}
+
+/* Style the iframe inside the wrapper (merged with previous .video-wrapper iframe) */
+.video-clickable iframe {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #ff00ff; /* Matches existing style */
+  box-shadow: 0 0 10px #00ffff; /* Matches existing style */
+}
+
+/* Disable cursor when the video isn't ready */
+.video-clickable.video-loading {
+  cursor: not-allowed;
+}
+
+/* Style the loading overlay */
+.video-loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ff69b4;
+  text-shadow: 0 0 5px #ff00ff;
+  font-size: 16px;
+  pointer-events: none; /* Allow clicks to pass through to the wrapper */
 }
