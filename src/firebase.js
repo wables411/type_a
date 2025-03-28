@@ -2,15 +2,15 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 
-// Your web app's Firebase configuration
+// Your web app's Firebase configuration using environment variables
 const firebaseConfig = {
-  apiKey: "AIzaSyBJKeFiapk4TLbhbrp7TE_U9Sb7H1tPySE",
-  authDomain: "type-a-chat.firebaseapp.com",
-  databaseURL: "https://type-a-chat-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "type-a-chat",
-  storageBucket: "type-a-chat.firebasestorage.app",
-  messagingSenderId: "1073828625440",
-  appId: "1:1073828625440:web:2e679977e799ec65cd5045"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
