@@ -4,6 +4,7 @@ import { database } from './firebase';
 import { ref, onValue, push } from 'firebase/database';
 import Mp3Player from './Mp3Player';
 import ErrorBoundary from './ErrorBoundary';
+import Vimeo from '@vimeo/player'; // Import Vimeo Player SDK
 import './App.css';
 
 // Chat component remains unchanged
@@ -91,9 +92,9 @@ const App = () => {
   const { account, connected, disconnect, wallets, connect } = useWallet();
   const [isConnecting, setIsConnecting] = useState(false);
   const [lastMouseX, setLastMouseX] = useState(null);
-  // Add state for video play/pause
   const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef(null);
+  const iframeRef = useRef(null); // Ref for the iframe
+  const playerRef = useRef(null); // Ref for the Vimeo player instance
 
   const handleConnect = async () => {
     if (!wallets || wallets.length === 0) {
@@ -181,16 +182,39 @@ const App = () => {
     }
   }, [connected, account]);
 
-  // Add play/pause toggle function
-  const togglePlayPause = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.volume = 1.0; // Set volume to maximum (1.0)
-        videoRef.current.play();
+  // Initialize Vimeo Player when the component mounts
+  useEffect(() => {
+    if (iframeRef.current) {
+      playerRef.current = new Vimeo(iframeRef.current);
+
+      // Set initial volume to 1.0 (max)
+      playerRef.current.setVolume(1.0).catch((error) => {
+        console.error('Error setting Vimeo player volume:', error);
+      });
+
+      // Clean up on unmount
+      return () => {
+        if (playerRef.current) {
+          playerRef.current.destroy().catch((error) => {
+            console.error('Error destroying Vimeo player:', error);
+          });
+        }
+      };
+    }
+  }, []);
+
+  const togglePlayPause = async () => {
+    if (playerRef.current) {
+      try {
+        if (isPlaying) {
+          await playerRef.current.pause();
+        } else {
+          await playerRef.current.play();
+        }
+        setIsPlaying(!isPlaying);
+      } catch (error) {
+        console.error('Error controlling Vimeo player:', error);
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
@@ -210,20 +234,17 @@ const App = () => {
       <div className="box minting">
         <p>𝙱𝚛𝚒𝚍𝚐𝚒𝚗𝚐 𝙼𝚒𝚕𝚊𝚍𝚢 𝚝𝚘 𝙰𝚙𝚝𝚘𝚜 𝚝𝚑𝚒𝚜 𝚜𝚙𝚛𝚒𝚗𝚐 🌐🤍🌷</p>
         <div className="video-wrapper">
-        <video
-          ref={videoRef}
-            src="https://raw.githubusercontent.com/wables411/type_a/main/public/assets/type_a.mp4"
-            className="small-video"
-            loop
-            playsInline
-            onError={(e) => console.error('Video failed to load:', e)}
-            >
-            <p>Your browser cannot play this video. <a href="https://raw.githubusercontent.com/wables411/type_a/main/public/assets/type_a.mp4">Download it here</a>.</p>
-          </video>
-          <button
-            onClick={togglePlayPause}
-            className="play-pause-button"
-          >
+          <div style={{ padding: '56.25% 0 0 0', position: 'relative', maxWidth: '375px', width: '100%' }}>
+            <iframe
+              ref={iframeRef}
+              src="https://player.vimeo.com/video/1070103341?badge=0&autopause=0&player_id=0&app_id=58479"
+              frameBorder="0"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+              title="type_a"
+            ></iframe>
+          </div>
+          <button onClick={togglePlayPause} className="play-pause-button">
             {isPlaying ? 'Pause' : 'Play'}
           </button>
         </div>
@@ -306,7 +327,7 @@ const App = () => {
         {connected ? (
           <>
             <p>
-              Connected as:&apos; 
+              Connected as:{' '}
               {walletAddress !== 'Unknown Address'
                 ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`
                 : walletAddress}
