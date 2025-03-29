@@ -7,7 +7,7 @@ body {
   color: #fff;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Changed from center to flex-start to ensure content isn’t vertically centered off-screen */
+  align-items: flex-start;
   min-height: 100vh;
   position: relative;
 }
@@ -22,350 +22,100 @@ body {
 }
 
 .image-wrapper {
-  line-height: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0 !important;
-  margin: 0;
-  padding: 0;
-}
-
-.title-logo {
-  width: 75vw;
-  height: auto;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  animation: glitter 1.5s infinite;
-}
-
-.header-gif {
-  width: 60%;
-  max-width: 360px;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
   margin-bottom: 20px;
 }
 
-.glitter-text {
-  font-size: 2.5em;
-  color: #ff69b4;
-  text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
-  animation: glitter 1.5s infinite;
+.title-logo {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
 }
 
-@keyframes glitter {
-  0% {
-    text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
-  }
-  50% {
-    text-shadow: 0 0 20px #00ffff, 0 0 30px #ff00ff;
-  }
-  100% {
-    text-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
-  }
+.header-gif {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
 }
 
 .box {
   background: rgba(0, 0, 0, 0.7);
-  border: 2px solid #ff00ff;
+  border: 2px solid #ff69b4;
   border-radius: 10px;
   padding: 20px;
-  margin: 20px 0;
-  box-shadow: 0 0 15px #00ffff;
+  margin-bottom: 20px;
   width: 100%;
-  max-width: 800px;
+  max-width: 500px;
+  box-sizing: border-box;
   text-align: center;
 }
 
-.chat .chat-log {
-  width: 100%;
-  height: 150px;
-  background: #000;
-  color: #00ff00;
-  border: 2px solid #ff00ff;
-  border-radius: 5px;
-  padding: 10px;
-  overflow-y: auto;
-  font-family: 'Arial', sans-serif;
-  text-align: left;
+.description p {
+  font-size: 1.1em;
+  line-height: 1.5;
+  margin: 0;
 }
 
-.chat .chat-log p {
-  margin: 5px 0;
-  word-wrap: break-word;
-}
-
-.small-gif {
-  width: 150px;
-  margin: 10px auto;
-  display: block;
-}
-
-.video-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin: 20px auto;
-  max-width: 375px; /* Matches your desired video width */
-  width: 100%;
-}
-
-/* Removed .video-wrapper iframe since it's now handled by .video-clickable iframe */
-/* .video-wrapper video remains for potential future use */
-.video-wrapper video {
-  width: 375px; /* Fixed width as per your requirement */
-  height: 211px; /* 16:9 aspect ratio */
-  max-width: 100%; /* Responsive fallback */
-  border: 2px solid #ff00ff; /* Retro border */
-  box-shadow: 0 0 10px #00ffff; /* Neon glow */
-}
-
-.play-pause-button {
-  padding: 8px 15px;
-  background: #ff69b4;
-  color: #fff;
-  border: 1px solid #ff00ff;
-  border-radius: 5px;
-  cursor: pointer;
-  text-shadow: 0 0 5px #ff00ff;
-  box-shadow: 0 0 5px #ff69b4;
-  transition: background 0.3s, box-shadow 0.3s;
-  font-size: 14px;
-}
-
-.play-pause-button:hover {
-  background: #ff00ff;
-  box-shadow: 0 0 10px #ff00ff;
+.minting p {
+  margin: 10px 0;
 }
 
 .whitelist-meme {
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   height: auto;
-  margin: 10px auto;
-  display: block;
+  margin: 10px 0;
 }
 
-.mp3-player {
+.whitelist-link {
+  color: #ff69b4;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.whitelist-link:hover {
+  text-decoration: underline;
+}
+
+.video-wrapper {
   margin: 20px 0;
-  width: 100%;
-  height: 200px;
-  background: url('/assets/plantswaving.gif') no-repeat center center;
-  background-size: cover;
-  border: 2px solid #ff00ff;
-  border-radius: 10px;
-  box-shadow: 0 0 15px #00ffff;
-  padding: 10px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-sizing: border-box;
 }
 
-.winamp-display {
-  display: flex;
-  flex-direction: column;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
-  padding: 5px;
-  overflow: hidden;
+.error-container {
+  margin-top: 10px;
+  text-align: center;
 }
 
-.song-title {
-  color: #00ff00;
-  font-size: 16px;
-  text-shadow: 0 0 5px #00ff00;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 100%;
-  animation: marquee 15s linear infinite;
+.error-text {
+  color: #ff4444;
+  margin: 0;
 }
 
-@keyframes marquee {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-.display-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.retry-button {
+  background: #ff69b4;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
   margin-top: 5px;
-}
-
-.equalizer {
-  display: flex;
-  align-items: flex-end;
-  height: 20px;
-  width: 120px;
-  margin: 0 10px;
-}
-
-.eq-bar {
-  width: 8px;
-  background: #ff69b4;
-  margin-right: 2px;
-  height: 0;
-  box-shadow: 0 0 3px #ff69b4;
-}
-
-.song-timer {
-  color: #87ceeb;
-  font-size: 14px;
-  text-shadow: 0 0 5px #87ceeb;
-}
-
-.winamp-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
-  padding: 5px;
-}
-
-.mp3-player audio {
-  display: none;
-}
-
-.winamp-button {
-  padding: 8px 15px;
-  background: #ff69b4;
-  color: #fff;
-  border: 1px solid #ff00ff;
-  border-radius: 5px;
   cursor: pointer;
-  text-shadow: 0 0 5px #ff00ff;
-  box-shadow: 0 0 5px #ff69b4;
-  transition: background 0.3s, box-shadow 0.3s;
-  font-size: 14px;
-}
-
-.winamp-button:hover {
-  background: #ff00ff;
-  box-shadow: 0 0 10px #ff00ff;
-}
-
-.back-button {
-  background: #ff69b4;
-}
-
-.back-button:hover {
-  background: #ff00ff;
-}
-
-.next-button {
-  background: #ff69b4;
-}
-
-.next-button:hover {
-  background: #ff00ff;
-}
-
-.wallet-prompt {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.chat-input {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.chat-input input {
-  flex: 1;
-  padding: 8px;
-  background: #000;
-  color: #00ff00;
-  border: 2px solid #ff00ff;
   border-radius: 5px;
-  outline: none;
-  font-family: 'Arial', sans-serif;
 }
 
-.chat-input input::placeholder {
-  color: #00ff00;
-  opacity: 0.7;
-}
-
-.chat-button {
-  padding: 8px 15px;
-  background: #ff69b4;
-  color: #fff;
-  border: 1px solid #ff00ff;
-  border-radius: 5px;
-  cursor: pointer;
-  text-shadow: 0 0 5px #ff00ff;
-  box-shadow: 0 0 5px #ff69b4;
-  transition: background 0.3s, box-shadow 0.3s;
-  font-size: 14px;
-}
-
-.chat-button:hover {
-  background: #ff00ff;
-  box-shadow: 0 0 10px #ff00ff;
+.retry-button:hover {
+  background: #ff85c0;
 }
 
 .gif-button {
-  width: 25vw;
-  height: 8.75vw;
-  min-width: 250px;
-  min-height: 87.5px;
-  margin: 20px auto;
   display: block;
-  text-align: center;
+  margin: 20px 0;
 }
 
 .gif-button img {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.whitelist-link {
-  color: #ff00ff;
-  text-decoration: none;
-  font-weight: bold;
-  text-shadow: 0 0 5px #00ffff;
-}
-
-.whitelist-link:hover {
-  color: #ffff00;
-  text-shadow: 0 0 10px #ff69b4;
-}
-
-.bee-trail {
-  position: absolute;
-  font-size: 16px;
-  pointer-events: none;
-  animation: beeFade 1s ease-out forwards;
-  transform-origin: center;
-}
-
-@keyframes beeFade {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(1.5);
-  }
+  max-width: 300px;
+  height: auto;
 }
 
 .wallet-section {
@@ -373,60 +123,85 @@ body {
   text-align: center;
 }
 
-.username-input {
+.chat {
+  max-width: 500px;
+}
+
+.chat-log {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #ff69b4;
+  border-radius: 5px;
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: auto;
   margin-bottom: 10px;
 }
 
+.chat-log p {
+  margin: 5px 0;
+}
+
+.username-input,
+.chat-input {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.chat-input input,
 .username-input input {
   padding: 5px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 200px;
+  border: 1px solid #ff69b4;
+  border-radius: 5px 0 0 5px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  outline: none;
+  width: 70%;
 }
 
-/* Added styles for error messages and video fallback */
-.error-text {
-  color: #ff69b4;
-  text-shadow: 0 0 5px #ff00ff;
-  font-size: 14px;
-  margin: 10px 0;
-}
-
-/* New styles for the clickable video wrapper */
-.video-clickable {
+.chat-button {
+  background: #ff69b4;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 0 5px 5px 0;
   cursor: pointer;
-  position: relative;
-  width: 375px;
-  height: 211px;
 }
 
-/* Style the iframe inside the wrapper (merged with previous .video-wrapper iframe) */
-.video-clickable iframe {
-  width: 100%;
-  height: 100%;
-  border: 2px solid #ff00ff; /* Matches existing style */
-  box-shadow: 0 0 10px #00ffff; /* Matches existing style */
+.chat-button:hover {
+  background: #ff85c0;
 }
 
-/* Disable cursor when the video isn't ready */
-.video-clickable.video-loading {
+.chat-button:disabled {
+  background: #888;
   cursor: not-allowed;
 }
 
-/* Style the loading overlay */
-.video-loading-overlay {
+.bee-trail {
   position: absolute;
+  font-size: 20px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Updated Webamp styles */
+.webamp-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 20px 0;
+  z-index: 1000;
+}
+
+/* Ensure Webamp's internal elements are not affected by global styles */
+.webamp-container #webamp {
+  position: absolute !important;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ff69b4;
-  text-shadow: 0 0 5px #ff00ff;
-  font-size: 16px;
-  pointer-events: none; /* Allow clicks to pass through to the wrapper */
+  z-index: 1001 !important;
+}
+
+/* Ensure Webamp's elements are interactive */
+.webamp-container #webamp * {
+  pointer-events: auto !important;
 }
