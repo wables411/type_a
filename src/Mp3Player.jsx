@@ -7,23 +7,21 @@ const Mp3Player = () => {
   const isMountedRef = useRef(false);
   const isRenderingRef = useRef(false);
 
-  // Define the dimensions of the Webamp windows (based on default Winamp skin)
   const WINDOW_DIMENSIONS = {
     main: { width: 275, height: 116 },
     equalizer: { width: 275, height: 58 },
-    playlist: { width: 275, height: 174 }, // Height may vary based on tracks
+    playlist: { width: 275, height: 174 },
   };
 
-  // Calculate initial positions to stack vertically and center horizontally
   const calculateInitialPositions = useCallback(
     (containerWidth) => {
-      const mainX = (containerWidth - WINDOW_DIMENSIONS.main.width) / 2; // Center horizontally
-      const mainY = 0; // Start at top
+      const mainX = (containerWidth - WINDOW_DIMENSIONS.main.width) / 2;
+      const mainY = 0;
 
       return {
         main: { x: mainX, y: mainY },
-        equalizer: { x: mainX, y: mainY + WINDOW_DIMENSIONS.main.height }, // Below main
-        playlist: { x: mainX, y: mainY + WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height }, // Below equalizer
+        equalizer: { x: mainX, y: mainY + WINDOW_DIMENSIONS.main.height },
+        playlist: { x: mainX, y: mainY + WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height },
       };
     },
     [
@@ -33,10 +31,8 @@ const Mp3Player = () => {
     ]
   );
 
-  // Initialize positions with a default container width
   const positionsRef = useRef(calculateInitialPositions(600));
 
-  // Update positions after mounting with actual container width
   useEffect(() => {
     if (containerRef.current) {
       const containerWidth = containerRef.current.offsetWidth;
@@ -90,7 +86,7 @@ const Mp3Player = () => {
       initialTracks: songs,
       initialSkin: { url: "/assets/Initial_D_Honda_Civic.wsz" },
       enableHotkeys: true,
-      __initialWindowLayout: positionsRef.current,
+      initialLayout: positionsRef.current, // Corrected from __initialWindowLayout
     });
 
     webampRef.current = webampInstance;
