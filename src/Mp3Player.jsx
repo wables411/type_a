@@ -7,9 +7,9 @@ const Mp3Player = () => {
   const isMountedRef = useRef(false);
   const isRenderingRef = useRef(false);
   const positionsRef = useRef({
-    main: { x: 0, y: 0 }, // Top-left of container
-    equalizer: { x: 275, y: 0 }, // Beside main
-    playlist: { x: 0, y: 116 }, // Below main
+    main: { x: 25, y: 0 }, // Center main (~275px wide) in 600px: (600-550)/2 ≈ 25
+    equalizer: { x: 300, y: 0 }, // Beside main (275 + 25)
+    playlist: { x: 25, y: 116 }, // Below main, aligned with it
   });
 
   useEffect(() => {
@@ -69,7 +69,6 @@ const Mp3Player = () => {
       isRenderingRef.current = false;
       console.log("Webamp rendered successfully with custom skin");
 
-      // Move #webamp into containerRef.current if it’s in <body>
       const webampElement = document.querySelector("#webamp");
       if (webampElement && webampElement.parentElement !== containerRef.current) {
         console.log("Moving #webamp from", webampElement.parentElement, "to container");

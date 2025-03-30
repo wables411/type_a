@@ -27,7 +27,7 @@ body {
   align-items: center;
   margin-bottom: 20px;
   position: relative;
-  z-index: 1002; /* Above Webamp */
+  z-index: 1002;
 }
 
 .title-logo {
@@ -189,15 +189,15 @@ body {
 /* Webamp styles */
 .webamp-container {
   width: 100%;
-  max-width: 600px; /* Fits main + equalizer (~550px) */
+  max-width: 600px;
   margin: 20px 0;
   position: relative;
-  height: 400px; /* Fits playlist below main */
+  height: 400px;
   display: flex;
   justify-content: center;
-  overflow: visible; /* Prevents clipping */
+  overflow: visible;
   z-index: 1000;
-  background: rgba(255, 0, 0, 0.1); /* Debug: Red tint to locate container */
+  /* Removed: background: rgba(255, 0, 0, 0.1) */
 }
 
 .mp3-player {
@@ -207,10 +207,10 @@ body {
 }
 
 .webamp-container #webamp {
-  z-index: 1001 !important; /* Above other elements */
-  display: block !important; /* Ensures visibility */
+  z-index: 1001 !important;
+  display: block !important;
 }
 
 .webamp-container #webamp * {
-  pointer-events: auto !important; /* Ensures interactivity */
+  pointer-events: auto !important;
 }
