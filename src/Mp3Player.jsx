@@ -19,9 +19,9 @@ const Mp3Player = () => {
       const mainY = 0;
       console.log("Container width:", containerWidth, "Calculated mainX:", mainX);
       return {
-        main: { x: mainX, y: mainY },
-        equalizer: { x: mainX, y: mainY + WINDOW_DIMENSIONS.main.height },
-        playlist: { x: mainX, y: mainY + WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height },
+        main: { x: 0, y: mainY }, // Zero x, rely on CSS centering
+        equalizer: { x: 0, y: mainY + WINDOW_DIMENSIONS.main.height },
+        playlist: { x: 0, y: mainY + WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height },
       };
     },
     [

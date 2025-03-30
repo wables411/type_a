@@ -204,12 +204,15 @@ body {
   max-width: 600px;
   margin: 0 auto;
   display: flex;
-  justify-content: center; /* Extra centering layer */
+  justify-content: center;
 }
 
+/* Force Webamp to center within its container */
 .webamp-container #webamp {
-  position: relative;
-  left: 0; /* Prevent rightward drift */
+  position: absolute; /* Match Webamp’s internal positioning */
+  left: 50%;
+  transform: translateX(-50%); /* Center horizontally */
+  top: 0; /* Respect vertical stacking */
   z-index: 1001 !important;
   display: block !important;
 }
