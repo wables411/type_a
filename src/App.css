@@ -27,7 +27,7 @@ body {
   align-items: center;
   margin-bottom: 20px;
   position: relative;
-  z-index: 1002; /* Above Webamp’s z-index: 1001 */
+  z-index: 1002; /* Above Webamp */
 }
 
 .title-logo {
@@ -192,23 +192,25 @@ body {
   max-width: 600px; /* Fits main + equalizer (~550px) */
   margin: 20px 0;
   position: relative;
-  height: 400px;
+  height: 400px; /* Fits playlist below main */
   display: flex;
   justify-content: center;
-  overflow: visible;
+  overflow: visible; /* Prevents clipping */
   z-index: 1000;
+  background: rgba(255, 0, 0, 0.1); /* Debug: Red tint to locate container */
 }
 
 .mp3-player {
   width: 100%;
   height: 400px;
+  position: relative;
 }
 
-/* Ensure Webamp’s elements are layered correctly and interactive */
 .webamp-container #webamp {
-  z-index: 1001 !important; /* Above other page elements */
+  z-index: 1001 !important; /* Above other elements */
+  display: block !important; /* Ensures visibility */
 }
 
 .webamp-container #webamp * {
-  pointer-events: auto !important; /* Ensures buttons are clickable */
+  pointer-events: auto !important; /* Ensures interactivity */
 }

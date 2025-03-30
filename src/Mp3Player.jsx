@@ -7,12 +7,11 @@ const Mp3Player = () => {
   const isMountedRef = useRef(false);
   const isRenderingRef = useRef(false);
   const positionsRef = useRef({
-    main: { x: 0, y: 150 }, // Top-left, below header
-    equalizer: { x: 275, y: 150 }, // Beside main
-    playlist: { x: 0, y: 266 }, // Below main
+    main: { x: 0, y: 0 }, // Move to top for visibility test
+    equalizer: { x: 275, y: 0 }, // Beside main
+    playlist: { x: 0, y: 116 }, // Below main (adjust if playlist is taller)
   });
 
-  // Load initial window positions from localStorage
   useEffect(() => {
     const savedPositions = localStorage.getItem("webampWindowPositions");
     if (savedPositions) {
@@ -20,7 +19,6 @@ const Mp3Player = () => {
     }
   }, []);
 
-  // Main Webamp initialization
   useEffect(() => {
     console.log("Mp3Player useEffect running");
     isMountedRef.current = true;
@@ -68,6 +66,8 @@ const Mp3Player = () => {
     webampInstance.renderWhenReady(containerRef.current).then(() => {
       isRenderingRef.current = false;
       console.log("Webamp rendered successfully with custom skin");
+      console.log("Webamp container children:", containerRef.current.children);
+      console.log("Webamp DOM position:", document.querySelector("#webamp")?.getBoundingClientRect());
     }).catch((error) => {
       isRenderingRef.current = false;
       console.error("Error rendering Webamp:", error);
@@ -86,7 +86,6 @@ const Mp3Player = () => {
     };
   }, []);
 
-  // Window position tracking
   useEffect(() => {
     if (!webampRef.current) return;
 
