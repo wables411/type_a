@@ -7,9 +7,9 @@ const Mp3Player = () => {
   const isMountedRef = useRef(false);
   const isRenderingRef = useRef(false);
   const positionsRef = useRef({
-    main: { x: 0, y: 0 }, // Move to top for visibility test
-    equalizer: { x: 275, y: 0 }, // Beside main
-    playlist: { x: 0, y: 116 }, // Below main (adjust if playlist is taller)
+    main: { x: 0, y: 0 },
+    equalizer: { x: 275, y: 0 },
+    playlist: { x: 0, y: 116 },
   });
 
   useEffect(() => {
@@ -32,6 +32,8 @@ const Mp3Player = () => {
       console.log("Container ref not available, skipping");
       return;
     }
+
+    console.log("Container ref before render:", containerRef.current);
 
     const songs = [
       { url: "/assets/lovestory.mp3", metaData: { title: "Love Story" } },
@@ -66,8 +68,10 @@ const Mp3Player = () => {
     webampInstance.renderWhenReady(containerRef.current).then(() => {
       isRenderingRef.current = false;
       console.log("Webamp rendered successfully with custom skin");
+      console.log("Container ref after render:", containerRef.current);
       console.log("Webamp container children:", containerRef.current.children);
       console.log("Webamp DOM position:", document.querySelector("#webamp")?.getBoundingClientRect());
+      console.log("Webamp parent:", document.querySelector("#webamp")?.parentElement);
     }).catch((error) => {
       isRenderingRef.current = false;
       console.error("Error rendering Webamp:", error);
