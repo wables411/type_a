@@ -17,7 +17,7 @@ const Mp3Player = () => {
     (containerWidth) => {
       const mainX = (containerWidth - WINDOW_DIMENSIONS.main.width) / 2;
       const mainY = 0;
-
+      console.log("Container width:", containerWidth, "Calculated mainX:", mainX);
       return {
         main: { x: mainX, y: mainY },
         equalizer: { x: mainX, y: mainY + WINDOW_DIMENSIONS.main.height },
@@ -36,6 +36,7 @@ const Mp3Player = () => {
   useEffect(() => {
     if (containerRef.current) {
       const containerWidth = containerRef.current.offsetWidth;
+      console.log("Actual container width on mount:", containerWidth);
       positionsRef.current = calculateInitialPositions(containerWidth);
     }
   }, [calculateInitialPositions]);
@@ -86,7 +87,7 @@ const Mp3Player = () => {
       initialTracks: songs,
       initialSkin: { url: "/assets/Initial_D_Honda_Civic.wsz" },
       enableHotkeys: true,
-      initialLayout: positionsRef.current, // Corrected from __initialWindowLayout
+      initialLayout: positionsRef.current,
     });
 
     webampRef.current = webampInstance;
@@ -101,6 +102,7 @@ const Mp3Player = () => {
         console.log("Moving #webamp from", webampElement.parentElement, "to container");
         containerRef.current.appendChild(webampElement);
       }
+      console.log("Webamp x position:", webampElement?.getBoundingClientRect().x);
 
       console.log("Container ref after render:", containerRef.current);
       console.log("Webamp container children:", containerRef.current.children);
