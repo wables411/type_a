@@ -19,7 +19,7 @@ const Mp3Player = () => {
       const mainY = 0;
       console.log("Container width:", containerWidth, "Calculated mainX:", mainX);
       return {
-        main: { x: 0, y: mainY }, // Zero x, rely on CSS centering
+        main: { x: 0, y: mainY }, // x: 0, CSS will center
         equalizer: { x: 0, y: mainY + WINDOW_DIMENSIONS.main.height },
         playlist: { x: 0, y: mainY + WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height },
       };
@@ -102,8 +102,15 @@ const Mp3Player = () => {
         console.log("Moving #webamp from", webampElement.parentElement, "to container");
         containerRef.current.appendChild(webampElement);
       }
-      console.log("Webamp x position:", webampElement?.getBoundingClientRect().x);
 
+      // Force reset Webamp’s inline position
+      if (webampElement) {
+        webampElement.style.left = "50%";
+        webampElement.style.transform = "translateX(-50%)";
+        console.log("Forced Webamp position reset to center");
+      }
+
+      console.log("Webamp x position:", webampElement?.getBoundingClientRect().x);
       console.log("Container ref after render:", containerRef.current);
       console.log("Webamp container children:", containerRef.current.children);
       console.log("Webamp DOM position:", webampElement?.getBoundingClientRect());
