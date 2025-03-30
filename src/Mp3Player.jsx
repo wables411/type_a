@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, memo } from "react";
+import React, { useEffect, useRef, useCallback, memo } from "react";
 import Webamp from "webamp";
 
 const Mp3Player = () => {
@@ -6,11 +6,47 @@ const Mp3Player = () => {
   const containerRef = useRef(null);
   const isMountedRef = useRef(false);
   const isRenderingRef = useRef(false);
-  const positionsRef = useRef({
-    main: { x: 25, y: 0 }, // Center main (~275px wide) in 600px: (600-550)/2 ≈ 25
-    equalizer: { x: 300, y: 0 }, // Beside main (275 + 25)
-    playlist: { x: 25, y: 116 }, // Below main, aligned with it
-  });
+
+  // Define the dimensions of the Webamp windows (based on default Winamp skin)
+  const WINDOW_DIMENSIONS = {
+    main: { width: 275, height: 116 },
+    equalizer: { width: 275, height: 58 },
+    playlist: { width: 275, height: 174 }, // Height may vary based on tracks
+  };
+
+  // Calculate the initial positions to center the snapped group
+  const calculateInitialPositions = useCallback(
+    (containerWidth) => {
+      // The snapped group dimensions: main + equalizer stacked vertically, playlist to the right
+      const groupWidth = WINDOW_DIMENSIONS.main.width + WINDOW_DIMENSIONS.playlist.width; // 275 + 275 = 550
+
+      // Center the group in the container horizontally
+      const mainX = (containerWidth - groupWidth) / 2; // e.g., (600 - 550) / 2 = 25
+      const mainY = 50; // Arbitrary vertical offset to avoid overlapping other elements
+
+      return {
+        main: { x: mainX, y: mainY },
+        equalizer: { x: mainX, y: mainY + WINDOW_DIMENSIONS.main.height }, // Below main: 50 + 116 = 166
+        playlist: { x: mainX + WINDOW_DIMENSIONS.main.width, y: mainY }, // Right of main: e.g., 25 + 275 = 300
+      };
+    },
+    [
+      WINDOW_DIMENSIONS.main.height,
+      WINDOW_DIMENSIONS.main.width,
+      WINDOW_DIMENSIONS.playlist.width,
+    ]
+  ); // Add the used WINDOW_DIMENSIONS properties to the dependency array
+
+  // Initialize positions with a default container width; we'll update this after mounting
+  const positionsRef = useRef(calculateInitialPositions(600));
+
+  // Update positions after the component mounts to use the actual container width
+  useEffect(() => {
+    if (containerRef.current) {
+      const containerWidth = containerRef.current.offsetWidth;
+      positionsRef.current = calculateInitialPositions(containerWidth);
+    }
+  }, [calculateInitialPositions]);
 
   useEffect(() => {
     const savedPositions = localStorage.getItem("webampWindowPositions");
@@ -58,7 +94,7 @@ const Mp3Player = () => {
       initialTracks: songs,
       initialSkin: { url: "/assets/Initial_D_Honda_Civic.wsz" },
       enableHotkeys: true,
-      initialWindowLayout: positionsRef.current,
+      // Use the calculated positions for initial layout
       __initialWindowLayout: positionsRef.current,
     });
 
@@ -125,7 +161,7 @@ const Mp3Player = () => {
 
   return (
     <div className="mp3-player">
-      <div ref={containerRef} style={{ width: "100%", height: "400px", position: "relative" }} />
+      <div ref={containerRef} className="webamp-container" />
     </div>
   );
 };
