@@ -7,9 +7,9 @@ const Mp3Player = () => {
   const isMountedRef = useRef(false);
   const isRenderingRef = useRef(false);
   const positionsRef = useRef({
-    main: { x: 112, y: 0 }, // Center ~275px wide main window in 500px container (500-275)/2 ≈ 112
-    equalizer: { x: 112, y: 116 }, // Below main window
-    playlist: { x: 112, y: 232 }, // Below equalizer (adjust based on skin height)
+    main: { x: 0, y: 150 }, // Top-left, below header
+    equalizer: { x: 275, y: 150 }, // Beside main
+    playlist: { x: 0, y: 266 }, // Below main
   });
 
   // Load initial window positions from localStorage
@@ -25,8 +25,13 @@ const Mp3Player = () => {
     console.log("Mp3Player useEffect running");
     isMountedRef.current = true;
 
-    if (webampRef.current || !containerRef.current) {
-      console.log("Webamp already initialized or container not ready, skipping");
+    if (webampRef.current) {
+      console.log("Webamp already initialized, skipping");
+      return;
+    }
+
+    if (!containerRef.current) {
+      console.log("Container ref not available, skipping");
       return;
     }
 
@@ -59,24 +64,24 @@ const Mp3Player = () => {
 
     webampRef.current = webampInstance;
 
-    if (isMountedRef.current) {
-      isRenderingRef.current = true;
-      webampInstance.renderWhenReady(containerRef.current).then(() => {
-        isRenderingRef.current = false;
-        console.log("Webamp rendered successfully with custom skin");
-      }).catch((error) => {
-        isRenderingRef.current = false;
-        console.error("Error rendering Webamp:", error);
-      });
-    }
+    isRenderingRef.current = true;
+    webampInstance.renderWhenReady(containerRef.current).then(() => {
+      isRenderingRef.current = false;
+      console.log("Webamp rendered successfully with custom skin");
+    }).catch((error) => {
+      isRenderingRef.current = false;
+      console.error("Error rendering Webamp:", error);
+    });
 
     return () => {
-      console.log("Cleaning up Webamp");
+      console.log("Cleaning up Webamp, isRendering:", isRenderingRef.current);
       isMountedRef.current = false;
       if (webampRef.current && !isRenderingRef.current) {
         webampRef.current.dispose();
         console.log("Webamp disposed successfully");
         webampRef.current = null;
+      } else if (isRenderingRef.current) {
+        console.log("Webamp still rendering, disposal skipped");
       }
     };
   }, []);
@@ -108,16 +113,9 @@ const Mp3Player = () => {
     }
   }, []);
 
-  const handlePlay = () => {
-    if (webampRef.current) {
-      webampRef.current.play();
-    }
-  };
-
   return (
     <div className="mp3-player">
-      <div ref={containerRef} style={{ width: "100%", height: "300px", position: "relative" }} />
-      <button onClick={handlePlay} style={{ marginTop: "10px" }}>Play Music</button>
+      <div ref={containerRef} style={{ width: "100%", height: "400px", position: "relative" }} />
     </div>
   );
 };
