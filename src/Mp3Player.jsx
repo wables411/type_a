@@ -14,33 +14,29 @@ const Mp3Player = () => {
     playlist: { width: 275, height: 174 }, // Height may vary based on tracks
   };
 
-  // Calculate the initial positions to center the snapped group
+  // Calculate initial positions to stack vertically and center horizontally
   const calculateInitialPositions = useCallback(
     (containerWidth) => {
-      // The snapped group dimensions: main + equalizer stacked vertically, playlist to the right
-      const groupWidth = WINDOW_DIMENSIONS.main.width + WINDOW_DIMENSIONS.playlist.width; // 275 + 275 = 550
-
-      // Center the group in the container horizontally
-      const mainX = (containerWidth - groupWidth) / 2; // e.g., (600 - 550) / 2 = 25
-      const mainY = 50; // Arbitrary vertical offset to avoid overlapping other elements
+      const mainX = (containerWidth - WINDOW_DIMENSIONS.main.width) / 2; // Center horizontally
+      const mainY = 0; // Start at top
 
       return {
         main: { x: mainX, y: mainY },
-        equalizer: { x: mainX, y: mainY + WINDOW_DIMENSIONS.main.height }, // Below main: 50 + 116 = 166
-        playlist: { x: mainX + WINDOW_DIMENSIONS.main.width, y: mainY }, // Right of main: e.g., 25 + 275 = 300
+        equalizer: { x: mainX, y: mainY + WINDOW_DIMENSIONS.main.height }, // Below main
+        playlist: { x: mainX, y: mainY + WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height }, // Below equalizer
       };
     },
     [
-      WINDOW_DIMENSIONS.main.height,
       WINDOW_DIMENSIONS.main.width,
-      WINDOW_DIMENSIONS.playlist.width,
+      WINDOW_DIMENSIONS.main.height,
+      WINDOW_DIMENSIONS.equalizer.height,
     ]
-  ); // Add the used WINDOW_DIMENSIONS properties to the dependency array
+  );
 
-  // Initialize positions with a default container width; we'll update this after mounting
+  // Initialize positions with a default container width
   const positionsRef = useRef(calculateInitialPositions(600));
 
-  // Update positions after the component mounts to use the actual container width
+  // Update positions after mounting with actual container width
   useEffect(() => {
     if (containerRef.current) {
       const containerWidth = containerRef.current.offsetWidth;
@@ -94,7 +90,6 @@ const Mp3Player = () => {
       initialTracks: songs,
       initialSkin: { url: "/assets/Initial_D_Honda_Civic.wsz" },
       enableHotkeys: true,
-      // Use the calculated positions for initial layout
       __initialWindowLayout: positionsRef.current,
     });
 
