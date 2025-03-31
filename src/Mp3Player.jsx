@@ -99,6 +99,32 @@ const Mp3Player = () => {
 
     webampRef.current = webampInstance;
 
+    // Set up observer before rendering
+    let observer;
+    const setupObserver = () => {
+      const webampElement = document.querySelector("#webamp");
+      if (webampElement) {
+        console.log("Observer setup, initial left:", webampElement.style.left, "x:", webampElement.getBoundingClientRect().x);
+        observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.attributeName === "style") {
+              const left = webampElement.style.left;
+              const currentX = webampElement.getBoundingClientRect().x;
+              console.log("Mutation detected, left:", left, "x:", currentX);
+              if (left !== "50%") {
+                webampElement.style.left = "50%";
+                webampElement.style.transform = "translateX(-50%)";
+                console.log("Reset left to 50%, new x:", webampElement.getBoundingClientRect().x);
+              }
+            }
+          });
+        });
+        observer.observe(webampElement, { attributes: true, attributeFilter: ["style"] });
+      } else {
+        console.log("Webamp element not found for observer");
+      }
+    };
+
     isRenderingRef.current = true;
     webampInstance.renderWhenReady(containerRef.current).then(() => {
       isRenderingRef.current = false;
@@ -111,37 +137,19 @@ const Mp3Player = () => {
       }
 
       if (webampElement) {
+        console.log("Before forcing center, left:", webampElement.style.left, "x:", webampElement.getBoundingClientRect().x);
         webampElement.style.left = "50%";
         webampElement.style.transform = "translateX(-50%)";
         webampElement.style.position = "absolute";
-        console.log("Forced Webamp position to center post-render");
+        console.log("Forced Webamp position to center post-render, x:", webampElement.getBoundingClientRect().x);
       }
 
       console.log("Webamp x position post-render:", webampElement?.getBoundingClientRect().x);
+      setupObserver(); // Attach observer after render
     }).catch((error) => {
       isRenderingRef.current = false;
       console.error("Error rendering Webamp:", error);
     });
-
-    // MutationObserver to catch inline style overrides
-    const webampElement = document.querySelector("#webamp");
-    if (webampElement) {
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.attributeName === "style") {
-            const left = webampElement.style.left;
-            if (left !== "50%") {
-              webampElement.style.left = "50%";
-              webampElement.style.transform = "translateX(-50%)";
-              console.log("Mutation detected, reset left to 50%, x:", webampElement.getBoundingClientRect().x);
-            }
-          }
-        });
-      });
-      observer.observe(webampElement, { attributes: true, attributeFilter: ["style"] });
-
-      return () => observer.disconnect();
-    }
 
     return () => {
       console.log("Cleaning up Webamp, isRendering:", isRenderingRef.current);
@@ -151,6 +159,7 @@ const Mp3Player = () => {
         console.log("Webamp disposed successfully");
         webampRef.current = null;
       }
+      if (observer) observer.disconnect();
     };
   }, [WINDOW_DIMENSIONS.main.width, WINDOW_DIMENSIONS.main.height, WINDOW_DIMENSIONS.equalizer.height]);
 
