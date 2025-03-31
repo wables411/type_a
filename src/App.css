@@ -187,44 +187,28 @@ body {
   z-index: 1000;
 }
 
-.webamp-container {
+/* Webamp-specific styles */
+.mp3-player-wrapper {
   width: 100%;
   max-width: 600px;
   margin: 20px 0;
-  height: 450px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   overflow: visible;
   z-index: 1000;
 }
 
-.mp3-player {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-}
-
-.webamp-container #webamp {
-  position: static; /* Let flexbox handle positioning */
+.mp3-player-wrapper #webamp {
+  position: static !important; /* Override Webamp’s absolute positioning */
   display: block !important;
-  margin: 0 auto; /* Center within flex container */
-}
-
-.webamp-container #webamp * {
-  pointer-events: auto !important;
+  margin: 0 auto;
 }
 
 @media (max-width: 600px) {
-  .webamp-container {
+  .mp3-player-wrapper {
     max-width: 100%;
     transform: scale(0.8);
     transform-origin: top center;
-    height: 360px;
-  }
-  .mp3-player {
-    max-width: 100%;
   }
 }

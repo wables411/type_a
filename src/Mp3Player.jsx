@@ -1,164 +1,57 @@
-import React, { useEffect, useRef, useCallback, memo } from "react";
+import { useEffect, useState } from "react";
 import Webamp from "webamp";
+import "./Mp3Player.css";
 
 const Mp3Player = () => {
-  const webampRef = useRef(null);
-  const containerRef = useRef(null);
-  const isMountedRef = useRef(false);
-  const isRenderingRef = useRef(false);
+  const [webampInstance, setWebampInstance] = useState(null);
 
-  const WINDOW_DIMENSIONS = {
-    main: { width: 275, height: 116 },
-    equalizer: { width: 275, height: 58 },
-    playlist: { width: 275, height: 174 },
-  };
-
-  const calculateInitialPositions = useCallback(
-    (containerWidth) => {
-      const mainX = (containerWidth - WINDOW_DIMENSIONS.main.width) / 2;
-      const mainY = 0;
-      console.log("Container width:", containerWidth, "Calculated mainX:", mainX);
-      return {
-        main: { x: 0, y: mainY },
-        equalizer: { x: 0, y: mainY + WINDOW_DIMENSIONS.main.height },
-        playlist: { x: 0, y: mainY + WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height },
-      };
-    },
-    [
-      WINDOW_DIMENSIONS.main.width,
-      WINDOW_DIMENSIONS.main.height,
-      WINDOW_DIMENSIONS.equalizer.height,
-    ]
-  );
-
-  const positionsRef = useRef(calculateInitialPositions(600));
+  const skins = [
+    { name: "Base Skin", url: "/assets/skins/base-2.91.wsz" },
+    { name: "Rei Blue", url: "/assets/skins/rei_blue.wsz" },
+  ];
 
   useEffect(() => {
-    if (containerRef.current) {
-      const containerWidth = containerRef.current.offsetWidth;
-      console.log("Actual container width on mount:", containerWidth);
-      positionsRef.current = calculateInitialPositions(containerWidth);
-    }
-  }, [
-    calculateInitialPositions,
-    WINDOW_DIMENSIONS.main.width,
-    WINDOW_DIMENSIONS.main.height,
-    WINDOW_DIMENSIONS.equalizer.height,
-  ]);
-
-  useEffect(() => {
-    localStorage.removeItem("webampWindowPositions");
-    console.log("Cleared webampWindowPositions from localStorage");
-  }, []);
-
-  useEffect(() => {
-    console.log("Mp3Player useEffect running");
-    isMountedRef.current = true;
-
-    if (webampRef.current) {
-      console.log("Webamp already initialized, skipping");
-      return;
-    }
-
-    if (!containerRef.current) {
-      console.log("Container ref not available, skipping");
-      return;
-    }
-
-    console.log("Container ref before render:", containerRef.current);
-
-    const songs = [
-      { url: "/assets/lovestory.mp3", metaData: { title: "Love Story" } },
-      { url: "/assets/mononoaware.mp3", metaData: { title: "Mononoaware" } },
-      { url: "/assets/BITCH_I_DID-THE.RACE.mp3", metaData: { title: "BITCH I DID THE RACE" } },
-      { url: "/assets/DESTRUCTION.mp3", metaData: { title: "Destruction" } },
-      { url: "/assets/dqdvTSDlaMKx.mp3", metaData: { title: "dqdvTSDlaMKx" } },
-      { url: "/assets/exorcism.mp3", metaData: { title: "Exorcism" } },
-      { url: "/assets/Heart Of Stone.mp3", metaData: { title: "Heart of Stone" } },
-      { url: "/assets/long day.mp3", metaData: { title: "Long Day" } },
-      { url: "/assets/cloud.mp3", metaData: { title: "Cloud" } },
-      { url: "/assets/recipie for a femcel (boxxy f4g V2).mp3", metaData: { title: "Recipe for a Femcel (Boxxy F4g V2)" } },
-    ];
-
-    songs.forEach((song) => {
-      fetch(song.url)
-        .then((_response) => console.log(`Audio file accessible: ${song.url}`))
-        .catch((error) => console.error(`Error fetching audio file: ${song.url}`, error));
+    const webamp = new Webamp({
+      initialTracks: [
+        {
+          metaData: {
+            artist: "DJ Mike Llama",
+            title: "Llama Whippin' Intro",
+          },
+          url: "/assets/audio/llama.mp3",
+        },
+      ],
+      initialSkin: { url: skins[0].url },
     });
 
-    const webampInstance = new Webamp({
-      initialTracks: songs,
-      initialSkin: { url: "/assets/Initial_D_Honda_Civic.wsz" },
-      enableHotkeys: true,
-      initialLayout: {
-        main: { x: 0, y: 0 },
-        equalizer: { x: 0, y: WINDOW_DIMENSIONS.main.height },
-        playlist: { x: 0, y: WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height },
-      },
-    });
-
-    webampRef.current = webampInstance;
-
-    isRenderingRef.current = true;
-    webampInstance.renderWhenReady(containerRef.current).then(() => {
-      isRenderingRef.current = false;
-      console.log("Webamp rendered successfully with custom skin");
-
-      const webampElement = document.querySelector("#webamp");
-      if (webampElement && webampElement.parentElement !== containerRef.current) {
-        console.log("Moving #webamp from", webampElement.parentElement, "to container");
-        containerRef.current.appendChild(webampElement);
-      }
-
-      console.log("Webamp x position post-render:", webampElement?.getBoundingClientRect().x);
-    }).catch((error) => {
-      isRenderingRef.current = false;
-      console.error("Error rendering Webamp:", error);
-    });
+    webamp.renderWhenReady(document.getElementById("webamp"));
+    setWebampInstance(webamp);
 
     return () => {
-      console.log("Cleaning up Webamp, isRendering:", isRenderingRef.current);
-      isMountedRef.current = false;
-      if (webampRef.current && !isRenderingRef.current) {
-        webampRef.current.dispose();
-        console.log("Webamp disposed successfully");
-        webampRef.current = null;
-      }
+      webamp.dispose();
     };
-  }, [WINDOW_DIMENSIONS.main.width, WINDOW_DIMENSIONS.main.height, WINDOW_DIMENSIONS.equalizer.height]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty array = runs once on mount
 
-  useEffect(() => {
-    if (!webampRef.current) return;
-
-    const mainWindow = document.querySelector("#webamp #main-window");
-    const equalizerWindow = document.querySelector("#webamp #equalizer-window");
-    const playlistWindow = document.querySelector("#webamp #playlist-window");
-
-    if (mainWindow && equalizerWindow && playlistWindow) {
-      const updatePositions = () => {
-        const containerRect = containerRef.current.getBoundingClientRect();
-        const mainRect = mainWindow.getBoundingClientRect();
-        const equalizerRect = equalizerWindow.getBoundingClientRect();
-        const playlistRect = playlistWindow.getBoundingClientRect();
-
-        positionsRef.current = {
-          main: { x: 0, y: mainRect.top - containerRect.top },
-          equalizer: { x: 0, y: equalizerRect.top - containerRect.top },
-          playlist: { x: 0, y: playlistRect.top - containerRect.top },
-        };
-        localStorage.setItem("webampWindowPositions", JSON.stringify(positionsRef.current));
-      };
-
-      document.addEventListener("mousemove", updatePositions);
-      return () => document.removeEventListener("mousemove", updatePositions);
+  const handleSkinChange = (event) => {
+    const skinUrl = event.target.value;
+    if (webampInstance) {
+      webampInstance.setSkinFromUrl(skinUrl);
     }
-  }, []);
+  };
 
   return (
-    <div className="mp3-player">
-      <div ref={containerRef} className="webamp-container" />
+    <div className="mp3-player-wrapper">
+      <div id="webamp" />
+      <select onChange={handleSkinChange} className="skin-picker">
+        {skins.map((skin) => (
+          <option key={skin.url} value={skin.url}>
+            {skin.name}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };
 
-export default memo(Mp3Player);
+export default Mp3Player;

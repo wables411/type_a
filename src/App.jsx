@@ -251,12 +251,10 @@ const App = () => {
           𝙼𝚒𝚕𝚊𝚍𝚢 : 𝚃𝚢𝚙𝚎 𝙰 𝚒𝚜 𝚊 𝚌𝚘𝚕𝚕𝚎𝚌𝚝𝚒𝚘𝚗 𝚘𝚏 𝟺,𝟺𝟺𝟺 𝚐𝚎𝚗𝚎𝚛𝚊𝚝𝚒𝚟𝚎 𝚙𝚏𝚙𝙽𝙵𝚃&apos;𝚜 𝚒𝚗 𝚊 𝚗𝚎𝚘𝚌𝚑𝚒𝚋𝚒 𝚊𝚎𝚜𝚝𝚑𝚎𝚝𝚒𝚌 𝚒𝚗𝚜𝚙𝚒𝚛𝚎𝚍 𝚋𝚢 𝙼𝚒𝚕𝚊𝚍𝚢 𝙼𝚊𝚔𝚎𝚛 𝙽𝙵𝚃, 𝚁𝚎𝚖𝚒𝚕𝚒𝚊 𝙲𝚘𝚛𝚙𝚘𝚛𝚊𝚝𝚒𝚘𝚗, 𝚊𝚜 𝚠𝚎𝚕𝚕 𝚊𝚜 𝚒𝚝𝚜 𝚖𝚊𝚗𝚢 𝚍𝚎𝚛𝚒𝚟𝚊𝚝𝚒𝚟𝚎𝚜. 𝚃𝚢𝚙𝚎 𝙰 𝚛𝚎𝚙𝚛𝚎𝚜𝚎𝚗𝚝𝚜 𝚎𝚕𝚎𝚖𝚎𝚗𝚝𝚜 𝚘𝚏 �𝚑𝚒𝚐𝚑-𝚙𝚎𝚛𝚏𝚘𝚛𝚖𝚊𝚗𝚌𝚎 𝚊𝚝𝚝𝚛𝚒𝚋𝚞𝚝𝚎𝚍 𝚋𝚢 𝚝𝚑𝚎 𝚌𝚘𝚖𝚖𝚞𝚗𝚒𝚝𝚢 𝚊𝚗𝚍 𝚌𝚞𝚕𝚝𝚞𝚛𝚊𝚕 𝚒𝚌𝚘𝚗𝚜 𝚘𝚗 �𝚝𝚑𝚎 𝙰𝚙𝚝𝚘𝚜 𝚗𝚎𝚝𝚠𝚘𝚛𝚔.
         </p>
       </div>
-      {/* Move Webamp container to between "box description" and "box minting" */}
-      <div className="webamp-container">
-        <ErrorBoundary>
-          <Mp3Player />
-        </ErrorBoundary>
-      </div>
+      {/* Webamp placed between description and minting */}
+      <ErrorBoundary>
+        <Mp3Player />
+      </ErrorBoundary>
       <div className="box minting">
         <p>𝙱𝚛𝚒𝚍𝚐𝚒𝚗𝚐 𝙼𝚒𝚕𝚊𝚍𝚢 𝚝𝚘 𝙰𝚙𝚝𝚘𝚜 S𝚙𝚛𝚒𝚗𝚐 2025 🌐🤍🌷</p>
         <div className="video-wrapper">
@@ -283,7 +281,7 @@ const App = () => {
         <p>𝟺,𝟺𝟺𝟺 𝚜𝚞𝚙𝚙𝚕𝚢 🌐🤍 𝟷,𝟺𝟺𝟺 𝚏𝚛𝚎𝚎 𝚖𝚒𝚗𝚝𝚜</p>
         <p>𝚙𝚞𝚋𝚕𝚒𝚌 �𝚖𝚒𝚗𝚝 🌐🤍 𝟷𝟷 𝙰𝙿𝚃𝙾𝚂</p>
         <p>𝟷,𝟶𝟶𝟶 𝚍𝚒𝚜𝚌𝚘𝚞𝚗𝚝𝚎𝚍 𝚖𝚒𝚗𝚝𝚜 🌐🤍 𝟻 𝙰𝙿𝚃𝙾𝚂</p>
-        <img src="assets/whitelist.png" alt="whitelist" className="whitelist-meme" />
+        <img src="/assets/whitelist.png" alt="whitelist" className="whitelist-meme" />
         <p>𝙒𝙃𝙄𝙏𝙀𝙇𝙄𝙎𝙏</p>
         <p><a href="https://miladymaker.net/" target="_blank" rel="noreferrer" className="whitelist-link">𝑀𝒾𝓁𝒶𝒹𝓎 𝑀𝒶𝓀𝑒𝓇</a></p>
         <p><a href="https://remilio.org/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝑒𝒹𝒶𝒸𝓂𝒾𝓁𝒾𝓸 𝐵𝒶𝒷𝒾𝑒𝓈</a></p>
