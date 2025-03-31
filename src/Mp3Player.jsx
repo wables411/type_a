@@ -6,7 +6,6 @@ const Mp3Player = () => {
   const containerRef = useRef(null);
   const isMountedRef = useRef(false);
   const isRenderingRef = useRef(false);
-  const intervalRef = useRef(null);
 
   const WINDOW_DIMENSIONS = {
     main: { width: 275, height: 116 },
@@ -45,20 +44,7 @@ const Mp3Player = () => {
     WINDOW_DIMENSIONS.main.width,
     WINDOW_DIMENSIONS.main.height,
     WINDOW_DIMENSIONS.equalizer.height,
-  ]); // Line 61: All dependencies explicitly included
-
-  useEffect(() => {
-    // Only load saved y-positions, ignore x
-    const savedPositions = localStorage.getItem("webampWindowPositions");
-    if (savedPositions) {
-      const parsed = JSON.parse(savedPositions);
-      positionsRef.current = {
-        main: { x: 0, y: parsed.main?.y || 0 },
-        equalizer: { x: 0, y: parsed.equalizer?.y || WINDOW_DIMENSIONS.main.height },
-        playlist: { x: 0, y: parsed.playlist?.y || WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height },
-      };
-    }
-  }, [WINDOW_DIMENSIONS.equalizer.height, WINDOW_DIMENSIONS.main.height]);
+  ]); // ESLint should be happy now
 
   useEffect(() => {
     console.log("Mp3Player useEffect running");
@@ -100,6 +86,11 @@ const Mp3Player = () => {
       initialSkin: { url: "/assets/Initial_D_Honda_Civic.wsz" },
       enableHotkeys: true,
       initialLayout: positionsRef.current,
+      __initialWindowLayout: {
+        main: { position: { x: 0, y: 0 } },
+        equalizer: { position: { x: 0, y: WINDOW_DIMENSIONS.main.height } },
+        playlist: { position: { x: 0, y: WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height } },
+      },
     });
 
     webampRef.current = webampInstance;
@@ -115,40 +106,38 @@ const Mp3Player = () => {
         containerRef.current.appendChild(webampElement);
       }
 
-      // Force initial position and lock it
+      // Force position immediately after render
       if (webampElement) {
         webampElement.style.left = "50%";
         webampElement.style.transform = "translateX(-50%)";
         webampElement.style.position = "absolute";
-        console.log("Forced Webamp position reset to center");
+        console.log("Forced Webamp position reset to center post-render");
       }
 
-      // Continuously enforce position until stable
-      intervalRef.current = setInterval(() => {
-        if (webampElement) {
-          const currentX = webampElement.getBoundingClientRect().x;
-          const targetX = (window.innerWidth - WINDOW_DIMENSIONS.main.width) / 2;
-          if (Math.abs(currentX - targetX) > 10) {
-            webampElement.style.left = "50%";
-            webampElement.style.transform = "translateX(-50%)";
-            console.log("Interval enforcing center, current x:", currentX, "target x:", targetX);
-          } else {
-            console.log("Webamp centered at x:", currentX, "stopping interval");
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
-          }
-        }
-      }, 100);
-
-      console.log("Webamp x position:", webampElement?.getBoundingClientRect().x);
-      console.log("Container ref after render:", containerRef.current);
-      console.log("Webamp container children:", containerRef.current.children);
-      console.log("Webamp DOM position:", webampElement?.getBoundingClientRect());
-      console.log("Webamp parent:", webampElement?.parentElement);
+      console.log("Webamp x position post-render:", webampElement?.getBoundingClientRect().x);
     }).catch((error) => {
       isRenderingRef.current = false;
       console.error("Error rendering Webamp:", error);
     });
+
+    // Separate effect to lock position and disable dragging
+    const lockPosition = () => {
+      const webampElement = document.querySelector("#webamp");
+      if (webampElement) {
+        webampElement.style.left = "50%";
+        webampElement.style.transform = "translateX(-50%)";
+        webampElement.style.position = "absolute";
+        // Attempt to disable dragging by overriding pointer events
+        webampElement.querySelectorAll("#main-window, #equalizer-window, #playlist-window").forEach((el) => {
+          el.style.pointerEvents = "none"; // Disable dragging
+          el.style.userSelect = "none";
+        });
+        console.log("Locked Webamp position, x:", webampElement.getBoundingClientRect().x);
+      }
+    };
+
+    const interval = setInterval(lockPosition, 100);
+    setTimeout(() => clearInterval(interval), 2000); // Stop after 2s
 
     return () => {
       console.log("Cleaning up Webamp, isRendering:", isRenderingRef.current);
@@ -158,11 +147,9 @@ const Mp3Player = () => {
         console.log("Webamp disposed successfully");
         webampRef.current = null;
       }
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+      clearInterval(interval);
     };
-  }, [WINDOW_DIMENSIONS.main.width]);
+  }, [WINDOW_DIMENSIONS.main.width, WINDOW_DIMENSIONS.main.height, WINDOW_DIMENSIONS.equalizer.height]);
 
   useEffect(() => {
     if (!webampRef.current) return;
