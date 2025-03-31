@@ -194,10 +194,9 @@ body {
   height: 450px;
   display: flex;
   justify-content: center;
-  align-items: center; /* Restore center to align with header GIF */
+  align-items: center;
   overflow: visible;
   z-index: 1000;
-  position: relative; /* Contain Webamp’s absolute positioning */
 }
 
 .mp3-player {
@@ -209,12 +208,9 @@ body {
 }
 
 .webamp-container #webamp {
-  position: absolute; /* Revert to absolute for precise centering */
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  top: 0;
-  z-index: 1001 !important;
+  position: static; /* Let flexbox handle positioning */
   display: block !important;
+  margin: 0 auto; /* Center within flex container */
 }
 
 .webamp-container #webamp * {
