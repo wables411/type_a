@@ -6,6 +6,7 @@ const Mp3Player = () => {
   const containerRef = useRef(null);
   const isMountedRef = useRef(false);
   const isRenderingRef = useRef(false);
+  const intervalRef = useRef(null);
 
   const WINDOW_DIMENSIONS = {
     main: { width: 275, height: 116 },
@@ -42,9 +43,15 @@ const Mp3Player = () => {
   }, [calculateInitialPositions]);
 
   useEffect(() => {
+    // Only load saved y-positions, ignore x
     const savedPositions = localStorage.getItem("webampWindowPositions");
     if (savedPositions) {
-      positionsRef.current = JSON.parse(savedPositions);
+      const parsed = JSON.parse(savedPositions);
+      positionsRef.current = {
+        main: { x: 0, y: parsed.main?.y || 0 },
+        equalizer: { x: 0, y: parsed.equalizer?.y || WINDOW_DIMENSIONS.main.height },
+        playlist: { x: 0, y: parsed.playlist?.y || WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height },
+      };
     }
   }, []);
 
@@ -103,13 +110,27 @@ const Mp3Player = () => {
         containerRef.current.appendChild(webampElement);
       }
 
-      // Force reset Webamp’s inline position
+      // Force initial position
       if (webampElement) {
         webampElement.style.left = "50%";
         webampElement.style.transform = "translateX(-50%)";
-        webampElement.style.position = "absolute"; // Ensure consistency
+        webampElement.style.position = "absolute";
         console.log("Forced Webamp position reset to center");
       }
+
+      // Continuously enforce position for 2 seconds to catch late updates
+      intervalRef.current = setInterval(() => {
+        if (webampElement) {
+          webampElement.style.left = "50%";
+          webampElement.style.transform = "translateX(-50%)";
+          console.log("Interval enforcing center, x:", webampElement.getBoundingClientRect().x);
+        }
+      }, 100);
+
+      setTimeout(() => {
+        clearInterval(intervalRef.current);
+        console.log("Stopped position enforcement interval");
+      }, 2000);
 
       console.log("Webamp x position:", webampElement?.getBoundingClientRect().x);
       console.log("Container ref after render:", containerRef.current);
@@ -128,8 +149,9 @@ const Mp3Player = () => {
         webampRef.current.dispose();
         console.log("Webamp disposed successfully");
         webampRef.current = null;
-      } else if (isRenderingRef.current) {
-        console.log("Webamp still rendering, disposal skipped");
+      }
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
       }
     };
   }, []);
@@ -148,7 +170,6 @@ const Mp3Player = () => {
         const equalizerRect = equalizerWindow.getBoundingClientRect();
         const playlistRect = playlistWindow.getBoundingClientRect();
 
-        // Use relative positions within container
         positionsRef.current = {
           main: { x: 0, y: mainRect.top - containerRect.top },
           equalizer: { x: 0, y: equalizerRect.top - containerRect.top },
