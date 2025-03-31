@@ -47,7 +47,6 @@ const Mp3Player = () => {
   ]);
 
   useEffect(() => {
-    // Clear any saved positions to rule out localStorage interference
     localStorage.removeItem("webampWindowPositions");
     console.log("Cleared webampWindowPositions from localStorage");
   }, []);
@@ -89,17 +88,12 @@ const Mp3Player = () => {
 
     const webampInstance = new Webamp({
       initialTracks: songs,
-      initialSkin: { url: "/assets/Initial_D_Honda_Civic.wsz" }, // Test with null later
+      initialSkin: { url: "/assets/Initial_D_Honda_Civic.wsz" },
       enableHotkeys: true,
       initialLayout: {
         main: { x: 0, y: 0 },
         equalizer: { x: 0, y: WINDOW_DIMENSIONS.main.height },
         playlist: { x: 0, y: WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height },
-      },
-      __initialWindowLayout: {
-        main: { position: { x: 0, y: 0 } },
-        equalizer: { position: { x: 0, y: WINDOW_DIMENSIONS.main.height } },
-        playlist: { position: { x: 0, y: WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height } },
       },
     });
 
@@ -116,12 +110,11 @@ const Mp3Player = () => {
         containerRef.current.appendChild(webampElement);
       }
 
-      // Force x: 0 relative to container
       if (webampElement) {
-        webampElement.style.left = "0px";
-        webampElement.style.position = "relative"; // Rely on container’s flex centering
-        webampElement.style.transform = "none"; // Remove transform
-        console.log("Forced Webamp x to 0 post-render");
+        webampElement.style.left = "50%";
+        webampElement.style.transform = "translateX(-50%)";
+        webampElement.style.position = "absolute";
+        console.log("Forced Webamp position to center post-render");
       }
 
       console.log("Webamp x position post-render:", webampElement?.getBoundingClientRect().x);
@@ -130,19 +123,25 @@ const Mp3Player = () => {
       console.error("Error rendering Webamp:", error);
     });
 
-    // Lock position for 2 seconds
-    const lockPosition = () => {
-      const webampElement = document.querySelector("#webamp");
-      if (webampElement) {
-        webampElement.style.left = "0px";
-        webampElement.style.position = "relative";
-        webampElement.style.transform = "none";
-        console.log("Locked Webamp position, x:", webampElement.getBoundingClientRect().x);
-      }
-    };
+    // MutationObserver to catch inline style overrides
+    const webampElement = document.querySelector("#webamp");
+    if (webampElement) {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.attributeName === "style") {
+            const left = webampElement.style.left;
+            if (left !== "50%") {
+              webampElement.style.left = "50%";
+              webampElement.style.transform = "translateX(-50%)";
+              console.log("Mutation detected, reset left to 50%, x:", webampElement.getBoundingClientRect().x);
+            }
+          }
+        });
+      });
+      observer.observe(webampElement, { attributes: true, attributeFilter: ["style"] });
 
-    const interval = setInterval(lockPosition, 100);
-    setTimeout(() => clearInterval(interval), 2000);
+      return () => observer.disconnect();
+    }
 
     return () => {
       console.log("Cleaning up Webamp, isRendering:", isRenderingRef.current);
@@ -152,7 +151,6 @@ const Mp3Player = () => {
         console.log("Webamp disposed successfully");
         webampRef.current = null;
       }
-      clearInterval(interval);
     };
   }, [WINDOW_DIMENSIONS.main.width, WINDOW_DIMENSIONS.main.height, WINDOW_DIMENSIONS.equalizer.height]);
 

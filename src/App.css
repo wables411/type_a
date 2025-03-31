@@ -193,11 +193,11 @@ body {
   margin: 20px 0;
   height: 450px;
   display: flex;
-  justify-content: center; /* Center Webamp horizontally */
-  align-items: flex-start; /* Align to top for stacking */
+  justify-content: center;
+  align-items: center; /* Restore center to align with header GIF */
   overflow: visible;
   z-index: 1000;
-  position: relative; /* Webamp positions relative to this */
+  position: relative; /* Contain Webamp’s absolute positioning */
 }
 
 .mp3-player {
@@ -209,16 +209,16 @@ body {
 }
 
 .webamp-container #webamp {
-  position: relative; /* Changed from absolute to work with flex centering */
-  left: 0 !important; /* Enforce x: 0, override Webamp’s inline styles */
-  transform: none !important; /* Remove transform, rely on flex */
+  position: absolute; /* Revert to absolute for precise centering */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
   top: 0;
   z-index: 1001 !important;
   display: block !important;
 }
 
 .webamp-container #webamp * {
-  pointer-events: auto !important; /* Ensure interactivity */
+  pointer-events: auto !important;
 }
 
 @media (max-width: 600px) {
