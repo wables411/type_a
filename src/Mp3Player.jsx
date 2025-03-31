@@ -1,12 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import Webamp from "webamp";
 import "./Mp3Player.css";
 
 const Mp3Player = () => {
   const webampRef = useRef(null); // Store Webamp instance
 
-  // List of skins from /public/assets/skins (from your GitHub repo)
-  const skins = [
+  // Memoized skins array (stable reference, doesn’t change on re-renders)
+  const skins = useMemo(() => [
     { name: "Akira - Kaneda", url: "/assets/skins/Akira - Kaneda.wsz" },
     { name: "Angel Beats! Amp", url: "/assets/skins/Angel_Beats!_Amp.wsz" },
     { name: "Asuna Yuuki by Runa", url: "/assets/skins/Asuna Yuuki by Runa.wsz" },
@@ -34,10 +34,10 @@ const Mp3Player = () => {
     { name: "Celebi", url: "/assets/skins/celebi.wsz" },
     { name: "FLCL - Again", url: "/assets/skins/flcl_-_again.wsz" },
     { name: "Setsuna Gundam 00 by Rain Sprite", url: "/assets/skins/setsuna___gundam_00_by_rain_sprite.zip" }, // Note: .zip, may need to be .wsz
-  ];
+  ], []); // Empty deps: memoizes once on mount
 
-  // List of MP3s from /public/assets/audio (from your GitHub repo)
-  const tracks = [
+  // Memoized tracks array (stable reference, doesn’t change on re-renders)
+  const tracks = useMemo(() => [
     { metaData: { artist: "Unknown", title: "BITCH I DID THE RACE" }, url: "/assets/audio/BITCH_I_DID-THE.RACE.mp3" },
     { metaData: { artist: "Unknown", title: "DESTRUCTION" }, url: "/assets/audio/DESTRUCTION.mp3" },
     { metaData: { artist: "Unknown", title: "Heart Of Stone" }, url: "/assets/audio/Heart Of Stone.mp3" },
@@ -48,7 +48,7 @@ const Mp3Player = () => {
     { metaData: { artist: "Unknown", title: "lovestory" }, url: "/assets/audio/lovestory.mp3" },
     { metaData: { artist: "Unknown", title: "mononoaware" }, url: "/assets/audio/mononoaware.mp3" },
     { metaData: { artist: "Unknown", title: "recipie for a femcel (boxxy f4g V2)" }, url: "/assets/audio/recipie for a femcel (boxxy f4g V2).mp3" },
-  ];
+  ], []); // Empty deps: memoizes once on mount
 
   useEffect(() => {
     if (!webampRef.current) {
@@ -67,8 +67,7 @@ const Mp3Player = () => {
         webampRef.current = null;
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Empty array: runs once on mount
+  }, [skins, tracks]); // Dependencies satisfied with memoized values
 
   return (
     <div className="mp3-player-wrapper">
