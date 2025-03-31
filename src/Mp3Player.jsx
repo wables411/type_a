@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Webamp from "webamp";
 import "./Mp3Player.css";
 
 const Mp3Player = () => {
-  // List of skins from /public/assets/skins
+  const webampRef = useRef(null); // Store Webamp instance
+
+  // List of skins from /public/assets/skins (from your GitHub repo)
   const skins = [
     { name: "Akira - Kaneda", url: "/assets/skins/Akira - Kaneda.wsz" },
     { name: "Angel Beats! Amp", url: "/assets/skins/Angel_Beats!_Amp.wsz" },
@@ -34,7 +36,7 @@ const Mp3Player = () => {
     { name: "Setsuna Gundam 00 by Rain Sprite", url: "/assets/skins/setsuna___gundam_00_by_rain_sprite.zip" }, // Note: .zip, may need to be .wsz
   ];
 
-  // List of MP3s from /public/assets/audio (confirmed from your GitHub repo)
+  // List of MP3s from /public/assets/audio (from your GitHub repo)
   const tracks = [
     { metaData: { artist: "Unknown", title: "BITCH I DID THE RACE" }, url: "/assets/audio/BITCH_I_DID-THE.RACE.mp3" },
     { metaData: { artist: "Unknown", title: "DESTRUCTION" }, url: "/assets/audio/DESTRUCTION.mp3" },
@@ -49,19 +51,24 @@ const Mp3Player = () => {
   ];
 
   useEffect(() => {
-    const webamp = new Webamp({
-      initialTracks: tracks, // Load all tracks into playlist
-      initialSkin: { url: skins[0].url }, // Default skin (Akira - Kaneda)
-      availableSkins: skins, // Populate Webamp's skin menu
-    });
-
-    webamp.renderWhenReady(document.getElementById("webamp"));
+    if (!webampRef.current) {
+      const webamp = new Webamp({
+        initialTracks: tracks,
+        initialSkin: { url: skins[0].url }, // Default skin: Akira - Kaneda
+        availableSkins: skins,
+      });
+      webampRef.current = webamp;
+      webamp.renderWhenReady(document.getElementById("webamp"));
+    }
 
     return () => {
-      webamp.dispose();
+      if (webampRef.current) {
+        webampRef.current.dispose();
+        webampRef.current = null;
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, []); // Empty array: runs once on mount
 
   return (
     <div className="mp3-player-wrapper">
