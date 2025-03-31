@@ -20,7 +20,8 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  gap: 30px; /* Increased spacing between elements for Webamp */
+  gap: 30px; /* Spacing between elements */
+  position: relative; /* Ensure container controls stacking */
 }
 
 .image-wrapper {
@@ -29,15 +30,10 @@ body {
   align-items: center;
   margin-bottom: 20px;
   position: relative;
-  z-index: 1002;
+  z-index: 10; /* Lowered from 1002 to keep it above background but below Webamp */
 }
 
-.title-logo {
-  width: 100%;
-  max-width: 500px;
-  height: auto;
-}
-
+.title-logo,
 .header-gif {
   width: 100%;
   max-width: 500px;
@@ -49,11 +45,12 @@ body {
   border: 2px solid #ff69b4;
   border-radius: 10px;
   padding: 20px;
-  margin-bottom: 0; /* Removed since gap handles spacing */
   width: 100%;
   max-width: 500px;
   box-sizing: border-box;
   text-align: center;
+  position: relative;
+  z-index: 20; /* Above images, below Webamp */
 }
 
 .description p {
@@ -185,23 +182,23 @@ body {
   position: absolute;
   font-size: 20px;
   pointer-events: none;
-  z-index: 1000;
+  z-index: 50; /* Above content, below Webamp */
 }
 
 /* Webamp-specific styles */
 .mp3-player-wrapper {
   width: 100%;
   max-width: 600px;
-  margin: 20px 0; /* Vertical spacing around Webamp */
+  margin: 0; /* Remove vertical margins, rely on container gap */
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: visible;
-  z-index: 1000;
+  position: relative; /* Keep in flow */
+  z-index: 100; /* Above all other content */
 }
 
 .mp3-player-wrapper #webamp {
-  position: static !important; /* Override Webamp’s absolute positioning */
+  position: static !important; /* Force Webamp into layout */
   display: block !important;
   margin: 0 auto;
 }
