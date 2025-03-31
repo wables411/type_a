@@ -40,7 +40,12 @@ const Mp3Player = () => {
       console.log("Actual container width on mount:", containerWidth);
       positionsRef.current = calculateInitialPositions(containerWidth);
     }
-  }, [calculateInitialPositions]);
+  }, [
+    calculateInitialPositions,
+    WINDOW_DIMENSIONS.main.width,
+    WINDOW_DIMENSIONS.main.height,
+    WINDOW_DIMENSIONS.equalizer.height,
+  ]); // Line 61: All dependencies explicitly included
 
   useEffect(() => {
     // Only load saved y-positions, ignore x
@@ -53,7 +58,7 @@ const Mp3Player = () => {
         playlist: { x: 0, y: parsed.playlist?.y || WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height },
       };
     }
-  }, []);
+  }, [WINDOW_DIMENSIONS.equalizer.height, WINDOW_DIMENSIONS.main.height]);
 
   useEffect(() => {
     console.log("Mp3Player useEffect running");
@@ -110,7 +115,7 @@ const Mp3Player = () => {
         containerRef.current.appendChild(webampElement);
       }
 
-      // Force initial position
+      // Force initial position and lock it
       if (webampElement) {
         webampElement.style.left = "50%";
         webampElement.style.transform = "translateX(-50%)";
@@ -118,19 +123,22 @@ const Mp3Player = () => {
         console.log("Forced Webamp position reset to center");
       }
 
-      // Continuously enforce position for 2 seconds to catch late updates
+      // Continuously enforce position until stable
       intervalRef.current = setInterval(() => {
         if (webampElement) {
-          webampElement.style.left = "50%";
-          webampElement.style.transform = "translateX(-50%)";
-          console.log("Interval enforcing center, x:", webampElement.getBoundingClientRect().x);
+          const currentX = webampElement.getBoundingClientRect().x;
+          const targetX = (window.innerWidth - WINDOW_DIMENSIONS.main.width) / 2;
+          if (Math.abs(currentX - targetX) > 10) {
+            webampElement.style.left = "50%";
+            webampElement.style.transform = "translateX(-50%)";
+            console.log("Interval enforcing center, current x:", currentX, "target x:", targetX);
+          } else {
+            console.log("Webamp centered at x:", currentX, "stopping interval");
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
         }
       }, 100);
-
-      setTimeout(() => {
-        clearInterval(intervalRef.current);
-        console.log("Stopped position enforcement interval");
-      }, 2000);
 
       console.log("Webamp x position:", webampElement?.getBoundingClientRect().x);
       console.log("Container ref after render:", containerRef.current);
@@ -154,7 +162,7 @@ const Mp3Player = () => {
         clearInterval(intervalRef.current);
       }
     };
-  }, []);
+  }, [WINDOW_DIMENSIONS.main.width]);
 
   useEffect(() => {
     if (!webampRef.current) return;
