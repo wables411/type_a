@@ -13,7 +13,7 @@ const Mp3Player = () => {
     { name: "Bleach - Rukia", url: "/assets/skins/Bleach - Rukia.wsz" },
     { name: "Bleach - Senbonzakura", url: "/assets/skins/Bleach - Senbonzakura.wsz" },
     { name: "Chobits - Pearls", url: "/assets/skins/Chobits - Pearls.wsz" },
-    { name: "Death Note - Misa", url: "/assets/skins/Death Note - Misa.zip" }, // Note: .zip, may need to be .wsz
+    { name: "Death Note - Misa", url: "/assets/skins/Death Note - Misa.wsz" }, // Note: .zip, may need to be .wsz
     { name: "Eternal Sailor Moon with Wings", url: "/assets/skins/Eternal_Sailor_Moon_with_Wings.wsz" },
     { name: "Fruits Basket - Tooru is the Onigiri!", url: "/assets/skins/Fruits Basket - Tooru is the Onigiri!.wsz" },
     { name: "Full Metal Alchemist - Slight Return", url: "/assets/skins/Full Metal Alchemist - Slight Return.wsz" },
@@ -23,7 +23,7 @@ const Mp3Player = () => {
     { name: "Kaori Amp 2", url: "/assets/skins/Kaori_Amp_2.wsz" },
     { name: "Kingdom Hearts II Final Mix - Sanctuary", url: "/assets/skins/Kingdom Hearts II Final Mix - Sanctuary.wsz" },
     { name: "Lain Bear 2", url: "/assets/skins/Lain Bear 2.wsz" },
-    { name: "Laputa 1", url: "/assets/skins/Laputa_1.zip" }, // Note: .zip, may need to be .wsz
+    { name: "Laputa 1", url: "/assets/skins/Laputa_1.wsz" }, // Note: .zip, may need to be .wsz
     { name: "Legend of Zelda - Hylians Nocturne Link", url: "/assets/skins/Legend of Zelda - Hylians Nocturne Link.wsz" },
     { name: "Legend of Zelda", url: "/assets/skins/Legend_of_Zelda.wsz" },
     { name: "Lucky Star by M-nebell", url: "/assets/skins/Lucky Star by M-nebell.wsz" },
@@ -33,7 +33,7 @@ const Mp3Player = () => {
     { name: "Skyline GTR", url: "/assets/skins/Skyline_GTR.wsz" },
     { name: "Celebi", url: "/assets/skins/celebi.wsz" },
     { name: "FLCL - Again", url: "/assets/skins/flcl_-_again.wsz" },
-    { name: "Setsuna Gundam 00 by Rain Sprite", url: "/assets/skins/setsuna___gundam_00_by_rain_sprite.zip" }, // Note: .zip, may need to be .wsz
+    { name: "Setsuna Gundam 00 by Rain Sprite", url: "/assets/skins/setsuna___gundam_00_by_rain_sprite.wsz" }, // Note: .zip, may need to be .wsz
   ], []); // Empty deps: memoizes once on mount
 
   // Memoized tracks array (stable reference, doesn’t change on re-renders)
