@@ -19,7 +19,7 @@ const Mp3Player = () => {
       const mainY = 0;
       console.log("Container width:", containerWidth, "Calculated mainX:", mainX);
       return {
-        main: { x: 0, y: mainY }, // x: 0, CSS will center
+        main: { x: 0, y: mainY },
         equalizer: { x: 0, y: mainY + WINDOW_DIMENSIONS.main.height },
         playlist: { x: 0, y: mainY + WINDOW_DIMENSIONS.main.height + WINDOW_DIMENSIONS.equalizer.height },
       };
@@ -107,6 +107,7 @@ const Mp3Player = () => {
       if (webampElement) {
         webampElement.style.left = "50%";
         webampElement.style.transform = "translateX(-50%)";
+        webampElement.style.position = "absolute"; // Ensure consistency
         console.log("Forced Webamp position reset to center");
       }
 
@@ -142,14 +143,16 @@ const Mp3Player = () => {
 
     if (mainWindow && equalizerWindow && playlistWindow) {
       const updatePositions = () => {
+        const containerRect = containerRef.current.getBoundingClientRect();
         const mainRect = mainWindow.getBoundingClientRect();
         const equalizerRect = equalizerWindow.getBoundingClientRect();
         const playlistRect = playlistWindow.getBoundingClientRect();
 
+        // Use relative positions within container
         positionsRef.current = {
-          main: { x: mainRect.left, y: mainRect.top },
-          equalizer: { x: equalizerRect.left, y: equalizerRect.top },
-          playlist: { x: playlistRect.left, y: playlistRect.top },
+          main: { x: 0, y: mainRect.top - containerRect.top },
+          equalizer: { x: 0, y: equalizerRect.top - containerRect.top },
+          playlist: { x: 0, y: playlistRect.top - containerRect.top },
         };
         localStorage.setItem("webampWindowPositions", JSON.stringify(positionsRef.current));
       };

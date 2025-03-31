@@ -207,12 +207,11 @@ body {
   justify-content: center;
 }
 
-/* Force Webamp to center within its container */
 .webamp-container #webamp {
-  position: absolute; /* Match Webamp’s internal positioning */
-  left: 50%;
-  transform: translateX(-50%); /* Center horizontally */
-  top: 0; /* Respect vertical stacking */
+  position: absolute;
+  left: 50% !important; /* Override inline styles */
+  transform: translateX(-50%) !important;
+  top: 0;
   z-index: 1001 !important;
   display: block !important;
 }
