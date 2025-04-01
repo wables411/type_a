@@ -44,7 +44,7 @@ body {
 
 .box {
   background: rgba(0, 0, 0, 0.7);
-  border: 2px solid #ff69b4;
+  border: 2px solid #21aaf4;
   border-radius: 10px;
   padding: 20px;
   width: 100%;
@@ -73,7 +73,7 @@ body {
 }
 
 .whitelist-link {
-  color: #ff69b4;
+  color: #21aaf4;
   text-decoration: none;
   font-weight: bold;
 }
@@ -100,7 +100,7 @@ body {
 }
 
 .retry-button {
-  background: #ff69b4;
+  background: #21aaf4;
   color: #fff;
   border: none;
   padding: 5px 10px;
@@ -110,7 +110,7 @@ body {
 }
 
 .retry-button:hover {
-  background: #ff85c0;
+  background: #21aaf4;
 }
 
 .banner {
@@ -235,13 +235,13 @@ body {
 
 .chat-log {
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid #ff69b4;
+  border: 1px solid #21aaf4;
   border-radius: 5px;
   padding: 5px;
   max-height: 250px;
   overflow-y: auto;
   margin-bottom: 5px;
-  font-size: 0.7em;
+  font-size: 1em;
 }
 
 .chat-log p {
@@ -251,16 +251,16 @@ body {
 .username-input,
 .chat-input {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   margin-bottom: 5px;
 }
 
 .chat-input input,
 .username-input input {
   padding: 5px;
-  border: 1px solid #ff69b4;
+  border: 1px solid #21aaf4;
   border-radius: 5px 0 0 5px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 238, 255, 0.137);
   color: #fff;
   outline: none;
   width: 80%;
@@ -268,7 +268,7 @@ body {
 }
 
 .chat-button {
-  background: #ff69b4;
+  background: #21aaf4;
   color: #fff;
   border: none;
   padding: 5px 10px;

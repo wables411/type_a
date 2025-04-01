@@ -31,7 +31,6 @@ const Mp3Player = () => {
     { name: "My Rei in Blue", url: "/assets/skins/My_Rei_in_Blue.wsz" },
     { name: "Naruto - 4th Hokage Wild Wind", url: "/assets/skins/Naruto - 4th Hokage Wild Wind.wsz" },
     { name: "Skyline GTR", url: "/assets/skins/Skyline_GTR.wsz" },
-    { name: "Celebi", url: "/assets/skins/celebi.wsz" },
     { name: "FLCL - Again", url: "/assets/skins/flcl_-_again.wsz" },
     { name: "Bleach - Orihime Tatsuki", url: "/assets/skins/Bleach - Orihime Tatsuki -remake.wsz" },
   ], []);
