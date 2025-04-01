@@ -130,9 +130,34 @@ body {
   height: auto;
 }
 
+.whitelist-button-inline {
+  margin: 10px 0;
+}
+
+.whitelist-button-inline img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
+.aptos-sunset {
+  position: fixed;
+  bottom: 450px; /* 398px (stargate-button bottom) + 87.5px (height) */
+  right: 0;
+  width: 250px;
+  z-index: 10000;
+  margin: 0;
+  transform: scaleX(-1); /* Flips the GIF horizontally */
+}
+
+.aptos-sunset img {
+  width: 50%;
+  height: auto;
+}
+
 .stargate-button {
   position: fixed;
-  bottom: 460px; /* 398px (whitelist button bottom) + 50px (whitelist button height) */
+  bottom: 398px;
   right: 0;
   width: 275px;
   z-index: 10000;
@@ -154,20 +179,6 @@ body {
 }
 
 .twitter-button img {
-  width: 100%;
-  height: auto;
-}
-
-.whitelist-button {
-  position: fixed;
-  bottom: 398px; /* 348px (chat height) + 50px (Twitter button height) */
-  right: 0;
-  width: 275px;
-  z-index: 10000;
-  margin: 0;
-}
-
-.whitelist-button img {
   width: 100%;
   height: auto;
 }
@@ -339,20 +350,8 @@ body {
     height: auto;
   }
 
-  .whitelist-button {
-    bottom: 318.4px; /* 278.4px (scaled chat height) + 40px (scaled Twitter button height) */
-    width: 275px;
-    transform: scale(0.8);
-    transform-origin: bottom right;
-  }
-
-  .whitelist-button img {
-    width: 100%;
-    height: auto;
-  }
-
   .stargate-button {
-    bottom: 358.4px; /* 318.4px (scaled whitelist button bottom) + 40px (scaled whitelist button height) */
+    bottom: 318.4px;
     width: 275px;
     transform: scale(0.8);
     transform-origin: bottom right;
@@ -360,6 +359,18 @@ body {
 
   .stargate-button img {
     width: 100%;
+    height: auto;
+  }
+
+  .aptos-sunset {
+    bottom: 200px; /* 318.4px (scaled stargate-button bottom) + 70px (scaled height) */
+    width: 175px;
+    transform: scale(0.8) scaleX(-1); /* Scale and flip */
+    transform-origin: bottom right;
+  }
+
+  .aptos-sunset img {
+    width: 50%;
     height: auto;
   }
 

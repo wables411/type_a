@@ -9,6 +9,7 @@ const Mp3Player = () => {
   const [error, setError] = useState(null);
 
   const skins = useMemo(() => [
+    { name: "Kaori Amp 2", url: "/assets/skins/1Kaori_Amp_2.wsz" },
     { name: "Akira - Kaneda", url: "/assets/skins/Akira - Kaneda.wsz" },
     { name: "Angel Beats! Amp", url: "/assets/skins/Angel_Beats!_Amp.wsz" },
     { name: "Asuna Yuuki by Runa", url: "/assets/skins/Asuna Yuuki by Runa.wsz" },
@@ -21,7 +22,6 @@ const Mp3Player = () => {
     { name: "Ghost in the Shell", url: "/assets/skins/Ghost_in_the_shell.wsz" },
     { name: "Initial D - Red Suns", url: "/assets/skins/Initial_D_-_Red_Suns.wsz" },
     { name: "Initial D Honda Civic", url: "/assets/skins/Initial_D_Honda_Civic.wsz" },
-    { name: "Kaori Amp 2", url: "/assets/skins/Kaori_Amp_2.wsz" },
     { name: "Kingdom Hearts II Final Mix - Sanctuary", url: "/assets/skins/Kingdom Hearts II Final Mix - Sanctuary.wsz" },
     { name: "Lain Bear 2", url: "/assets/skins/Lain Bear 2.wsz" },
     { name: "Legend of Zelda - Hylians Nocturne Link", url: "/assets/skins/Legend of Zelda - Hylians Nocturne Link.wsz" },
@@ -36,6 +36,19 @@ const Mp3Player = () => {
   ], []);
 
   const tracks = useMemo(() => [
+    { metaData: { artist: "Unknown", title: "￥Cuスタ平" }, url: "/assets/audio/￥Cuスタ平.mp3" },
+    { metaData: { artist: "Unknown", title: "～架空～ Going My Way _ TEKONDO" }, url: "/assets/audio/～架空～ Going My Way _ TEKONDO.mp3" },
+    { metaData: { artist: "Unknown", title: "No One Sleep In Tokyo" }, url: "/assets/audio/Edo Boys - No One Sleep In Tokyo.mp3" },
+    { metaData: { artist: "Unknown", title: "spitfire" }, url: "/assets/audio/Go2 - Spitfire (Initial D).mp3" },
+    { metaData: { artist: "Unknown", title: "Around The World" }, url: "/assets/audio/M.O.V.E - Around The World (Initial D).mp3" },
+    { metaData: { artist: "Unknown", title: "BREAK IN2 THE NITE" }, url: "/assets/audio/M.O.V.E - BREAK IN2 THE NITE (Dave Rodgers Remix).mp3" },
+    { metaData: { artist: "Unknown", title: "DOGFIGHT" }, url: "/assets/audio/M.O.V.E - DOGFIGHT (Initial D).mp3" },
+    { metaData: { artist: "Unknown", title: "Rage your dream" }, url: "public/assets/audio/M.O.V.E - Rage your dream (Initial D).mp3" },
+    { metaData: { artist: "Unknown", title: "Strike On" }, url: "/assets/audio/M.O.V.E - Strike On.mp3" },
+    { metaData: { artist: "Unknown", title: "Running in The 90s" }, url: "/assets/audio/Max Coveri- Running in The 90s ( Initial D).mp3" },
+    { metaData: { artist: "Unknown", title: "Night Of Fire" }, url: "/assets/audio/Niko - Night Of Fire (Extended Mix) (Initial D).mp3" },
+    { metaData: { artist: "Unknown", title: "Rail Roader's Shooting Star" }, url: "/assets/audio/Rail Roader's Shooting Star _ かな.mp3" },
+    { metaData: { artist: "Unknown", title: "Superdance" }, url: "/assets/audio/Vicky Vale - Superdance (Extended Mix).mp3" },
     { metaData: { artist: "Unknown", title: "BITCH I DID THE RACE" }, url: "/assets/audio/BITCH_I_DID-THE.RACE.mp3" },
     { metaData: { artist: "Unknown", title: "DESTRUCTION" }, url: "/assets/audio/DESTRUCTION.mp3" },
     { metaData: { artist: "Unknown", title: "Heart Of Stone" }, url: "/assets/audio/Heart Of Stone.mp3" },

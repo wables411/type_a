@@ -297,7 +297,7 @@ const App = () => {
           <img src="/assets/whitelist.png" alt="whitelist" className="whitelist-meme" />
           <p>𝘾𝙊𝙇𝙇𝙀𝘾𝙏𝙄𝙊𝙉𝙎 𝙀𝙇𝙄𝙂𝙄𝘽𝙇𝙀 𝙁𝙊𝙍 𝙒𝙃𝙄𝙏𝙀𝙇𝙄𝙎𝙏</p>
           <p><a href="https://miladymaker.net/" target="_blank" rel="noreferrer" className="whitelist-link">𝑀𝒾𝓁𝒶𝒹𝓎 𝑀𝒶𝓀𝑒𝓇</a></p>
-          <p><a href="https://remilio.org/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝑒𝒹𝒶𝒸𝓂𝒾𝓁𝒾𝓸 𝐵𝒶𝒷𝒾𝑒𝓈</a></p>
+          <p><a href="https://remilio.org/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝑒𝓂𝒾𝓁𝒾𝑜</a></p>
           <p><a href="https://radbro.xyz/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝒶𝒹𝒷𝓇𝓸</a></p>
           <p><a href="https://radbro.xyz/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝒶𝒹𝒸𝒶𝓉</a></p>
           <p><a href="https://www.scatter.art/kawamii" target="_blank" rel="noreferrer" className="whitelist-link">𝒦𝒶𝓌𝒶𝓂𝒾𝒾 𝒯𝑒𝑒𝓃𝓈</a></p>
@@ -309,7 +309,10 @@ const App = () => {
           <p><a href="https://www.scatter.art/twilight-rooms" target="_blank" rel="noreferrer" className="whitelist-link">𝒯𝓌𝒾𝑔𝒽𝓁𝒾𝑔𝒽𝓉 𝑅𝓸𝓸𝓂𝓈</a></p>
           <p><a href="https://opensea.io/collection/7w1l1gh7z0n3-vol-1-meowmaows" target="_blank" rel="noreferrer" className="whitelist-link">𝒯𝓌𝒾𝑔𝒽𝓁𝒾𝑔𝒽𝓉 𝒵𝓸𝓃𝑒</a></p>
           <p><a href="https://aptosfoundation.org/" target="_blank" rel="noreferrer" className="whitelist-link">𝒜𝓅𝓉𝓸𝓈 𝒲𝒽𝒶𝓁𝑒𝓈</a></p>
-          <p>𝘗𝘭𝘦𝘢𝘴𝘦 𝘧𝘪𝘭𝘭 𝘪𝘯 𝘢𝘭𝘭 𝘸𝘢𝘭𝘭𝘦𝘵𝘴 𝘩𝘰𝘭𝘥𝘪𝘯𝘨 𝘸𝘩𝘪𝘵𝘦𝘭𝘪𝘴𝘵 𝘦𝘭𝘪𝘨𝘪𝘣𝘭𝘦 𝘢𝘴𝘴𝘦𝘵𝘴 𝘷𝘪𝘢 𝘧𝘰𝘳𝘮, 𝘵𝘩𝘦𝘯 𝘢𝘥𝘥 “🤍🌐” 𝘵𝘰 𝘺𝘰𝘶𝘳 𝘔𝘢𝘨𝘪𝘤 𝘌𝘥𝘦𝘯 𝘣𝘪𝘰 𝘶𝘯𝘵𝘪𝘭 𝘤𝘰𝘯𝘵𝘢𝘤𝘵𝘦𝘥 𝘸𝘪𝘵𝘩 𝘤𝘰𝘯𝘧𝘪𝘳𝘮𝘢𝘵𝘪𝘰𝘯 𝘴𝘰 𝘵𝘩𝘢𝘵 𝘸𝘦 𝘤𝘢𝘯 𝘷𝘦𝘳𝘪𝘧𝘺 𝘰𝘸𝘯𝘦𝘳𝘴𝘩𝘪𝘱 𝘰𝘧 𝘸𝘢𝘭𝘭𝘦𝘵 𝘢𝘥𝘥𝘳𝘦𝘴𝘴𝘦𝘴</p>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSf0swo-GglqkJQ5UR6NE4MjkK7rsou_mmIdmd92WPSf18Mx-A/viewform?pli=1&pli=1" target="_blank" rel="noreferrer" className="gif-button whitelist-button-inline">
+            <img src="/assets/wlform.gif" alt="Whitelist Form" />
+          </a>
+          <p>𝘗𝘭𝘦𝘢𝘴𝘦 𝘧𝘪𝘭𝘭 𝘪𝘯 𝘢𝘭𝘭 𝘸𝘢𝘭𝘭𝘦𝘵𝘴 𝘩𝘰𝘭𝘥𝘪𝘯𝘨 𝘸𝘩𝘪𝘵𝘦𝘭𝘪𝘴𝘵 𝘦𝘭𝘪𝘨𝘪𝘣𝘭𝘦 𝘢𝘴𝘴𝘦𝘵𝘴 𝘷𝘪𝘢 𝘧𝘰𝘳𝘮, 𝘵𝘩𝘦𝘯 𝘢𝘥𝘥 “🤍🌐” 𝘵𝘰 𝘺𝘰𝘶𝘳 𝘔𝘢𝘨𝘪𝘤 𝘌𝘥𝘦𝘯 𝘣𝘪𝘰 𝘶𝘯𝘵𝘪𝘭 𝘤𝘰𝘯𝘵𝘢𝘤𝘵𝘦𝘥 𝘸𝘪𝘵𝘩 𝘤𝘰𝘯𝘧𝘪𝘳𝘮𝘢𝘵𝘪𝘰𝘯 𝘴𝘰 𝘵𝘩𝘢𝘵 𝘸𝘦 𝘤𝘢𝘯 𝘷𝘦𝘪𝘧𝘺 𝘰𝘸𝘯𝘦𝘳𝘴𝘩𝘪𝘱 𝘰𝘧 𝘸𝘢𝘭𝘭𝘦𝘵 𝘢𝘥𝘥𝘳𝘦𝘴𝘴𝘦𝘴</p>
           <p>˜”*°•.˜”*°•°*”˜˜”*°•.˜”*°•°*”˜.•°*”˜°*”˜.•°*”˜</p>
           <p>𝙈𝙄𝙉𝙏 𝙋𝙍𝙊𝘾𝙀𝙀𝘿𝙎</p>
           <p>𝟸𝟶% 𝚘𝚏 𝚖𝚒𝚗𝚝 𝚙𝚛𝚘𝚌𝚎𝚎𝚍𝚜 𝚍𝚒𝚛𝚎𝚌𝚝𝚎𝚍 𝚝𝚘𝚠𝚊𝚛𝚍𝚜 𝚛𝚎𝚖𝚒𝚕𝚒𝚊 𝚝𝚛𝚎𝚊𝚜𝚞𝚛𝚢</p>
@@ -345,11 +348,9 @@ const App = () => {
         </div>
       </div>
       {/* Fixed-position buttons */}
+      <img src="/assets/aptossunset.gif" alt="Aptos Sunset" className="aptos-sunset" />
       <a href="https://stargate.finance/bridge" target="_blank" rel="noreferrer" className="gif-button stargate-button">
         <img src="/assets/bridgeaptos.gif" alt="Bridge to Aptos" />
-      </a>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSf0swo-GglqkJQ5UR6NE4MjkK7rsou_mmIdmd92WPSf18Mx-A/viewform?pli=1&pli=1" target="_blank" rel="noreferrer" className="gif-button whitelist-button">
-        <img src="/assets/wlform.gif" alt="Whitelist Form" />
       </a>
       <a href="https://x.com/MiladyOnApt" target="_blank" rel="noreferrer" className="gif-button twitter-button">
         <img src="/assets/typeatwitter.gif" alt="Twitter" />
