@@ -20,8 +20,9 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  gap: 30px; /* Spacing between elements */
-  position: relative; /* Ensure container controls stacking */
+  gap: 30px;
+  position: relative;
+  z-index: 1;
 }
 
 .image-wrapper {
@@ -30,7 +31,7 @@ body {
   align-items: center;
   margin-bottom: 20px;
   position: relative;
-  z-index: 10; /* Lowered from 1002 to keep it above background but below Webamp */
+  z-index: 10;
 }
 
 .title-logo,
@@ -50,7 +51,7 @@ body {
   box-sizing: border-box;
   text-align: center;
   position: relative;
-  z-index: 20; /* Above images, below Webamp */
+  z-index: 20;
 }
 
 .description p {
@@ -83,8 +84,8 @@ body {
 .video-wrapper {
   margin: 20px 0;
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically if needed */
+  justify-content: center;
+  align-items: center;
 }
 
 .error-container {
@@ -185,31 +186,5 @@ body {
   position: absolute;
   font-size: 20px;
   pointer-events: none;
-  z-index: 50; /* Above content, below Webamp */
-}
-
-/* Webamp-specific styles */
-.mp3-player-wrapper {
-  width: 100%;
-  max-width: 600px;
-  margin: 0; /* Remove vertical margins, rely on container gap */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative; /* Keep in flow */
-  z-index: 100; /* Above all other content */
-}
-
-.mp3-player-wrapper #webamp {
-  position: static !important; /* Force Webamp into layout */
-  display: block !important;
-  margin: 0 auto;
-}
-
-@media (max-width: 600px) {
-  .mp3-player-wrapper {
-    max-width: 100%;
-    transform: scale(0.8);
-    transform-origin: top center;
-  }
+  z-index: 50;
 }
