@@ -82,6 +82,9 @@ body {
 
 .video-wrapper {
   margin: 20px 0;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically if needed */
 }
 
 .error-container {

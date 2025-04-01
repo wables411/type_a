@@ -57,7 +57,7 @@ const Mp3Player = () => {
         availableSkins: skins,
       });
       webampRef.current = webamp;
-      webamp.renderWhenReady(containerRef.current.querySelector("#webamp"));
+      webamp.renderWhenReady(containerRef.current); // Render directly to containerRef
     }
 
     return () => {
@@ -69,9 +69,7 @@ const Mp3Player = () => {
   }, [skins, tracks]);
 
   return (
-    <div className="mp3-player-wrapper" ref={containerRef}>
-      <div id="webamp" />
-    </div>
+    <div className="mp3-player-wrapper" ref={containerRef}></div> // Simplified, no nested #webamp
   );
 };
 
