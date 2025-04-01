@@ -215,6 +215,39 @@ body {
   text-align: center;
 }
 
+.wallet-button {
+  display: inline-block;
+  cursor: pointer;
+  padding: 5px 10px; /* Match chat-button padding */
+  border-radius: 0 5px 5px 0; /* Match chat-button border-radius */
+}
+
+.wallet-button img {
+  display: block;
+  width: 100%;
+  max-width: 150px; /* Adjust based on the actual size of connectwallet.gif */
+  height: auto;
+}
+
+.wallet-button:hover img {
+  filter: brightness(1.2); /* Mimic the hover effect of chat-button */
+}
+
+.wallet-button.disabled {
+  cursor: not-allowed;
+}
+
+.wallet-button.disabled img {
+  filter: grayscale(100%) opacity(0.5); /* Mimic the disabled state of chat-button */
+}
+
+.wallet-button-label {
+  display: block;
+  font-size: 0.8em;
+  margin-top: 5px;
+  color: #fff;
+}
+
 .chat {
   position: fixed;
   bottom: 0;
