@@ -4,7 +4,6 @@ import "./Mp3Player.css";
 
 const Mp3Player = () => {
   const webampRef = useRef(null); // Store Webamp instance
-  const containerRef = useRef(null); // Reference to the wrapper div
 
   // Memoized skins array
   const skins = useMemo(() => [
@@ -50,14 +49,15 @@ const Mp3Player = () => {
   ], []);
 
   useEffect(() => {
-    if (!webampRef.current && containerRef.current) {
+    if (!webampRef.current) {
       const webamp = new Webamp({
         initialTracks: tracks,
         initialSkin: { url: skins[0].url }, // Default: Akira - Kaneda
         availableSkins: skins,
       });
       webampRef.current = webamp;
-      webamp.renderWhenReady(containerRef.current); // Render directly to containerRef
+      // Render directly to body and let CSS position it
+      webamp.renderWhenReady(document.body);
     }
 
     return () => {
@@ -68,9 +68,7 @@ const Mp3Player = () => {
     };
   }, [skins, tracks]);
 
-  return (
-    <div className="mp3-player-wrapper" ref={containerRef}></div> // Simplified, no nested #webamp
-  );
+  return null; // No DOM element needed, Webamp handles its own rendering
 };
 
 export default Mp3Player;

@@ -1,21 +1,14 @@
-.mp3-player-wrapper {
-  width: 100%;
-  max-width: 600px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Ensure Webamp stays in flow and is interactive */
-#webamp {
-  position: static !important;
-  display: block !important;
+/* Target Webamp’s root div (it uses a div with data-webamp-root) */
+div[data-webamp-root] {
+  position: fixed !important;
+  bottom: 20px !important;
+  left: 20px !important;
+  z-index: 1000 !important; /* Above all content */
 }
 
 @media (max-width: 600px) {
-  .mp3-player-wrapper {
-    max-width: 100%;
+  div[data-webamp-root] {
     transform: scale(0.8);
-    transform-origin: top center;
+    transform-origin: bottom left;
   }
 }
