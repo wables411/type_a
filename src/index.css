@@ -4,6 +4,12 @@
   box-sizing: border-box;
 }
 
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
 body {
   font-family: 'Arial', sans-serif;
 }

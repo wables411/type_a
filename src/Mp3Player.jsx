@@ -1,11 +1,13 @@
-import { useEffect, useRef, useMemo } from "react";
+import { useEffect, useRef, useMemo, useState } from "react";
 import Webamp from "webamp";
 import "./Mp3Player.css";
 
 const Mp3Player = () => {
-  const webampRef = useRef(null); // Store Webamp instance
+  const webampRef = useRef(null);
+  const containerRef = useRef(null); // Ref for Webamp container
+  const isMountedRef = useRef(false);
+  const [error, setError] = useState(null);
 
-  // Memoized skins array
   const skins = useMemo(() => [
     { name: "Akira - Kaneda", url: "/assets/skins/Akira - Kaneda.wsz" },
     { name: "Angel Beats! Amp", url: "/assets/skins/Angel_Beats!_Amp.wsz" },
@@ -34,7 +36,6 @@ const Mp3Player = () => {
     { name: "Bleach - Orihime Tatsuki", url: "/assets/skins/Bleach - Orihime Tatsuki -remake.wsz" },
   ], []);
 
-  // Memoized tracks array
   const tracks = useMemo(() => [
     { metaData: { artist: "Unknown", title: "BITCH I DID THE RACE" }, url: "/assets/audio/BITCH_I_DID-THE.RACE.mp3" },
     { metaData: { artist: "Unknown", title: "DESTRUCTION" }, url: "/assets/audio/DESTRUCTION.mp3" },
@@ -49,26 +50,50 @@ const Mp3Player = () => {
   ], []);
 
   useEffect(() => {
-    if (!webampRef.current) {
-      const webamp = new Webamp({
-        initialTracks: tracks,
-        initialSkin: { url: skins[0].url }, // Default: Akira - Kaneda
-        availableSkins: skins,
-      });
-      webampRef.current = webamp;
-      // Render directly to body and let CSS position it
-      webamp.renderWhenReady(document.body);
-    }
+    let isCancelled = false;
+
+    const initializeWebamp = async () => {
+      if (isMountedRef.current || isCancelled || !containerRef.current) return;
+
+      try {
+        const webamp = new Webamp({
+          initialTracks: tracks,
+          initialSkin: { url: skins[0].url },
+          availableSkins: skins,
+        });
+        webampRef.current = webamp;
+        isMountedRef.current = true;
+
+        await webamp.renderWhenReady(containerRef.current);
+      } catch (err) {
+        if (!isCancelled) {
+          console.error("Webamp render failed:", err);
+          setError(err);
+        }
+      }
+    };
+
+    initializeWebamp();
 
     return () => {
-      if (webampRef.current) {
-        webampRef.current.dispose();
+      isCancelled = true;
+      if (webampRef.current && isMountedRef.current) {
+        try {
+          webampRef.current.dispose();
+        } catch (err) {
+          console.error("Webamp dispose failed:", err);
+        }
         webampRef.current = null;
+        isMountedRef.current = false;
       }
     };
   }, [skins, tracks]);
 
-  return null; // No DOM element needed, Webamp handles its own rendering
+  if (error) {
+    throw error;
+  }
+
+  return <div ref={containerRef} className="webamp-container" />;
 };
 
 export default Mp3Player;

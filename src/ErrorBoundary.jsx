@@ -13,9 +13,7 @@ class ErrorBoundary extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // Only reset if the children prop's identity changes in a meaningful way
     if (prevProps.children !== this.props.children) {
-      // Check if the child's key or type has changed
       const prevChildKey = prevProps.children?.key;
       const currentChildKey = this.props.children?.key;
       const prevChildType = prevProps.children?.type;
@@ -28,11 +26,29 @@ class ErrorBoundary extends Component {
     }
   }
 
+  componentDidMount() {
+    // Catch unhandled promise rejections
+    window.addEventListener('unhandledrejection', this.handleUnhandledRejection);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('unhandledrejection', this.handleUnhandledRejection);
+  }
+
+  handleUnhandledRejection = (event) => {
+    console.error('Unhandled promise rejection:', event.reason);
+    this.setState({
+      hasError: true,
+      error: event.reason,
+      errorInfo: { componentStack: event.reason.stack || '' },
+    });
+  };
+
   render() {
     if (this.state.hasError) {
       return (
-        <div>
-          <h2>Something went wrong.</h2>
+        <div style={{ color: 'white', textAlign: 'center', padding: '20px' }}>
+          <h2>Something went wrong with the MP3 Player.</h2>
           <p>{this.state.error?.message || 'Unknown error'}</p>
           <details style={{ whiteSpace: 'pre-wrap' }}>
             {this.state.error && this.state.error.toString()}
