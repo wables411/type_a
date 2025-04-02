@@ -264,9 +264,6 @@ const App = () => {
             𝙼𝚒𝚕𝚊𝚍𝚢 : 𝚃𝚢𝚙𝚎 𝙰 𝚒𝚜 𝚊 𝚌𝚘𝚕𝚕𝚎𝚌𝚝𝚒𝚘𝚗 𝚘𝚏 𝟺,𝟺𝟺𝟺 𝚐𝚎𝚗𝚎𝚛𝚊𝚝𝚒𝚟𝚎 𝚙𝚏𝚙𝙽𝙵𝚃&apos;𝚜 𝚒𝚗 𝚊 𝚗𝚎𝚘𝚌𝚑𝚒𝚋𝚒 𝚊𝚎𝚜𝚝𝚑𝚎𝚝𝚒𝚌 𝚒𝚗𝚜𝚙𝚒𝚛𝚎𝚍 𝚋𝚢 𝙼𝚒𝚕𝚊𝚍𝚢 𝙼𝚊𝚔𝚎𝚛 𝙽𝙵𝚃, 𝚁𝚎𝚖𝚒𝚕𝚒𝚊 𝙲𝚘𝚛𝚙𝚘𝚛𝚊𝚝𝚒𝚘𝚗, 𝚊𝚜 𝚠𝚎𝚕𝚕 𝚊𝚜 𝚒𝚝𝚜 𝚖𝚊𝚗𝚢 𝚍𝚎𝚛𝚒𝚟𝚊𝚝𝚒𝚟𝚎𝚜. 𝚃𝚢𝚙𝚎 𝙰 𝚛𝚎𝚙𝚛𝚎𝚜𝚎𝚗𝚝𝚜 𝚎𝚕𝚎𝚖𝚎𝚗𝚝𝚜 𝚘𝚏 𝚑𝚒𝚐𝚑-𝚙𝚎𝚛𝚏𝚘𝚛𝚖𝚊𝚗𝚌𝚎 𝚊𝚝𝚝𝚛𝚒𝚋𝚞𝚝𝚎𝚍 𝚋𝚢 𝚝𝚑𝚎 𝚌𝚘𝚖𝚖𝚞𝚗𝚒𝚝𝚢 𝚊𝚗𝚍 𝚌𝚞𝚕𝚝𝚞𝚛𝚊𝚕 𝚒𝚌𝚘𝚗𝚜 𝚘𝚗 𝚝𝚑𝚎 𝙰𝚙𝚝𝚘𝚜 𝚗𝚎𝚝𝚠𝚘𝚛𝚔.
           </p>
         </div>
-        <ErrorBoundary>
-          <Mp3Player />
-        </ErrorBoundary>
         <img src="/assets/banner.jpg" alt="Banner" className="banner" />
         <div className="box minting">
           <p>𝙱𝚛𝚒𝚍𝚐𝚒𝚗𝚐 𝙼𝚒𝚕𝚊𝚍𝚢 𝚝𝚘 𝙰𝚙𝚝𝚘𝚜 S𝚙𝚛𝚒𝚗𝚐 2025 🌐🤍🌷</p>
@@ -347,19 +344,24 @@ const App = () => {
           )}
         </div>
       </div>
-      {/* Fixed-position buttons */}
-      <img src="/assets/aptossunset.gif" alt="Aptos Sunset" className="aptos-sunset" />
-      <a href="https://stargate.finance/bridge" target="_blank" rel="noreferrer" className="gif-button stargate-button">
-        <img src="/assets/bridgeaptos.gif" alt="Bridge to Aptos" />
-      </a>
-      <a href="https://x.com/MiladyOnApt" target="_blank" rel="noreferrer" className="gif-button twitter-button">
-        <img src="/assets/typeatwitter.gif" alt="Twitter" />
-      </a>
-      <img src="/assets/bluetypea.png" alt="Blue Type A" className="bluetypea-image" />
-      <a href="https://www.youtube.com/watch?v=-mqXXqB7SBQ" target="_blank" rel="noreferrer" className="gif-button youtube-button">
-        <img src="/assets/miladytypeadrift.gif" alt="YouTube Button" />
-      </a>
-      <Chat key="chat-component" />
+      {/* Fixed-position elements wrapped in a container for mobile reordering */}
+      <div className="fixed-elements">
+        <ErrorBoundary>
+          <Mp3Player />
+        </ErrorBoundary>
+        <img src="/assets/aptossunset.gif" alt="Aptos Sunset" className="aptos-sunset" />
+        <a href="https://stargate.finance/bridge" target="_blank" rel="noreferrer" className="gif-button stargate-button">
+          <img src="/assets/bridgeaptos.gif" alt="Bridge to Aptos" />
+        </a>
+        <a href="https://x.com/MiladyOnApt" target="_blank" rel="noreferrer" className="gif-button twitter-button">
+          <img src="/assets/typeatwitter.gif" alt="Twitter" />
+        </a>
+        <img src="/assets/bluetypea.png" alt="Blue Type A" className="bluetypea-image" />
+        <a href="https://www.youtube.com/watch?v=-mqXXqB7SBQ" target="_blank" rel="noreferrer" className="gif-button youtube-button">
+          <img src="/assets/miladytypeadrift.gif" alt="YouTube Button" />
+        </a>
+        <Chat key="chat-component" />
+      </div>
     </>
   );
 };

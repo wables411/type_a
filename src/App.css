@@ -44,7 +44,7 @@ body {
 
 .box {
   background: rgba(0, 0, 0, 0.7);
-  border: 2px solid #21aaf4;
+  border: 2px solid #21aaf4 !important; /* Override style.css */
   border-radius: 10px;
   padding: 20px;
   width: 100%;
@@ -73,7 +73,7 @@ body {
 }
 
 .whitelist-link {
-  color: #21aaf4;
+  color: #21aaf4 !important; /* Override style.css */
   text-decoration: none;
   font-weight: bold;
 }
@@ -116,7 +116,7 @@ body {
 }
 
 .retry-button:hover {
-  background: #ff85c0; /* Updated to match the chat-button hover color */
+  background: #ff85c0; /* Matches chat-button hover color */
 }
 
 .banner {
@@ -132,7 +132,7 @@ body {
 
 .gif-button img {
   width: 100%;
-  max-width: 300px;
+  max-width: 300px !important; /* Override style.css */
   height: auto;
 }
 
@@ -142,19 +142,19 @@ body {
 
 .whitelist-button-inline img {
   width: 100%;
-  max-width: 300px;
+  max-width: 300px !important; /* Override style.css */
   height: auto;
 }
 
 /* Fixed-position elements (desktop default) */
 .aptos-sunset {
   position: fixed;
-  bottom: 450px; /* Matches original */
+  bottom: 450px;
   right: 0;
   width: 250px;
   z-index: 10000;
   margin: 0;
-  transform: scaleX(-1); /* Flips the GIF horizontally */
+  transform: scaleX(-1);
 }
 
 .stargate-button {
@@ -168,7 +168,7 @@ body {
 
 .twitter-button {
   position: fixed;
-  bottom: 348px; /* Chat's height */
+  bottom: 348px;
   right: 0;
   width: 275px;
   z-index: 10000;
@@ -186,7 +186,7 @@ body {
 
 .bluetypea-image {
   position: fixed;
-  bottom: 500px; /* Matches original */
+  bottom: 500px;
   left: 0;
   width: 175px;
   z-index: 10000;
@@ -195,8 +195,8 @@ body {
 
 /* Style for Webamp player */
 #webamp {
-  position: fixed !important; /* Override Webamp's default positioning */
-  bottom: 232px; /* 348px (top edge) - 116px (Webamp height) */
+  position: fixed !important;
+  bottom: 232px;
   left: 0;
   width: 275px;
   height: 116px;
@@ -282,19 +282,19 @@ body {
 .wallet-button {
   display: inline-block;
   cursor: pointer;
-  padding: 5px 10px; /* Match chat-button padding */
-  border-radius: 0 5px 5px 0; /* Match chat-button border-radius */
+  padding: 5px 10px;
+  border-radius: 0 5px 5px 0;
 }
 
 .wallet-button img {
   display: block;
   width: 100%;
-  max-width: 150px; /* Matches original */
+  max-width: 150px;
   height: auto;
 }
 
 .wallet-button:hover img {
-  filter: brightness(1.2); /* Matches original */
+  filter: brightness(1.2);
 }
 
 .wallet-button.disabled {
@@ -302,7 +302,7 @@ body {
 }
 
 .wallet-button.disabled img {
-  filter: grayscale(100%) opacity(0.5); /* Matches original */
+  filter: grayscale(100%) opacity(0.5);
 }
 
 .wallet-button-label {
@@ -325,7 +325,7 @@ body {
     max-width: 100%;
     padding: 10px;
     gap: 15px;
-    align-items: stretch;
+    align-items: center; /* Ensure all children are centered */
   }
 
   .box {
@@ -347,6 +347,7 @@ body {
     width: 100%;
     max-width: 100%;
     height: auto;
+    margin: 0 auto; /* Center images */
   }
 
   .video-wrapper {
@@ -383,7 +384,20 @@ body {
     z-index: 1;
   }
 
+  /* Ensure MP3 player is clickable */
+  #webamp {
+    height: 116px;
+    z-index: 10; /* Higher z-index to ensure clickability */
+    pointer-events: auto; /* Ensure it can be interacted with */
+  }
+
+  /* Reorder MP3 player to be right before the chat */
+  #webamp {
+    order: 1; /* Default order */
+  }
+
   .chat {
+    order: 2; /* Place chat after MP3 player */
     height: auto;
     padding: 10px;
     max-width: 500px;
@@ -405,15 +419,22 @@ body {
   .username-input input {
     width: 100%;
     margin-bottom: 5px;
-    border-radius: 5px; /* Adjust for full-width inputs */
+    border-radius: 5px;
   }
 
   .chat-button {
     width: 100%;
-    border-radius: 5px; /* Adjust for full-width button */
+    border-radius: 5px;
   }
 
-  #webamp {
-    height: 116px;
+  /* Ensure all elements are centered */
+  .image-wrapper,
+  .box,
+  .wallet-section,
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 }
