@@ -89,6 +89,12 @@ body {
   align-items: center;
 }
 
+.video-wrapper div {
+  position: relative;
+  width: 375px;
+  height: 211px;
+}
+
 .error-container {
   margin-top: 10px;
   text-align: center;
@@ -110,7 +116,7 @@ body {
 }
 
 .retry-button:hover {
-  background: #21aaf4;
+  background: #ff85c0; /* Updated to match the chat-button hover color */
 }
 
 .banner {
@@ -140,19 +146,15 @@ body {
   height: auto;
 }
 
+/* Fixed-position elements (desktop default) */
 .aptos-sunset {
   position: fixed;
-  bottom: 450px; /* 398px (stargate-button bottom) + 87.5px (height) */
+  bottom: 450px; /* Matches original */
   right: 0;
   width: 250px;
   z-index: 10000;
   margin: 0;
   transform: scaleX(-1); /* Flips the GIF horizontally */
-}
-
-.aptos-sunset img {
-  width: 50%;
-  height: auto;
 }
 
 .stargate-button {
@@ -164,11 +166,6 @@ body {
   margin: 0;
 }
 
-.stargate-button img {
-  width: 100%;
-  height: auto;
-}
-
 .twitter-button {
   position: fixed;
   bottom: 348px; /* Chat's height */
@@ -176,11 +173,6 @@ body {
   width: 275px;
   z-index: 10000;
   margin: 0;
-}
-
-.twitter-button img {
-  width: 100%;
-  height: auto;
 }
 
 .youtube-button {
@@ -192,23 +184,13 @@ body {
   margin: 0;
 }
 
-.youtube-button img {
-  width: 100%;
-  height: auto;
-}
-
 .bluetypea-image {
   position: fixed;
-  bottom: 500px; /* 348px (YouTube button bottom) + 50px (YouTube button height) */
+  bottom: 500px; /* Matches original */
   left: 0;
   width: 175px;
   z-index: 10000;
   margin: 0;
-}
-
-.bluetypea-image img {
-  width: 50%;
-  height: auto;
 }
 
 /* Style for Webamp player */
@@ -219,44 +201,6 @@ body {
   width: 275px;
   height: 116px;
   z-index: 10000;
-}
-
-.wallet-section {
-  margin: 20px 0;
-  text-align: center;
-}
-
-.wallet-button {
-  display: inline-block;
-  cursor: pointer;
-  padding: 5px 10px; /* Match chat-button padding */
-  border-radius: 0 5px 5px 0; /* Match chat-button border-radius */
-}
-
-.wallet-button img {
-  display: block;
-  width: 100%;
-  max-width: 150px; /* Adjust based on the actual size of connectwallet.gif */
-  height: auto;
-}
-
-.wallet-button:hover img {
-  filter: brightness(1.2); /* Mimic the hover effect of chat-button */
-}
-
-.wallet-button.disabled {
-  cursor: not-allowed;
-}
-
-.wallet-button.disabled img {
-  filter: grayscale(100%) opacity(0.5); /* Mimic the disabled state of chat-button */
-}
-
-.wallet-button-label {
-  display: block;
-  font-size: 0.8em;
-  margin-top: 5px;
-  color: #fff;
 }
 
 .chat {
@@ -330,79 +274,42 @@ body {
   cursor: not-allowed;
 }
 
-@media (max-width: 600px) {
-  .chat {
-    transform: scale(0.8);
-    transform-origin: bottom right;
-    width: 275px;
-    height: 348px;
-  }
+.wallet-section {
+  margin: 20px 0;
+  text-align: center;
+}
 
-  .twitter-button {
-    bottom: 278.4px; /* 348px * 0.8 (scaled height of chat) */
-    width: 275px;
-    transform: scale(0.8);
-    transform-origin: bottom right;
-  }
+.wallet-button {
+  display: inline-block;
+  cursor: pointer;
+  padding: 5px 10px; /* Match chat-button padding */
+  border-radius: 0 5px 5px 0; /* Match chat-button border-radius */
+}
 
-  .twitter-button img {
-    width: 100%;
-    height: auto;
-  }
+.wallet-button img {
+  display: block;
+  width: 100%;
+  max-width: 150px; /* Matches original */
+  height: auto;
+}
 
-  .stargate-button {
-    bottom: 318.4px;
-    width: 275px;
-    transform: scale(0.8);
-    transform-origin: bottom right;
-  }
+.wallet-button:hover img {
+  filter: brightness(1.2); /* Matches original */
+}
 
-  .stargate-button img {
-    width: 100%;
-    height: auto;
-  }
+.wallet-button.disabled {
+  cursor: not-allowed;
+}
 
-  .aptos-sunset {
-    bottom: 200px; /* 318.4px (scaled stargate-button bottom) + 70px (scaled height) */
-    width: 175px;
-    transform: scale(0.8) scaleX(-1); /* Scale and flip */
-    transform-origin: bottom right;
-  }
+.wallet-button.disabled img {
+  filter: grayscale(100%) opacity(0.5); /* Matches original */
+}
 
-  .aptos-sunset img {
-    width: 50%;
-    height: auto;
-  }
-
-  .youtube-button {
-    bottom: 348px;
-    width: 275px;
-    transform: scale(0.8);
-    transform-origin: bottom left;
-  }
-
-  .youtube-button img {
-    width: 100%;
-    height: auto;
-  }
-
-  .bluetypea-image {
-    bottom: 388px; /* 348px + 40px (scaled YouTube button height) */
-    width: 275px;
-    transform: scale(0.4);
-    transform-origin: bottom left;
-  }
-
-  .bluetypea-image img {
-    width: 100%;
-    height: auto;
-  }
-
-  #webamp {
-    bottom: 255.2px; /* 348px - 92.8px (scaled Webamp height) */
-    transform: scale(0.8);
-    transform-origin: bottom left;
-  }
+.wallet-button-label {
+  display: block;
+  font-size: 0.8em;
+  margin-top: 5px;
+  color: #fff;
 }
 
 .bee-trail {
@@ -410,4 +317,103 @@ body {
   font-size: 20px;
   pointer-events: none;
   z-index: 50;
+}
+
+/* Single-column layout for mobile (below 600px) */
+@media (max-width: 600px) {
+  .container {
+    max-width: 100%;
+    padding: 10px;
+    gap: 15px;
+    align-items: stretch;
+  }
+
+  .box {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .description p {
+    font-size: 0.9em;
+  }
+
+  .title-logo,
+  .header-gif,
+  .banner,
+  .whitelist-meme,
+  .gif-button img,
+  .whitelist-button-inline img,
+  .wallet-button img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .video-wrapper {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .video-wrapper div {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Move fixed elements into the document flow on mobile */
+  .aptos-sunset,
+  .stargate-button,
+  .twitter-button,
+  .youtube-button,
+  .bluetypea-image,
+  .chat,
+  #webamp {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+    width: 100%;
+    max-width: 275px;
+    margin: 10px auto;
+    z-index: 1;
+  }
+
+  .chat {
+    height: auto;
+    padding: 10px;
+    max-width: 500px;
+    border-radius: 10px;
+    overflow: visible;
+  }
+
+  .chat-log {
+    max-height: 150px;
+  }
+
+  .username-input,
+  .chat-input {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .chat-input input,
+  .username-input input {
+    width: 100%;
+    margin-bottom: 5px;
+    border-radius: 5px; /* Adjust for full-width inputs */
+  }
+
+  .chat-button {
+    width: 100%;
+    border-radius: 5px; /* Adjust for full-width button */
+  }
+
+  #webamp {
+    height: 116px;
+  }
 }
