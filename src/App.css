@@ -193,16 +193,6 @@ body {
   margin: 0;
 }
 
-/* Style for Webamp player */
-#webamp {
-  position: fixed !important;
-  bottom: 232px;
-  left: 0;
-  width: 275px;
-  height: 116px;
-  z-index: 10000;
-}
-
 .chat {
   position: fixed;
   bottom: 0;
@@ -371,8 +361,7 @@ body {
   .twitter-button,
   .youtube-button,
   .bluetypea-image,
-  .chat,
-  #webamp {
+  .chat {
     position: relative;
     bottom: auto;
     left: auto;
@@ -382,18 +371,6 @@ body {
     max-width: 275px;
     margin: 10px auto;
     z-index: 1;
-  }
-
-  /* Ensure MP3 player is clickable */
-  #webamp {
-    height: 116px;
-    z-index: 10; /* Higher z-index to ensure clickability */
-    pointer-events: auto; /* Ensure it can be interacted with */
-  }
-
-  /* Reorder MP3 player to be right before the chat */
-  #webamp {
-    order: 1; /* Default order */
   }
 
   .chat {

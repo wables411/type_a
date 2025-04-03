@@ -1,25 +1,40 @@
 .webamp-container {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 10000; /* Higher than all other elements */
-  width: 0;
-  height: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+  width: 275px; /* Base width before scaling */
+  height: 0;    /* Let Webamp determine height */
+  overflow: visible; /* Ensure scaled content isn’t clipped */
 }
 
 .webamp-container > div[data-webamp-root] {
+  transform: scale(1.5) !important;
+  transform-origin: bottom left !important;
   position: absolute !important;
   bottom: 0 !important;
   left: 0 !important;
-  right: auto !important;
   margin: 0 !important;
-  transform: none !important;
-  z-index: 10000 !important; /* Ensure Webamp is on top */
+  z-index: 10000 !important;
+  width: 275px; /* Base width to ensure scaling starts from correct size */
 }
 
+/* Override Webamp’s inline styles if necessary */
+.webamp-container > div[data-webamp-root] > div {
+  width: 275px !important; /* Match base width */
+}
+
+/* Mobile adjustments */
 @media (max-width: 600px) {
+  .webamp-container {
+    position: relative;
+    width: 100%;
+    max-width: 275px;
+    margin: 10px auto;
+  }
+
   .webamp-container > div[data-webamp-root] {
-    transform: scale(0.8) !important;
+    transform: scale(1.2) !important;
     transform-origin: bottom left !important;
   }
 }

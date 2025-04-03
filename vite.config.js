@@ -5,7 +5,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     hmr: {
-      overlay: true, // Set to false to disable the error overlay if needed
+      overlay: true,
     },
+  },
+  optimizeDeps: {
+    include: ['webamp'],
   },
 });

@@ -4,7 +4,7 @@ import "./Mp3Player.css";
 
 const Mp3Player = () => {
   const webampRef = useRef(null);
-  const containerRef = useRef(null); // Ref for Webamp container
+  const containerRef = useRef(null);
   const isMountedRef = useRef(false);
   const [error, setError] = useState(null);
 
@@ -36,7 +36,16 @@ const Mp3Player = () => {
   ], []);
 
   const tracks = useMemo(() => [
-    { metaData: { artist: "Unknown", title: "￥Cuスタ平" }, url: "/assets/audio/￥Cuスタ平.mp3" },
+    { metaData: { artist: "Unknown", title: "ReoNa" }, url: "/assets/audio/ ANIMA - ReoNa.mp3" },
+    { metaData: { artist: "Unknown", title: "A Cruel Angel's Thesis _Neon Genesis Evangelion" }, url: "/assets/audio/A Cruel Angel's Thesis _Neon Genesis Evangelion_ - Eurobeat Version - LMR Eurobeat.mp3" },
+    { metaData: { artist: "Unknown", title: "again" }, url: "/assets/audio/again - YUI.mp3" },
+    { metaData: { artist: "Unknown", title: "Aqua Timez" }, url: "/assets/audio/ALONES - Aqua Timez.mp3" },
+    { metaData: { artist: "Unknown", title: "LiSA" }, url: "/assets/audio/crossing field - LiSA.mp3" },
+    { metaData: { artist: "Unknown", title: "Hikaru Utada" }, url: "/assets/audio/Face My Fears (English Version) - Hikaru Utada.mp3" },
+    { metaData: { artist: "Unknown", title: "I Really Want to Stay at Your House" }, url: "/assets/audio/I Really Want to Stay at Your House - Rosa Walton.mp3" },
+    { metaData: { artist: "Unknown", title: "TK from Ling tosite sigure" }, url: "/assets/audio/TK from Ling tosite sigure.mp3" },
+    { metaData: { artist: "Unknown", title: "heavenly6" }, url: "/assets/audio/Tommy heavenly6.mp3" },
+    { metaData: { artist: "Unknown", title: "KANA-BOON" }, url: "/assets/audio/シルエット - KANA-BOON.mp3" },
     { metaData: { artist: "Unknown", title: "～架空～ Going My Way _ TEKONDO" }, url: "/assets/audio/～架空～ Going My Way _ TEKONDO.mp3" },
     { metaData: { artist: "Unknown", title: "No One Sleep In Tokyo" }, url: "/assets/audio/Edo Boys - No One Sleep In Tokyo.mp3" },
     { metaData: { artist: "Unknown", title: "spitfire" }, url: "/assets/audio/Go2 - Spitfire (Initial D).mp3" },
@@ -65,18 +74,52 @@ const Mp3Player = () => {
     let isCancelled = false;
 
     const initializeWebamp = async () => {
-      if (isMountedRef.current || isCancelled || !containerRef.current) return;
+      if (isMountedRef.current || isCancelled || !containerRef.current) {
+        console.log('Webamp skipped: already mounted, cancelled, or no container');
+        return;
+      }
 
       try {
+        console.log('Webamp constructor:', Webamp);
+        console.log('Container element:', containerRef.current);
         const webamp = new Webamp({
           initialTracks: tracks,
           initialSkin: { url: skins[0].url },
           availableSkins: skins,
+          __initialWindowLayout: {
+            main: { position: { x: 0, y: 0 } },
+            equalizer: { position: { x: 0, y: 116 } },
+            playlist: { position: { x: 0, y: 232 } },
+          },
         });
         webampRef.current = webamp;
         isMountedRef.current = true;
 
+        console.log('Rendering Webamp into container...');
         await webamp.renderWhenReady(containerRef.current);
+        console.log('Webamp rendered successfully');
+
+        // Check for Webamp root in container
+        const rootInContainer = containerRef.current.querySelector('div[data-webamp-root]');
+        if (rootInContainer) {
+          console.log('Webamp root size in container:', {
+            width: rootInContainer.offsetWidth,
+            height: rootInContainer.offsetHeight,
+          });
+        } else {
+          console.log('No div[data-webamp-root] in container');
+          // Check entire DOM
+          const rootInDom = document.querySelector('div[data-webamp-root]');
+          if (rootInDom) {
+            console.log('Found div[data-webamp-root] elsewhere in DOM:', rootInDom);
+            console.log('Webamp root size in DOM:', {
+              width: rootInDom.offsetWidth,
+              height: rootInDom.offsetHeight,
+            });
+          } else {
+            console.log('No div[data-webamp-root] anywhere in DOM');
+          }
+        }
       } catch (err) {
         if (!isCancelled) {
           console.error("Webamp render failed:", err);
@@ -85,6 +128,7 @@ const Mp3Player = () => {
       }
     };
 
+    console.log('Mp3Player useEffect running');
     initializeWebamp();
 
     return () => {
