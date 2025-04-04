@@ -53,6 +53,7 @@ const Mp3Player = () => {
     { metaData: { artist: "Unknown", title: "Around The World" }, url: "/assets/audio/M.O.V.E - Around The World (Initial D).mp3" },
     { metaData: { artist: "Unknown", title: "exorcism" }, url: "/assets/audio/exorcism.mp3" },
     { metaData: { artist: "Unknown", title: "Rage your dream" }, url: "public/assets/audio/M.O.V.E - Rage your dream (Initial D).mp3" },
+    { metaData: { artist: "Unknown", title: "chAngE" }, url: "/assets/audio/chAngE - miwa.mp3" },
     { metaData: { artist: "Unknown", title: "Strike On" }, url: "/assets/audio/M.O.V.E - Strike On.mp3" },
     { metaData: { artist: "Unknown", title: "Running in The 90s" }, url: "/assets/audio/Max Coveri- Running in The 90s ( Initial D).mp3" },
     { metaData: { artist: "Unknown", title: "Night Of Fire" }, url: "/assets/audio/Niko - Night Of Fire (Extended Mix) (Initial D).mp3" },
