@@ -8,23 +8,24 @@
   "storage": {
     "arweave": {
       "IPFSPath": "https://arweave.net",
-      "key_file_path": "./__K1Qy-xfXGE2AuxYCd3dRxyp7VXPZ76F2Ywyw4YFoQ.json"
+      "key_file_path": "/__K1Qy-xfXGE2AuxYCd3dRxyp7VXPZ76F2Ywyw4YFoQ.json"
     }
   },
   "collection": {
-    "collection_name": "Milady: Type A Test",
-    "description": "this is a test",
+    "collection_name": "milady type a test 2",
+    "description": "another test",
     "cover": "https://arweave.net/wZdNFqKQ3ZNO6DcULU7ntUfyu1he-QiUdP-je6-CeFI",
     "collection_size": 5,
     "royalty_numerator": 5,
     "royalty_denominator": 100,
     "additional_phases": 0,
     "presales_phases": [],
-    "public_sales_start_time": "2025-04-10T19:30:00Z",
-    "public_sales_end_time": "2025-04-11T19:30:00Z",
-    "public_sales_mint_fee": 30000000,
+    "public_sales_start_time": "2025-04-11T13:20:00Z",
+    "public_sales_end_time": "2025-04-12T13:20:00Z",
+    "public_sales_mint_fee": 20000000,
     "public_max_mint": 5,
-    "asset_dir": "./assets",
-    "whitelist_dir": "./whitelist/"
-  }
+    "asset_dir": "/assets",
+    "whitelist_dir": "/whitelist/"
+  },
+  "base_token_uri": "https://arweave.net/HaeNOg0vuB7yacjexRcPPnWYhohbBE6fzVLItmelTi4"
 }

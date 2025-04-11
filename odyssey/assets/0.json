@@ -1,18 +1,6 @@
 {
-
-    "name": "Type A Test",
-    "image": "0.png",
-    "description": "this is a placeholder",
-    "attributes": [
-    
-      {
-    
-        "trait_type": "milady",
-    
-        "value": "please hold . . ."
-    
-      }
-    
-    ]
-    
-  }
+  "name": "Milady Type A #0",
+  "description": "Test NFT",
+  "image": "0.png",
+  "attributes": []
+}
