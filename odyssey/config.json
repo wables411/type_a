@@ -8,7 +8,7 @@
   "storage": {
     "arweave": {
       "IPFSPath": "https://arweave.net",
-      "key_file_path": "/__K1Qy-xfXGE2AuxYCd3dRxyp7VXPZ76F2Ywyw4YFoQ.json"
+      "key_file_path": "./__K1Qy-xfXGE2AuxYCd3dRxyp7VXPZ76F2Ywyw4YFoQ.json"
     }
   },
   "collection": {
@@ -24,7 +24,7 @@
     "public_sales_end_time": "2025-04-11T19:30:00Z",
     "public_sales_mint_fee": 30000000,
     "public_max_mint": 5,
-    "asset_dir": "/assets",
-    "whitelist_dir": "/whitelist/"
+    "asset_dir": "./assets",
+    "whitelist_dir": "./whitelist/"
   }
 }

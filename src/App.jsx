@@ -148,33 +148,28 @@ const App = () => {
       alert('Please connect your wallet first.');
       return;
     }
-
+  
     setIsMinting(true);
     setMintError(null);
-
+  
     try {
       const response = await fetch(`http://localhost:3001/api/get-mint-txn/${account.address}/1`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       });
-
+  
       if (!response.ok) {
         throw new Error(`HTTP error ${response.status}: ${response.statusText}`);
       }
-
-      const { transaction } = await response.json();
-      if (!transaction) {
-        throw new Error('No transaction returned from backend');
+  
+      const { payloads } = await response.json();
+      if (!payloads) {
+        throw new Error('No payloads returned from backend');
       }
-
-      const payload = {
-        type: 'entry_function_payload',
-        function: transaction.function,
-        type_arguments: transaction.type_arguments || [],
-        arguments: transaction.arguments || [],
-      };
-
-      const result = await signAndSubmitTransaction(payload);
+  
+      console.log('Mint payloads:', payloads);
+  
+      const result = await signAndSubmitTransaction(payloads); // Pass payloads directly
       if (result && result.hash) {
         const confirmedTx = await aptos.waitForTransaction({ transactionHash: result.hash });
         alert(`NFT minted successfully! Transaction hash: ${result.hash}`);
@@ -191,7 +186,7 @@ const App = () => {
         errorMessage = 'Minting phase is not currently active. Check the mint schedule.';
       } else if (error.message.includes('HTTP error 500')) {
         errorMessage = 'Minting server error. Please ensure the backend is running.';
-      } else if (error.message.includes('No transaction returned')) {
+      } else if (error.message.includes('No payloads returned')) {
         errorMessage = 'Minting server did not provide a valid transaction.';
       }
       setMintError(errorMessage);
