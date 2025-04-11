@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import { Aptos, AptosConfig, Network } from "@aptos-labs/ts-sdk";
 import { database } from './firebase';
 import { ref, onValue, push } from 'firebase/database';
 import ErrorBoundary from './ErrorBoundary';
@@ -7,7 +8,7 @@ import Player from '@vimeo/player';
 import Mp3Player from './Mp3Player';
 import './App.css';
 
-// Chat component
+// Chat component (unchanged)
 const Chat = () => {
   const [messages, setMessages] = useState(['welcome to milady type_a chat room! say hi to get started']);
   const [chatMessage, setChatMessage] = useState('');
@@ -91,14 +92,19 @@ const Chat = () => {
 };
 
 const App = () => {
-  const { account, connected, disconnect, wallets, connect } = useWallet();
+  const { account, connected, disconnect, wallets, connect, signAndSubmitTransaction } = useWallet();
   const [isConnecting, setIsConnecting] = useState(false);
+  const [isMinting, setIsMinting] = useState(false);
+  const [mintError, setMintError] = useState(null);
   const lastMouseXRef = useRef(null);
   const [playerError, setPlayerError] = useState(null);
   const [retryKey, setRetryKey] = useState(0);
   const iframeRef = useRef(null);
   const playerRef = useRef(null);
   const timeoutRef = useRef(null);
+
+  const aptosConfig = new AptosConfig({ network: Network.TESTNET }); // Adjust to your network (TESTNET for now)
+  const aptos = new Aptos(aptosConfig);
 
   console.log('App rendering');
 
@@ -130,9 +136,68 @@ const App = () => {
     try {
       await disconnect();
       console.log('Disconnected from wallet');
+      setMintError(null);
     } catch (error) {
       console.error('Failed to disconnect wallet:', error);
       alert('Failed to disconnect wallet.');
+    }
+  };
+
+  const handleMint = async () => {
+    if (!connected || !account) {
+      alert('Please connect your wallet first.');
+      return;
+    }
+
+    setIsMinting(true);
+    setMintError(null);
+
+    try {
+      const response = await fetch(`http://localhost:3001/api/get-mint-txn/${account.address}/1`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}: ${response.statusText}`);
+      }
+
+      const { transaction } = await response.json();
+      if (!transaction) {
+        throw new Error('No transaction returned from backend');
+      }
+
+      const payload = {
+        type: 'entry_function_payload',
+        function: transaction.function,
+        type_arguments: transaction.type_arguments || [],
+        arguments: transaction.arguments || [],
+      };
+
+      const result = await signAndSubmitTransaction(payload);
+      if (result && result.hash) {
+        const confirmedTx = await aptos.waitForTransaction({ transactionHash: result.hash });
+        alert(`NFT minted successfully! Transaction hash: ${result.hash}`);
+        console.log('Confirmed transaction:', confirmedTx);
+      } else {
+        throw new Error('Transaction failed: ' + (result.message || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Minting failed:', error);
+      let errorMessage = 'Failed to mint NFT. Please try again.';
+      if (error.message.includes('Insufficient balance')) {
+        errorMessage = 'Insufficient APT balance for minting. Please fund your wallet.';
+      } else if (error.message.includes('Phase not active')) {
+        errorMessage = 'Minting phase is not currently active. Check the mint schedule.';
+      } else if (error.message.includes('HTTP error 500')) {
+        errorMessage = 'Minting server error. Please ensure the backend is running.';
+      } else if (error.message.includes('No transaction returned')) {
+        errorMessage = 'Minting server did not provide a valid transaction.';
+      }
+      setMintError(errorMessage);
+      alert(errorMessage);
+    } finally {
+      setIsMinting(false);
     }
   };
 
@@ -159,10 +224,10 @@ const App = () => {
     console.log('Setting up mousemove listener');
     const handleMouseMove = throttle((e) => {
       const bee = document.createElement('div');
-      bee.classList.add('bee-trail');
+      bee.className = 'bee-trail';
       bee.textContent = '🐝';
-      bee.style.left = (e.pageX + 20) + 'px';
-      bee.style.top = (e.pageY + 20) + 'px';
+      bee.style.left = `${e.pageX + 20}px`;
+      bee.style.top = `${e.pageY + 20}px`;
 
       if (lastMouseXRef.current !== null) {
         const direction = e.pageX > lastMouseXRef.current ? 1 : -1;
@@ -294,7 +359,7 @@ const App = () => {
           <img src="/assets/whitelist.png" alt="whitelist" className="whitelist-meme" />
           <p>𝘾𝙊𝙇𝙇𝙀𝘾𝙏𝙄𝙊𝙉𝙎 𝙀𝙇𝙄𝙂𝙄𝘽𝙇𝙀 𝙁𝙊𝙍 𝙒𝙃𝙄𝙏𝙀𝙇𝙄𝙎𝙏</p>
           <p><a href="https://miladymaker.net/" target="_blank" rel="noreferrer" className="whitelist-link">𝑀𝒾𝓁𝒶𝒹𝓎 𝑀𝒶𝓀𝑒𝓇</a></p>
-          <p><a href="https://remilio.org/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝑒𝓂𝒾𝓁𝒾𝑜</a></p>
+          <p><a href="https://remilio.org/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝑒𝓂𝒾𝓁𝒾𝓸</a></p>
           <p><a href="https://radbro.xyz/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝒶𝒹𝒷𝓇𝓸</a></p>
           <p><a href="https://radbro.xyz/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝒶𝒹𝒸𝒶𝓉</a></p>
           <p><a href="https://www.scatter.art/kawamii" target="_blank" rel="noreferrer" className="whitelist-link">𝒦𝒶𝓌𝒶𝓂𝒾𝒾 𝒯𝑒𝑒𝓃𝓈</a></p>
@@ -332,6 +397,18 @@ const App = () => {
                 <img src="/assets/connectwallet.gif" alt="Disconnect Wallet" />
                 <span className="wallet-button-label">Disconnect Wallet</span>
               </div>
+              <div
+                className={`mint-button ${isMinting ? 'disabled' : ''}`}
+                onClick={handleMint}
+              >
+                <img src="/assets/mintbutton.gif" alt="Mint NFT" />
+                {isMinting ? (
+                  <span className="mint-button-label">Minting...</span>
+                ) : (
+                  <span className="mint-button-label">Mint NFT</span>
+                )}
+              </div>
+              {mintError && <p className="error-text">{mintError}</p>}
             </>
           ) : (
             <div
@@ -339,12 +416,15 @@ const App = () => {
               onClick={handleConnect}
             >
               <img src="/assets/connectwallet.gif" alt="Connect Wallet" />
-              {isConnecting && <span className="wallet-button-label">Connecting...</span>}
+              {isConnecting ? (
+                <span className="wallet-button-label">Connecting...</span>
+              ) : (
+                <span className="wallet-button-label">Connect Wallet</span>
+              )}
             </div>
           )}
         </div>
       </div>
-      {/* Fixed-position elements wrapped in a container for mobile reordering */}
       <div className="fixed-elements">
         <ErrorBoundary>
           <Mp3Player />

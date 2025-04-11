@@ -7,7 +7,7 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <AptosWalletAdapterProvider
-    dappConfig={{ network: Network.DEVNET }}
+    dappConfig={{ network: Network.TESTNET }}
     optInWallets={['Petra']}
     autoConnect={false}
     onError={(error) => console.error('Wallet adapter error:', error)}

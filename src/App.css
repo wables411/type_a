@@ -267,6 +267,10 @@ body {
 .wallet-section {
   margin: 20px 0;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Adds space between wallet and mint buttons */
 }
 
 .wallet-button {
@@ -309,6 +313,47 @@ body {
   z-index: 50;
 }
 
+/* New styles for mint button */
+.mint-button {
+  display: inline-block;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 0 5px 5px 0;
+}
+
+.mint-button img {
+  display: block;
+  width: 100%;
+  max-width: 150px; /* Matches wallet-button size; adjust if mintbutton.gif differs */
+  height: auto;
+}
+
+.mint-button:hover img {
+  filter: brightness(1.2); /* Matches wallet-button hover effect */
+}
+
+.mint-button.disabled {
+  cursor: not-allowed;
+}
+
+.mint-button.disabled img {
+  filter: grayscale(100%) opacity(0.5); /* Matches wallet-button disabled style */
+}
+
+.mint-button-label {
+  display: block;
+  font-size: 0.8em;
+  margin-top: 5px;
+  color: #fff;
+}
+
+/* Update error-text for minting errors */
+.error-text {
+  color: #ff4444;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
 /* Single-column layout for mobile (below 600px) */
 @media (max-width: 600px) {
   .container {
@@ -333,7 +378,8 @@ body {
   .whitelist-meme,
   .gif-button img,
   .whitelist-button-inline img,
-  .wallet-button img {
+  .wallet-button img,
+  .mint-button img {
     width: 100%;
     max-width: 100%;
     height: auto;
@@ -387,10 +433,10 @@ body {
   }
 
   .username-input,
-  .chat-input {
-    flex-direction: column;
-    align-items: stretch;
-  }
+.chat-input {
+  flex-direction: column;
+  align-items: stretch;
+}
 
   .chat-input input,
   .username-input input {
@@ -413,5 +459,9 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
+  }
+
+  .wallet-section {
+    gap: 15px; /* Slightly larger gap for mobile readability */
   }
 }
