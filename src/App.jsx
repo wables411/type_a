@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import { database } from './firebase';
 import { ref, onValue, push } from 'firebase/database';
 import ErrorBoundary from './ErrorBoundary';
@@ -91,50 +90,14 @@ const Chat = () => {
 };
 
 const App = () => {
-  const { account, connected, disconnect, wallets, connect } = useWallet();
-  const [isConnecting, setIsConnecting] = useState(false);
-  const lastMouseXRef = useRef(null);
   const [playerError, setPlayerError] = useState(null);
   const [retryKey, setRetryKey] = useState(0);
   const iframeRef = useRef(null);
   const playerRef = useRef(null);
   const timeoutRef = useRef(null);
+  const lastMouseXRef = useRef(null);
 
   console.log('App rendering');
-
-  const handleConnect = async () => {
-    if (!wallets || wallets.length === 0) {
-      alert('No wallets available. Please install Petra Wallet.');
-      return;
-    }
-
-    setIsConnecting(true);
-    try {
-      await connect('Petra');
-      console.log('Connected to wallet:', account);
-    } catch (error) {
-      console.error('Failed to connect to wallet:', error);
-      let errorMessage = 'Failed to connect wallet. Please ensure Petra Wallet is installed and try again.';
-      if (error.message?.includes('Wallet not found')) {
-        errorMessage = 'Petra Wallet not found. Please install the Petra Wallet extension.';
-      } else if (error.message?.includes('Connection failed')) {
-        errorMessage = 'Failed to connect to Petra Wallet. Please try again.';
-      }
-      alert(errorMessage);
-    } finally {
-      setIsConnecting(false);
-    }
-  };
-
-  const handleDisconnect = async () => {
-    try {
-      await disconnect();
-      console.log('Disconnected from wallet');
-    } catch (error) {
-      console.error('Failed to disconnect wallet:', error);
-      alert('Failed to disconnect wallet.');
-    }
-  };
 
   const throttle = (func, limit) => {
     let lastFunc;
@@ -182,13 +145,6 @@ const App = () => {
       document.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
-
-  useEffect(() => {
-    if (connected) {
-      console.log('Wallet connected:', connected);
-      console.log('Wallet account object:', account);
-    }
-  }, [connected, account]);
 
   useEffect(() => {
     if (iframeRef.current && !playerRef.current) {
@@ -250,8 +206,6 @@ const App = () => {
     setRetryKey((prev) => prev + 1);
   };
 
-  const walletAddress = account?.address?.toString() || 'Unknown Address';
-
   return (
     <>
       <div className="container">
@@ -261,12 +215,29 @@ const App = () => {
         </div>
         <div className="box description">
           <p>
-            𝙼𝚒𝚕𝚊𝚍𝚢 : 𝚃𝚢𝚙𝚎 𝙰 𝚒𝚜 𝚊 𝚌𝚘𝚕𝚕𝚎𝚌𝚝𝚒𝚘𝚗 𝚘𝚏 𝟺,𝟺𝟺𝟺 𝚐𝚎𝚗𝚎𝚛𝚊𝚝𝚒𝚟𝚎 𝚙𝚏𝚙𝙽𝙵𝚃&apos;𝚜 𝚒𝚗 𝚊 𝚗𝚎𝚘𝚌𝚑𝚒𝚋𝚒 𝚊𝚎𝚜𝚝𝚑𝚎𝚝𝚒𝚌 𝚒𝚗𝚜𝚙𝚒𝚛𝚎𝚍 𝚋𝚢 𝙼𝚒𝚕𝚊𝚍𝚢 𝙼𝚊𝚔𝚎𝚛 𝙽𝙵𝚃, 𝚁𝚎𝚖𝚒𝚕𝚒𝚊 𝙲𝚘𝚛𝚙𝚘𝚛𝚊𝚝𝚒𝚘𝚗, 𝚊𝚜 𝚠𝚎𝚕𝚕 𝚊𝚜 𝚒𝚝𝚜 𝚖𝚊𝚗𝚢 𝚍𝚎𝚛𝚒𝚟𝚊𝚝𝚒𝚟𝚎𝚜. 𝚃𝚢𝚙𝚎 𝙰 𝚛𝚎𝚙𝚛𝚎𝚜𝚎𝚗𝚝𝚜 𝚎𝚕𝚎𝚖𝚎𝚗𝚝𝚜 𝚘𝚏 𝚑𝚒𝚐𝚑-𝚙𝚎𝚛𝚏𝚘𝚛𝚖𝚊𝚗𝚌𝚎 𝚊𝚝𝚝𝚛𝚒𝚋𝚞𝚝𝚎𝚍 𝚋𝚢 𝚝𝚑𝚎 𝚌𝚘𝚖𝚖𝚞𝚗𝚒𝚝𝚢 𝚊𝚗𝚍 𝚌𝚞𝚕𝚝𝚞𝚛𝚊𝚕 𝚒𝚌𝚘𝚗𝚜 𝚘𝚗 𝚝𝚑𝚎 𝙰𝚙𝚝𝚘𝚜 𝚗𝚎𝚝𝚠𝚘𝚛𝚔.
+            𝙼𝚒𝚕𝚊𝚍𝚢 : 𝚃𝚢𝚙𝚎 𝙰 𝚒𝚜 𝚊 𝚌𝚘𝚕𝚕𝚎𝚌𝚝𝚒𝚘𝚗 𝚘𝚏 𝟺,𝟺𝟺𝟺 𝚐𝚎𝚗𝚎𝚛𝚊𝚝𝚒𝚟𝚎 𝚙𝚏𝚙𝙽𝙵𝚃&apos;𝚜 𝚒𝚗 𝚊 𝚗𝚎𝚘𝚌𝚑𝚒𝚋𝚒 𝚊𝚎𝚜𝚝𝚑𝚎𝚝𝚒𝚌 𝚒𝚗𝚜𝚙𝚒𝚛𝚎𝚍 𝚋𝚢 𝙼𝚒𝚕𝚊𝚍𝚢 𝙼𝚊𝚔𝚎𝚛 𝙽𝙵𝚃, 𝚁𝚎𝚖𝚒𝚕𝚒𝚊 𝙲𝚘𝚙𝚘𝚛𝚊𝚝𝚒𝚘𝚗, 𝚊𝚜 𝚠𝚎𝚕𝚕 𝚊𝚜 𝚒𝚝𝚜 𝚖𝚊𝚗𝚢 𝚍𝚎𝚛𝚒𝚟𝚊𝚝𝚒𝚟𝚎𝚜. 𝚃𝚢𝚙𝚎 𝙰 𝚛𝚎𝚙𝚛𝚎𝚜𝚎𝚗𝚝𝚜 𝚎𝚕𝚎𝚖𝚎𝚗𝚝𝚜 𝚘𝚏 𝚑𝚒𝚐𝚑-𝚙𝚎𝚛𝚏𝚘𝚛𝚖𝚊𝚗𝚌𝚎 𝚊𝚝𝚝𝚛𝚒𝚋𝚞𝚝𝚎𝚍 𝚋𝚢 𝚝𝚑𝚎 𝚌𝚘𝚖𝚖𝚞𝚗𝚒𝚝𝚢 𝚊𝚗𝚍 𝚌𝚞𝚕𝚝𝚞𝚛𝚊𝚕 𝚒𝚌𝚘𝚗𝚜 𝚘𝚗 𝚝𝚑𝚎 𝙰𝚙𝚝𝚘𝚜 𝚗𝚎𝚝𝚠𝚘𝚛𝚔.
           </p>
         </div>
         <img src="/assets/banner.jpg" alt="Banner" className="banner" />
         <div className="box minting">
-          <p>𝙱𝚛𝚒𝚍𝚐𝚒𝚗𝚐 𝙼𝚒𝚕𝚊𝚍𝚢 𝚝𝚘 𝙰𝚙𝚝𝚘𝚜 S𝚙𝚛𝚒𝚗𝚐 2025 🌐🤍🌷</p>
+          <p>B̶r̶i̶d̶g̶i̶n̶g̶ ̶M̶i̶l̶a̶d̶y̶ ̶t̶o̶ ̶A̶p̶t̶o̶s̶ ̶S̶p̶r̶i̶n̶g̶ ̶2̶0̶2̶5̶ 🌐🤍🌷</p>
+          <p>𝙼𝚒𝚕𝚊𝚍𝚢 𝙼𝚒𝚗𝚝𝚒𝚗𝚐 𝚁𝚒𝚐𝚑𝚝 𝙽𝚘𝚠 𝚘𝚗 𝙰𝚙𝚝𝚘𝚜 🌐🤍🌷</p>
+          <a
+            href="https://launchpad.wapal.io/nft/milady-type-a"
+            target="_blank"
+            rel="noreferrer"
+            className="gif-button mint-button"
+          >
+            <img src="/assets/mintbutton.gif" alt="Mint Button" />
+          </a>
+          <a
+            href="https://www.tradeport.xyz/aptos/collection/0xd876f468c5cef5c5d0e100a28dd84ce87a640a6d4e391b379108f84e36da6c32"
+            target="_blank"
+            rel="noreferrer"
+            className="gif-button secondary-button"
+          >
+            <img src="/assets/secondarybutton.gif" alt="Secondary Button" />
+          </a>
           <div className="video-wrapper">
             <div style={{ position: 'relative', width: '375px', height: '211px' }}>
               <iframe
@@ -294,7 +265,7 @@ const App = () => {
           <img src="/assets/whitelist.png" alt="whitelist" className="whitelist-meme" />
           <p>𝘾𝙊𝙇𝙇𝙀𝘾𝙏𝙄𝙊𝙉𝙎 𝙀𝙇𝙄𝙂𝙄𝘽𝙇𝙀 𝙁𝙊𝙍 𝙒𝙃𝙄𝙏𝙀𝙇𝙄𝙎𝙏</p>
           <p><a href="https://miladymaker.net/" target="_blank" rel="noreferrer" className="whitelist-link">𝑀𝒾𝓁𝒶𝒹𝓎 𝑀𝒶𝓀𝑒𝓇</a></p>
-          <p><a href="https://remilio.org/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝑒𝓂𝒾𝓁𝒾𝑜</a></p>
+          <p><a href="https://remilio.org/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝑒𝓂𝒾𝓁𝒾𝓸</a></p>
           <p><a href="https://radbro.xyz/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝒶𝒹𝒷𝓇𝓸</a></p>
           <p><a href="https://radbro.xyz/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝒶𝒹𝒸𝒶𝓉</a></p>
           <p><a href="https://www.scatter.art/kawamii" target="_blank" rel="noreferrer" className="whitelist-link">𝒦𝒶𝓌𝒶𝓂𝒾𝒾 𝒯𝑒𝑒𝓃𝓈</a></p>
@@ -310,38 +281,12 @@ const App = () => {
             <img src="/assets/wlform.gif" alt="Whitelist Form" />
           </a>
           <p>𝘗𝘭𝘦𝘢𝘴𝘦 𝘧𝘪𝘭𝘭 𝘪𝘯 𝘢𝘭𝘭 𝘸𝘢𝘭𝘭𝘦𝘵𝘴 𝘩𝘰𝘭𝘥𝘪𝘯𝘨 𝘸𝘩𝘪𝘵𝘦𝘭𝘪𝘴𝘵 𝘦𝘭𝘪𝘨𝘪𝘣𝘭𝘦 𝘢𝘴𝘴𝘦𝘵𝘴 𝘷𝘪𝘢 𝘧𝘰𝘳𝘮, 𝘵𝘩𝘦𝘯 𝘢𝘥𝘥 “🤍🌐” 𝘵𝘰 𝘺𝘰𝘶𝘳 𝘔𝘢𝘨𝘪𝘤 𝘌𝘥𝘦𝘯 𝘣𝘪𝘰 𝘶𝘯𝘵𝘪𝘭 𝘤𝘰𝘯𝘵𝘢𝘤𝘵𝘦𝘥 𝘸𝘪𝘵𝘩 𝘤𝘰𝘯𝘧𝘪𝘳𝘮𝘢𝘵𝘪𝘰𝘯 𝘴𝘰 𝘵𝘩𝘢𝘵 𝘸𝘦 𝘤𝘢𝘯 𝘷𝘦𝘪𝘧𝘺 𝘰𝘸𝘯𝘦𝘳𝘴𝘩𝘪𝘱 𝘰𝘧 𝘸𝘢𝘭𝘭𝘦𝘵 𝘢𝘥𝘥𝘳𝘦𝘴𝘴𝘦𝘴</p>
+          <p>*snapshot taken 04142025*</p>
           <p>˜”*°•.˜”*°•°*”˜˜”*°•.˜”*°•°*”˜.•°*”˜°*”˜.•°*”˜</p>
           <p>𝙈𝙄𝙉𝙏 𝙋𝙍𝙊𝘾𝙀𝙀𝘿𝙎</p>
           <p>𝟸𝟶% 𝚘𝚏 𝚖𝚒𝚗𝚝 𝚙𝚛𝚘𝚌𝚎𝚎𝚍𝚜 𝚍𝚒𝚛𝚎𝚌𝚝𝚎𝚍 𝚝𝚘𝚠𝚊𝚛𝚍𝚜 𝚛𝚎𝚖𝚒𝚕𝚒𝚊 𝚝𝚛𝚎𝚊𝚜𝚞𝚛𝚢</p>
           <p>𝟻% 𝚍𝚒𝚛𝚎𝚌𝚝𝚎𝚍 𝚝𝚘𝚠𝚊𝚛𝚍𝚜 𝚎𝚖𝚘𝚓𝚒𝚌𝚘𝚒𝚗 𝚊𝚜𝚜𝚎𝚝𝚜 𝚘𝚗 𝙰𝚙𝚝𝚘𝚜! 🌐🐝🧀</p>
           <p>𝟻% 𝚊𝚕𝚕𝚘𝚌𝚊𝚝𝚎𝚍 𝚏𝚘𝚛 𝚐𝚒𝚟𝚎𝚊𝚠𝚊𝚢𝚜/𝚌𝚘𝚗𝚝𝚎𝚜𝚝 𝚠𝚒𝚝𝚑𝚒𝚗 𝚝𝚑𝚎 𝚌𝚘𝚖𝚖𝚞𝚗𝚒𝚝𝚢</p>
-        </div>
-        <div className="wallet-section">
-          {connected ? (
-            <>
-              <p>
-                Connected as:{' '}
-                {walletAddress !== 'Unknown Address'
-                  ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`
-                  : walletAddress}
-              </p>
-              <div
-                className={`wallet-button ${isConnecting ? 'disabled' : ''}`}
-                onClick={handleDisconnect}
-              >
-                <img src="/assets/connectwallet.gif" alt="Disconnect Wallet" />
-                <span className="wallet-button-label">Disconnect Wallet</span>
-              </div>
-            </>
-          ) : (
-            <div
-              className={`wallet-button ${isConnecting ? 'disabled' : ''}`}
-              onClick={handleConnect}
-            >
-              <img src="/assets/connectwallet.gif" alt="Connect Wallet" />
-              {isConnecting && <span className="wallet-button-label">Connecting...</span>}
-            </div>
-          )}
         </div>
       </div>
       {/* Fixed-position elements wrapped in a container for mobile reordering */}

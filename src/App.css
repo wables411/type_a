@@ -136,6 +136,36 @@ body {
   height: auto;
 }
 
+.mint-button,
+.secondary-button {
+  margin: 10px 0;
+}
+
+.mint-button img,
+.secondary-button img {
+  width: 100%;
+  max-width: 300px !important; /* Match other gif-button styles */
+  height: auto;
+}
+
+/* Ensure buttons are centered and responsive on mobile */
+@media (max-width: 600px) {
+  .mint-button,
+  .secondary-button {
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+    display: block;
+  }
+
+  .mint-button img,
+  .secondary-button img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
 .whitelist-button-inline {
   margin: 10px 0;
 }
