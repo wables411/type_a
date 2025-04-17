@@ -23,7 +23,7 @@ body {
 /* Container for consistent width */
 .container {
   width: 100%;
-  max-width: 1000px; /* Increased for MacBook and large screens */
+  max-width: 1000px; /* Matches screenshot */
   min-width: 320px; /* Ensures minimum width on mobile */
   padding: 20px;
   display: flex;
@@ -61,7 +61,7 @@ body {
 .title-logo,
 .header-gif {
   width: 100%;
-  max-width: clamp(400px, 50vw, 600px); /* Scales with viewport */
+  max-width: clamp(400px, 50vw, 600px); /* Matches screenshot */
   height: auto;
 }
 
@@ -219,9 +219,9 @@ body {
 
 .youtube-button {
   position: fixed;
-  top: 200px; /* Below bluetypea-image */
+  top: calc(200px + 100vh * 0); /* Dynamic, below bluetypea-image */
   left: 0;
-  width: clamp(400px, 50vw, 500px); /* Match mp3-player width */
+  width: clamp(500px, 40vw, 600px); /* Larger default */
   z-index: 10000;
   margin: 0;
 }
@@ -230,16 +230,18 @@ body {
   position: fixed;
   top: 0; /* Top of page */
   left: 0;
-  width: clamp(160px, 12vw, 200px); /* Smaller than youtube-button */
+  width: clamp(160px, 12vw, 200px); /* Matches screenshot */
   z-index: 10000;
   margin: 0;
+  max-height: 100vh; /* Prevent cutoff */
+  object-fit: contain; /* Ensure full visibility */
 }
 
 .mp3-player {
   position: fixed;
-  top: 400px; /* Below youtube-button */
+  top: calc(400px + 100vh * 0); /* Dynamic, below youtube-button */
   left: 0;
-  width: clamp(400px, 50vw, 500px); /* Same as youtube-button */
+  width: clamp(500px, 40vw, 600px); /* Matches youtube-button */
   z-index: 10000;
   margin: 0;
 }
@@ -369,7 +371,7 @@ body {
   .fixed-elements {
     max-width: 100%;
     padding: 10px;
-    gap: 15px;
+    gap: 20px; /* Increased for spacing */
     align-items: center;
   }
 
@@ -391,9 +393,11 @@ body {
   .whitelist-button-inline img,
   .wallet-button img {
     width: 100%;
-    max-width: 100%;
+    max-width: clamp(250px, 85vw, 350px); /* Better mobile scaling */
     height: auto;
-    margin: 0 auto;
+    margin: 15px auto; /* Increased spacing */
+    max-height: none; /* Prevent cutoff */
+    object-fit: contain; /* Ensure full visibility */
   }
 
   .video-wrapper {
@@ -429,9 +433,11 @@ body {
     right: auto;
     transform: none; /* Remove desktop transform */
     width: 100%;
-    max-width: clamp(220px, 80vw, 275px); /* Center and scale */
-    margin: 10px auto;
+    max-width: clamp(250px, 85vw, 350px); /* Matches other elements */
+    margin: 15px auto; /* Increased spacing */
     z-index: 1;
+    max-height: none; /* Prevent cutoff */
+    object-fit: contain; /* Ensure full visibility */
   }
 
   .chat {
@@ -474,20 +480,23 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    margin: 15px auto;
   }
 }
 
-/* Desktop screens (MacBook and larger) */
-@media (min-width: 769px) {
-  .container,
-  .fixed-elements {
-    padding: 20px;
+/* Larger desktop screens (1920px and up) */
+@media (min-width: 1920px) {
+  .youtube-button {
+    top: calc(200px + 100vh * 0.05); /* Adjust for taller screens */
+    width: clamp(600px, 35vw, 700px); /* Larger for ultra-wide */
   }
 
-  .title-logo,
-  .header-gif,
-  .banner,
-  .box {
-    max-width: clamp(500px, 50vw, 600px); /* Consistent across desktop sizes */
+  .bluetypea-image {
+    width: clamp(200px, 10vw, 250px); /* Slightly larger */
+  }
+
+  .mp3-player {
+    top: calc(400px + 100vh * 0.05); /* Adjust for taller screens */
+    width: clamp(600px, 35vw, 700px); /* Matches youtube-button */
   }
 }
