@@ -1,6 +1,13 @@
-body {
+/* src/App.css */
+
+/* Reset and base styles */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   font-family: "Arial", sans-serif;
   background: url("/assets/initiald.gif") no-repeat center center fixed;
   background-size: cover;
@@ -13,8 +20,11 @@ body {
   overflow-y: auto;
 }
 
+/* Container for consistent width */
 .container {
-  max-width: 800px;
+  width: 100%;
+  max-width: 800px; /* Caps width to match laptop proportions */
+  min-width: 320px; /* Ensures minimum width on mobile */
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -26,6 +36,19 @@ body {
   margin: 0 auto;
 }
 
+/* Fixed elements container */
+.fixed-elements {
+  width: 100%;
+  max-width: 800px; /* Aligns with .container */
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Image wrapper */
 .image-wrapper {
   display: flex;
   flex-direction: column;
@@ -42,27 +65,30 @@ body {
   height: auto;
 }
 
+/* Box styling */
 .box {
   background: rgba(0, 0, 0, 0.7);
-  border: 2px solid #21aaf4 !important; /* Override style.css */
+  border: 2px solid #21aaf4;
   border-radius: 10px;
   padding: 20px;
   width: 100%;
   max-width: 500px;
-  box-sizing: border-box;
   text-align: center;
   position: relative;
   z-index: 20;
 }
 
+/* Description */
 .description p {
-  font-size: 1.1em;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   line-height: 1.5;
   margin: 0;
 }
 
+/* Minting section */
 .minting p {
   margin: 10px 0;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
 }
 
 .whitelist-meme {
@@ -73,7 +99,7 @@ body {
 }
 
 .whitelist-link {
-  color: #21aaf4 !important; /* Override style.css */
+  color: #21aaf4;
   text-decoration: none;
   font-weight: bold;
 }
@@ -82,6 +108,7 @@ body {
   text-decoration: underline;
 }
 
+/* Video wrapper */
 .video-wrapper {
   margin: 20px 0;
   display: flex;
@@ -95,6 +122,7 @@ body {
   height: 211px;
 }
 
+/* Error container */
 .error-container {
   margin-top: 10px;
   text-align: center;
@@ -116,15 +144,17 @@ body {
 }
 
 .retry-button:hover {
-  background: #ff85c0; /* Matches chat-button hover color */
+  background: #ff85c0;
 }
 
+/* Banner */
 .banner {
   width: 100%;
   max-width: 500px;
   height: auto;
 }
 
+/* Buttons */
 .gif-button {
   display: block;
   margin: 20px 0;
@@ -132,7 +162,7 @@ body {
 
 .gif-button img {
   width: 100%;
-  max-width: 300px !important; /* Override style.css */
+  max-width: 300px;
   height: auto;
 }
 
@@ -144,26 +174,8 @@ body {
 .mint-button img,
 .secondary-button img {
   width: 100%;
-  max-width: 300px !important; /* Match other gif-button styles */
+  max-width: 300px;
   height: auto;
-}
-
-/* Ensure buttons are centered and responsive on mobile */
-@media (max-width: 600px) {
-  .mint-button,
-  .secondary-button {
-    width: 100%;
-    max-width: 300px;
-    margin: 10px auto;
-    display: block;
-  }
-
-  .mint-button img,
-  .secondary-button img {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-  }
 }
 
 .whitelist-button-inline {
@@ -172,7 +184,7 @@ body {
 
 .whitelist-button-inline img {
   width: 100%;
-  max-width: 300px !important; /* Override style.css */
+  max-width: 300px;
   height: auto;
 }
 
@@ -223,6 +235,14 @@ body {
   margin: 0;
 }
 
+/* MP3 player */
+.mp3-player {
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+/* Chat */
 .chat {
   position: fixed;
   bottom: 0;
@@ -237,7 +257,7 @@ body {
 }
 
 .chat p {
-  font-size: 0.8em;
+  font-size: 0.8rem;
   margin: 0 0 5px 0;
 }
 
@@ -249,7 +269,7 @@ body {
   max-height: 250px;
   overflow-y: auto;
   margin-bottom: 5px;
-  font-size: 1em;
+  font-size: 0.9rem;
 }
 
 .chat-log p {
@@ -272,7 +292,7 @@ body {
   color: #fff;
   outline: none;
   width: 80%;
-  font-size: 0.9em;
+  font-size: 0.9rem;
 }
 
 .chat-button {
@@ -282,7 +302,7 @@ body {
   padding: 5px 10px;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
-  font-size: 0.9em;
+  font-size: 0.9rem;
 }
 
 .chat-button:hover {
@@ -294,6 +314,7 @@ body {
   cursor: not-allowed;
 }
 
+/* Wallet section */
 .wallet-section {
   margin: 20px 0;
   text-align: center;
@@ -327,11 +348,12 @@ body {
 
 .wallet-button-label {
   display: block;
-  font-size: 0.8em;
+  font-size: 0.8rem;
   margin-top: 5px;
   color: #fff;
 }
 
+/* Bee trail */
 .bee-trail {
   position: absolute;
   font-size: 20px;
@@ -339,13 +361,14 @@ body {
   z-index: 50;
 }
 
-/* Single-column layout for mobile (below 600px) */
-@media (max-width: 600px) {
-  .container {
+/* Mobile styles (below 768px) */
+@media (max-width: 768px) {
+  .container,
+  .fixed-elements {
     max-width: 100%;
     padding: 10px;
     gap: 15px;
-    align-items: center; /* Ensure all children are centered */
+    align-items: center;
   }
 
   .box {
@@ -353,8 +376,9 @@ body {
     max-width: 100%;
   }
 
-  .description p {
-    font-size: 0.9em;
+  .description p,
+  .minting p {
+    font-size: clamp(0.8rem, 2.5vw, 0.9rem);
   }
 
   .title-logo,
@@ -367,7 +391,7 @@ body {
     width: 100%;
     max-width: 100%;
     height: auto;
-    margin: 0 auto; /* Center images */
+    margin: 0 auto;
   }
 
   .video-wrapper {
@@ -385,7 +409,12 @@ body {
     height: 100%;
   }
 
-  /* Move fixed elements into the document flow on mobile */
+  /* Hide MP3 player on mobile (fallback) */
+  .mp3-player {
+    display: none;
+  }
+
+  /* Move fixed elements into document flow */
   .aptos-sunset,
   .stargate-button,
   .twitter-button,
@@ -404,7 +433,7 @@ body {
   }
 
   .chat {
-    order: 2; /* Place chat after MP3 player */
+    order: 2;
     height: auto;
     padding: 10px;
     max-width: 500px;
@@ -434,7 +463,7 @@ body {
     border-radius: 5px;
   }
 
-  /* Ensure all elements are centered */
+  /* Center all elements */
   .image-wrapper,
   .box,
   .wallet-section,
@@ -443,5 +472,27 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
+  }
+}
+
+/* Laptop and medium screens */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .container,
+  .fixed-elements {
+    padding: 15px;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1201px) {
+  .container,
+  .fixed-elements {
+    padding: 20px;
+  }
+
+  .title-logo,
+  .header-gif,
+  .banner {
+    max-width: 600px; /* Slightly larger for large screens */
   }
 }
