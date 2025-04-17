@@ -219,9 +219,9 @@ body {
 
 .youtube-button {
   position: fixed;
-  top: calc(200px + 100vh * 0); /* Dynamic, below bluetypea-image */
+  top: calc(200px + 100vh * 0.05); /* Dynamic, below bluetypea-image */
   left: 0;
-  width: clamp(500px, 40vw, 600px); /* Larger default */
+  width: clamp(550px, 40vw, 650px); /* Slightly larger default */
   z-index: 10000;
   margin: 0;
 }
@@ -231,7 +231,7 @@ body {
   top: 0; /* Top of page */
   left: 0;
   width: clamp(160px, 12vw, 200px); /* Matches screenshot */
-  z-index: 10000;
+  z-index: 10001; /* Above other elements */
   margin: 0;
   max-height: 100vh; /* Prevent cutoff */
   object-fit: contain; /* Ensure full visibility */
@@ -239,9 +239,9 @@ body {
 
 .mp3-player {
   position: fixed;
-  top: calc(400px + 100vh * 0); /* Dynamic, below youtube-button */
+  top: calc(400px + 100vh * 0.1); /* Dynamic, below youtube-button, reduced gap */
   left: 0;
-  width: clamp(500px, 40vw, 600px); /* Matches youtube-button */
+  width: clamp(550px, 40vw, 650px); /* Matches youtube-button */
   z-index: 10000;
   margin: 0;
 }
@@ -421,11 +421,11 @@ body {
   }
 
   /* Move fixed elements into document flow for single-column layout */
+  .bluetypea-image,
+  .youtube-button,
   .aptos-sunset,
   .stargate-button,
   .twitter-button,
-  .youtube-button,
-  .bluetypea-image,
   .chat {
     position: relative;
     top: auto;
@@ -440,8 +440,28 @@ body {
     object-fit: contain; /* Ensure full visibility */
   }
 
-  .chat {
+  /* Ensure correct order */
+  .fixed-elements > .bluetypea-image {
+    order: 1;
+  }
+  .fixed-elements > .youtube-button {
     order: 2;
+  }
+  .fixed-elements > .aptos-sunset {
+    order: 3;
+  }
+  .fixed-elements > .stargate-button {
+    order: 4;
+  }
+  .fixed-elements > .twitter-button {
+    order: 5;
+  }
+  .fixed-elements > .chat {
+    order: 6;
+  }
+
+  .chat {
+    order: 6;
     height: auto;
     padding: 10px;
     max-width: clamp(300px, 90vw, 500px);
@@ -488,7 +508,7 @@ body {
 @media (min-width: 1920px) {
   .youtube-button {
     top: calc(200px + 100vh * 0.05); /* Adjust for taller screens */
-    width: clamp(600px, 35vw, 700px); /* Larger for ultra-wide */
+    width: clamp(650px, 35vw, 750px); /* Larger for ultra-wide */
   }
 
   .bluetypea-image {
@@ -496,7 +516,7 @@ body {
   }
 
   .mp3-player {
-    top: calc(400px + 100vh * 0.05); /* Adjust for taller screens */
-    width: clamp(600px, 35vw, 700px); /* Matches youtube-button */
+    top: calc(400px + 100vh * 0.05); /* Adjust for taller screens, reduced gap */
+    width: clamp(650px, 35vw, 750px); /* Matches youtube-button */
   }
 }
