@@ -81,7 +81,7 @@ const Chat = () => {
           onChange={(e) => setChatMessage(e.target.value)}
           onKeyPress={handleKeyPress}
           placeholder="Type your message..."
-          maxLength="100"
+          maxLength="200"
         />
         <button onClick={sendMessage} className="chat-button">Send</button>
       </div>
