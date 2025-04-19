@@ -239,56 +239,70 @@ const App = () => {
           loading="lazy"
         />
         <div className="box minting">
-          <p>B̶r̶i̶d̶g̶i̶n̶g̶ ̶M̶i̶l̶a̶d̶y̶ ̶t̶o̶ ̶A̶p̶t̶o̶s̶ ̶S̶p̶r̶i̶n̶g̶ ̶2̶0̶2̶5̶ 🌐🤍🌷</p>
-          <p>𝙼𝚒𝚕𝚊𝚍𝚢 𝙼𝚒𝚗𝚝𝚒𝚗𝚐 𝚁𝚒𝚐𝚑𝚝 𝙽𝚘𝚠 𝚘𝚗 𝙰𝚙𝚝𝚘𝚜 🌐🤍🌷</p>
-          <a
-            href="https://launchpad.wapal.io/nft/milady-type-a"
-            target="_blank"
-            rel="noreferrer"
-            className="gif-button mint-button"
-          >
-            <img src="/assets/mintbutton.gif" alt="Mint Button" loading="lazy" />
-          </a>
-          <a
-            href="https://www.tradeport.xyz/aptos/collection/0xd876f468c5cef5c5d0e100a28dd84ce87a640a6d4e391b379108f84e36da6c32"
-            target="_blank"
-            rel="noreferrer"
-            className="gif-button secondary-button"
-          >
-            <img src="/assets/secondarybutton.gif" alt="Secondary Button" loading="lazy" />
-          </a>
-          <div className="video-wrapper">
-            <div style={{ position: 'relative', width: '375px', height: '211px' }}>
-              <iframe
-                key={retryKey}
-                ref={iframeRef}
-                src="https://player.vimeo.com/video/1070103341?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0&transparent=0"
-                title="type_a"
-                frameBorder="0"
-                allow="autoplay; fullscreen; picture-in-picture"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                loading="lazy"
-              ></iframe>
-            </div>
-            {playerError && (
-              <div className="error-container">
-                <p className="error-text">{playerError}</p>
-                <button onClick={handleRetry} className="retry-button">
-                  Retry
-                </button>
-              </div>
-            )}
-          </div>
-          <p>𝟺,𝟺𝟺𝟺 𝚜𝚞𝚙𝚙𝚕𝚢 🌐🤍 𝟷,𝟺𝟺𝟺 𝚏𝚛𝚎𝚎 𝚖𝚒𝚗𝚝𝚜</p>
-          <p>𝚙𝚞𝚋𝚕𝚒𝚌 𝚖𝚒𝚗𝚝 🌐🤍 𝟷𝟷 𝙰𝙿𝚃𝙾𝚂</p>
-          <p>𝟷,𝟶𝟶𝟶 𝚍𝚒𝚜𝚌𝚘𝚞𝚗𝚝𝚎𝚍 𝚖𝚒𝚗𝚝𝚜 🌐🤍 𝟻 𝙰𝙿𝚃𝙾𝚂</p>
-          <img
-            src="/assets/whitelist.png"
-            alt="whitelist"
-            className="whitelist-meme"
-            loading="lazy"
-          />
-          <p>𝘾𝙊𝙇𝙇𝙀𝘾𝙏𝙄𝙊𝙉𝙎 𝙀𝙇𝙄𝙂𝙄𝘽𝙇𝙀 𝙁𝙊𝙍 𝙒𝙃𝙄𝙏𝙀𝙇𝙄𝙎𝙏</p>
+  <p>B̶r̶i̶d̶g̶i̶n̶g̶ ̶M̶i̶l̶a̶d̶y̶ ̶t̶o̶ ̶A̶p̶t̶o̶s̶ ̶S̶p̶r̶i̶n̶g̶ ̶2̶0̶2̶5̶ 🌐🤍🌷</p>
+  <p>𝙼𝚒𝚕𝚊𝚍𝚢 𝙼𝚒𝚗𝚝𝚒𝚗𝚐 𝚁𝚒𝚐𝚑𝚝 𝙽𝚘𝚠 𝚘𝚗 𝙰𝚙𝚝𝚘𝚜 🌐🤍🌷</p>
+  <a
+    href="https://launchpad.wapal.io/nft/milady-type-a"
+    target="_blank"
+    rel="noreferrer"
+    className="gif-button mint-button"
+  >
+    <img src="/assets/mintbutton.gif" alt="Mint Button" loading="lazy" />
+  </a>
+  <a
+    href="https://www.tradeport.xyz/aptos/collection/0xd876f468c5cef5c5d0e100a28dd84ce87a640a6d4e391b379108f84e36da6c32"
+    target="_blank"
+    rel="noreferrer"
+    className="gif-button secondary-button"
+  >
+    <img src="/assets/secondarybutton.gif" alt="Secondary Button" loading="lazy" />
+  </a>
+  <div className="video-wrapper">
+    <div style={{ position: 'relative', width: '375px', height: '211px' }}>
+      <iframe
+        key={retryKey}
+        ref={iframeRef}
+        src="https://player.vimeo.com/video/1070103341?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0&transparent=0"
+        title="type_a"
+        frameBorder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+        loading="lazy"
+      ></iframe>
+    </div>
+    {playerError && (
+      <div className="error-container">
+        <p className="error-text">{playerError}</p>
+        <button onClick={handleRetry} className="retry-button">
+          Retry
+        </button>
+      </div>
+    )}
+  </div>
+  <p>𝟺,𝟺𝟺𝟺 𝚜𝚞𝚙𝚙𝚕𝚢 🌐🤍 𝟷,𝟺𝟺𝟺 𝚏𝚛𝚎𝚎 𝚖𝚒𝚗𝚝𝚜</p>
+  <p>𝚙𝚞𝚋𝚕𝚒𝚌 𝚖𝚒𝚗𝚝 🌐🤍 1̶1̶  𝟼 𝙰𝚙𝚝𝚘𝚜</p>
+  <p>𝟷,𝟶𝟶𝟶 𝚍𝚒𝚜𝚌𝚘𝚞𝚗𝚝𝚎𝚍 𝚖𝚒𝚗𝚝𝚜 🌐🤍 𝟻 𝙰𝙿𝚃𝙾𝚂</p>
+  {/* Add the new image button here */}
+  <a
+    href="https://x.com/MiladyOnApt/status/1911908510821998601"
+    target="_blank"
+    rel="noreferrer"
+    className="gif-button cult-inc-button"
+  >
+    <img
+      src="/assets/cult-inc-meme-1745027838303.jpg"
+      alt="Cult Inc Meme"
+      className="cult-inc-meme"
+      loading="lazy"
+    />
+  </a>
+  <img
+    src="/assets/whitelist.png"
+    alt="whitelist"
+    className="whitelist-meme"
+    loading="lazy"
+  />
+  <p>𝘾𝙊𝙇𝙇𝙀𝘾𝙏𝙄𝙊𝙉𝙎 𝙀𝙇𝙄𝙂𝙄𝘽𝙇𝙀 𝙁𝙊𝙍 𝙒𝙃𝙄𝙏𝙀𝙇𝙄𝙎𝙏</p>
           <p><a href="https://miladymaker.net/" target="_blank" rel="noreferrer" className="whitelist-link">𝑀𝒾𝓁𝒶𝒹𝓎 𝑀𝒶𝓀𝑒𝓇</a></p>
           <p><a href="https://remilio.org/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝑒𝓂𝒾𝓁𝒾𝓸</a></p>
           <p><a href="https://radbro.xyz/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝒶𝒹𝒷𝓇𝓸</a></p>

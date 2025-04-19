@@ -542,3 +542,27 @@ body {
     max-width: clamp(500px, 50vw, 700px); /* Stretch center elements */
   }
 }
+
+/* Replace the existing .cult-inc-button img rule */
+.cult-inc-button img {
+  width: 100%;
+  max-width: clamp(300px, 50vw, 375px); /* Matches Vimeo player width */
+  height: auto;
+}
+
+/* Update mobile styles (below 768px) */
+@media (max-width: 768px) {
+  .cult-inc-button img {
+    max-width: clamp(300px, 90vw, 375px); /* Matches Vimeo player width on mobile */
+    margin: 15px auto;
+    max-height: none;
+    object-fit: contain;
+  }
+}
+
+/* Update larger desktop screens (1920px and up) */
+@media (min-width: 1920px) {
+  .cult-inc-button img {
+    max-width: clamp(375px, 50vw, 450px); /* Slightly larger for ultra-wide screens */
+  }
+}
