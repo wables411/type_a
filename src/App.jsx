@@ -229,7 +229,7 @@ const App = () => {
         </div>
         <div className="box description">
           <p>
-            𝙼𝚒𝚕𝚊𝚍𝚢 : 𝚃𝚢𝚙𝚎 𝙰 𝚒𝚜 𝚊 𝚌𝚘𝚕𝚕𝚎𝚌𝚝𝚒𝚘𝚗 𝚘𝚏 𝟺,𝟺𝟺𝟺 𝚐𝚎𝚗𝚎𝚛𝚊𝚝𝚒𝚟𝚎 𝚙𝚏𝚙𝙽𝙵𝚃&apos;𝚜 𝚒𝚗 𝚊 𝚗𝚎𝚘𝚌𝚑𝚒𝚋𝚒 𝚊𝚎𝚜𝚝𝚑𝚎𝚝𝚒𝚌 𝚒𝚗𝚜𝚙𝚒𝚛𝚎𝚍 𝚋𝚢 �𝙼𝚒𝚕𝚊𝚍𝚢 𝙼𝚊𝚔𝚎𝚛 𝙽𝙵𝚃, 𝚁𝚎𝚖𝚒𝚕𝚒𝚊 𝙲𝚘𝚙𝚘𝚛𝚊𝚝𝚒𝚘𝚗, 𝚊𝚜 𝚠𝚎𝚕𝚕 𝚊𝚜 𝚒𝚝𝚜 𝚖𝚊𝚗𝚢 𝚍𝚎𝚛𝚒𝚟𝚊𝚝𝚒𝚟𝚎𝚜. 𝚃𝚢𝚙𝚎 𝙰 𝚛𝚎𝚙𝚛𝚎𝚜𝚎𝚗𝚝𝚜 𝚎𝚕𝚎𝚖𝚎𝚗𝚝𝚜 𝚘𝚏 𝚑𝚒𝚐𝚑-𝚙𝚎𝚛𝚏𝚘𝚛𝚖𝚊𝚗𝚌𝚎 𝚊𝚝𝚝𝚛𝚒𝚋𝚞𝚝𝚎𝚍 𝚋𝚢 𝚝𝚑𝚎 𝚌𝚘𝚖𝚖𝚞𝚗𝚒𝚝𝚢 𝚊𝚗𝚍 𝚌𝚞𝚕𝚝𝚞𝚛𝚊𝚕 𝚒𝚌𝚘𝚗𝚜 𝚘𝚗 𝚝𝚑𝚎 𝙰𝚙𝚝𝚘𝚜 𝚗𝚎𝚝𝚠𝚘𝚛𝚔.
+            𝙼𝚒𝚕𝚊𝚍𝚢 : 𝚃𝚢𝚙𝚎 𝙰 𝚒𝚜 𝚊 𝚌𝚘𝚕𝚕𝚎𝚌𝚝𝚒𝚘𝚗 𝚘𝚏 𝟺,𝟺𝟺𝟺 𝚐𝚎𝚗𝚎𝚛𝚊𝚝𝚒𝚟𝚎 𝚙𝚏𝚙𝙽𝙵𝚃𝚜 𝚒𝚗 𝚊 𝚗𝚎𝚘𝚌𝚑𝚒𝚋𝚒 𝚊𝚎𝚜𝚝𝚑𝚎𝚝𝚒𝚌 𝚒𝚗𝚜𝚙𝚒𝚛𝚎𝚍 𝚋𝚢 �𝙼𝚒𝚕𝚊𝚍𝚢 𝙼𝚊𝚔𝚎𝚛 𝙽𝙵𝚃, 𝚁𝚎𝚖𝚒𝚕𝚒𝚊 𝙲𝚘𝚙𝚘𝚛𝚊𝚝𝚒𝚘𝚗, 𝚊𝚜 𝚠𝚎𝚕𝚕 𝚊𝚜 𝚒𝚝𝚜 𝚖𝚊𝚗𝚢 𝚍𝚎𝚛𝚒𝚟𝚊𝚝𝚒𝚟𝚎𝚜. 𝚃𝚢𝚙𝚎 𝙰 𝚛𝚎𝚙𝚛𝚎𝚜𝚎𝚗𝚝𝚜 𝚎𝚕𝚎𝚖𝚎𝚗𝚝𝚜 𝚘𝚏 𝚑𝚒𝚐𝚑-𝚙𝚎𝚛𝚏𝚘𝚛𝚖𝚊𝚗𝚌𝚎 𝚊𝚝𝚝𝚛𝚒𝚋𝚞𝚝𝚎𝚍 𝚋𝚢 𝚝𝚑𝚎 𝚌𝚘𝚖𝚖𝚞𝚗𝚒𝚝𝚢 𝚊𝚗𝚍 𝚌𝚞𝚕𝚝𝚞𝚛𝚊𝚕 𝚒𝚌𝚘𝚗𝚜 𝚘𝚗 𝚝𝚑𝚎 𝙰𝚙𝚝𝚘𝚜 𝚗𝚎𝚝𝚠𝚘𝚛𝚔.
           </p>
         </div>
         <img
@@ -239,70 +239,78 @@ const App = () => {
           loading="lazy"
         />
         <div className="box minting">
-  <p>B̶r̶i̶d̶g̶i̶n̶g̶ ̶M̶i̶l̶a̶d̶y̶ ̶t̶o̶ ̶A̶p̶t̶o̶s̶ ̶S̶p̶r̶i̶n̶g̶ ̶2̶0̶2̶5̶ 🌐🤍🌷</p>
-  <p>𝙼𝚒𝚕𝚊𝚍𝚢 𝙼𝚒𝚗𝚝𝚒𝚗𝚐 𝚁𝚒𝚐𝚑𝚝 𝙽𝚘𝚠 𝚘𝚗 𝙰𝚙𝚝𝚘𝚜 🌐🤍🌷</p>
-  <a
-    href="https://launchpad.wapal.io/nft/milady-type-a"
-    target="_blank"
-    rel="noreferrer"
-    className="gif-button mint-button"
-  >
-    <img src="/assets/mintbutton.gif" alt="Mint Button" loading="lazy" />
-  </a>
-  <a
-    href="https://www.tradeport.xyz/aptos/collection/0xd876f468c5cef5c5d0e100a28dd84ce87a640a6d4e391b379108f84e36da6c32"
-    target="_blank"
-    rel="noreferrer"
-    className="gif-button secondary-button"
-  >
-    <img src="/assets/secondarybutton.gif" alt="Secondary Button" loading="lazy" />
-  </a>
-  <div className="video-wrapper">
-    <div style={{ position: 'relative', width: '375px', height: '211px' }}>
-      <iframe
-        key={retryKey}
-        ref={iframeRef}
-        src="https://player.vimeo.com/video/1070103341?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0&transparent=0"
-        title="type_a"
-        frameBorder="0"
-        allow="autoplay; fullscreen; picture-in-picture"
-        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-        loading="lazy"
-      ></iframe>
-    </div>
-    {playerError && (
-      <div className="error-container">
-        <p className="error-text">{playerError}</p>
-        <button onClick={handleRetry} className="retry-button">
-          Retry
-        </button>
-      </div>
-    )}
-  </div>
-  <p>𝟺,𝟺𝟺𝟺 𝚜𝚞𝚙𝚙𝚕𝚢 🌐🤍 𝟷,𝟺𝟺𝟺 𝚏𝚛𝚎𝚎 𝚖𝚒𝚗𝚝𝚜</p>
-  <p>𝚙𝚞𝚋𝚕𝚒𝚌 𝚖𝚒𝚗𝚝 🌐🤍 1̶1̶  𝟼 𝙰𝚙𝚝𝚘𝚜</p>
-  <p>𝟷,𝟶𝟶𝟶 𝚍𝚒𝚜𝚌𝚘𝚞𝚗𝚝𝚎𝚍 𝚖𝚒𝚗𝚝𝚜 🌐🤍 𝟻 𝙰𝙿𝚃𝙾𝚂</p>
-  {/* Add the new image button here */}
-  <a
-    href="https://x.com/MiladyOnApt/status/1911908510821998601"
-    target="_blank"
-    rel="noreferrer"
-    className="gif-button cult-inc-button"
-  >
-    <img
-      src="/assets/cult-inc-meme-1745027838303.jpg"
-      alt="Cult Inc Meme"
-      className="cult-inc-meme"
-      loading="lazy"
-    />
-  </a>
-  <img
-    src="/assets/whitelist.png"
-    alt="whitelist"
-    className="whitelist-meme"
-    loading="lazy"
-  />
-  <p>𝘾𝙊𝙇𝙇𝙀𝘾𝙏𝙄𝙊𝙉𝙎 𝙀𝙇𝙄𝙂𝙄𝘽𝙇𝙀 𝙁𝙊𝙍 𝙒𝙃𝙄𝙏𝙀𝙇𝙄𝙎𝙏</p>
+          <p>B̶r̶i̶d̶g̶i̶n̶g̶ ̶M̶i̶l̶a̶d̶y̶ ̶t̶o̶ ̶A̶p̶t̶o̶s̶ ̶S̶p̶r̶i̶n̶g̶ ̶2̶0̶2̶5̶ 🌐🤍🌷</p>
+          <p>𝙼𝚒𝚕𝚊𝚍𝚢 𝙼𝚒𝚗𝚝𝚒𝚗𝚐 𝚁𝚒𝚐𝚑𝚝 𝙽𝚘𝚠 𝚘𝚗 𝙰𝚙𝚝𝚘𝚜 🌐🤍🌷</p>
+          <a
+            href="https://launchpad.wapal.io/nft/milady-type-a"
+            target="_blank"
+            rel="noreferrer"
+            className="gif-button mint-button"
+          >
+            <img src="/assets/mintbutton.gif" alt="Mint Button" loading="lazy" />
+          </a>
+          <a
+            href="https://www.tradeport.xyz/aptos/collection/0xd876f468c5cef5c5d0e100a28dd84ce87a640a6d4e391b379108f84e36da6c32"
+            target="_blank"
+            rel="noreferrer"
+            className="gif-button secondary-button"
+          >
+            <img src="/assets/secondarybutton.gif" alt="Secondary Button" loading="lazy" />
+          </a>
+          {/* Add Meme Button Here */}
+          <a
+            href="/meme.html"
+            className="gif-button meme-button"
+            onClick={() => console.log('Meme button clicked')} // Debug log
+          >
+            <img src="/assets/memebutton.gif" alt="Meme Generator" loading="lazy" />
+          </a>
+          <div className="video-wrapper">
+            <div style={{ position: 'relative', width: '375px', height: '211px' }}>
+              <iframe
+                key={retryKey}
+                ref={iframeRef}
+                src="https://player.vimeo.com/video/1070103341?badge=0&autopause=0&player_id=0&app_id=58479&title=0&byline=0&portrait=0&transparent=0"
+                title="type_a"
+                frameBorder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                loading="lazy"
+              ></iframe>
+            </div>
+            {playerError && (
+              <div className="error-container">
+                <p className="error-text">{playerError}</p>
+                <button onClick={handleRetry} className="retry-button">
+                  Retry
+                </button>
+              </div>
+            )}
+          </div>
+          <p>𝟺,𝟺𝟺𝟺 𝚜𝚞𝚙𝚙𝚕𝚢 🌐🤍 𝟷,𝟺𝟺𝟺 𝚏𝚛𝚎𝚎 𝚖𝚒𝚗𝚝𝚜</p>
+          <p>𝚙𝚞𝚋𝚕𝚒𝚌 𝚖𝚒𝚗𝚝 🌐🤍 1̶1̶  𝟼 𝙰𝚙𝚝𝚘𝚜</p>
+          <p>𝟷,𝟶𝟶𝟶 𝚍𝚒𝚜𝚌𝚘𝚞𝚗𝚝𝚎𝚍 𝚖𝚒𝚗𝚝𝚜 🌐🤍 𝟻 𝙰𝙿𝚃𝙾𝚂</p>
+          {/* Add the new image button here */}
+          <a
+            href="https://x.com/MiladyOnApt/status/1911908510821998601"
+            target="_blank"
+            rel="noreferrer"
+            className="gif-button cult-inc-button"
+          >
+            <img
+              src="/assets/cult-inc-meme-1745027838303.jpg"
+              alt="Cult Inc Meme"
+              className="cult-inc-meme"
+              loading="lazy"
+            />
+          </a>
+          <img
+            src="/assets/whitelist.png"
+            alt="whitelist"
+            className="whitelist-meme"
+            loading="lazy"
+          />
+          <p>𝘾𝙊𝙇𝙇𝙀𝘾𝙏𝙄𝙊𝙉𝙎 𝙀𝙇𝙄𝙂𝙄𝘽𝙇𝙀 𝙁𝙊𝙍 𝙒𝙃𝙄𝙏𝙀𝙇𝙄𝙎𝙏</p>
           <p><a href="https://miladymaker.net/" target="_blank" rel="noreferrer" className="whitelist-link">𝑀𝒾𝓁𝒶𝒹𝓎 𝑀𝒶𝓀𝑒𝓇</a></p>
           <p><a href="https://remilio.org/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝑒𝓂𝒾𝓁𝒾𝓸</a></p>
           <p><a href="https://radbro.xyz/" target="_blank" rel="noreferrer" className="whitelist-link">𝑅𝒶𝒹𝒷𝓇𝓸</a></p>
