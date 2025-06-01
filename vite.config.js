@@ -11,4 +11,19 @@ export default defineConfig({
   optimizeDeps: {
     include: ['webamp'],
   },
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        meme: 'public/meme.html',
+      },
+      output: {
+        manualChunks: {
+          webamp: ['webamp'],
+          firebase: ['firebase/app', 'firebase/database'],
+        },
+      },
+    },
+  },
 });
