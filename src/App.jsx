@@ -257,11 +257,10 @@ const App = () => {
           >
             <img src="/assets/secondarybutton.gif" alt="Secondary Button" loading="lazy" />
           </a>
-          {/* Add Meme Button Here */}
           <a
             href="/meme.html"
             className="gif-button meme-button"
-            onClick={() => console.log('Meme button clicked')} // Debug log
+            onClick={() => console.log('Meme button clicked')}
           >
             <img src="/assets/memebutton.gif" alt="Meme Generator" loading="lazy" />
           </a>
@@ -290,7 +289,6 @@ const App = () => {
           <p>2,222 𝚜𝚞𝚙𝚙𝚕𝚢 🌐🤍 𝟷,𝟺𝟺𝟺 𝚏𝚛𝚎𝚎 𝚖𝚒𝚗𝚝𝚜</p>
           <p>𝚙𝚞𝚋𝚕𝚒𝚌 𝚖𝚒𝚗𝚝 🌐🤍 1̶1̶  𝟼 𝙰𝚙𝚝𝚘𝚜</p>
           <p>𝟷,𝟶𝟶𝟶 𝚍𝚒𝚜𝚌𝚘𝚞𝚗𝚝𝚎𝚍 𝚖𝚒𝚗𝚝𝚜 🌐🤍 𝟻 𝙰𝙿𝚃𝙾𝚂</p>
-          {/* Add the new image button here */}
           <a
             href="https://x.com/MiladyOnApt/status/1911908510821998601"
             target="_blank"
@@ -338,10 +336,9 @@ const App = () => {
           <p>𝙈𝙄𝙉𝙏 𝙋𝙍𝙊𝘾𝙀𝙀𝘿𝙎</p>
           <p>𝟸𝟶% 𝚘𝚏 𝚖𝚒𝚗𝚝 𝚙𝚛𝚘𝚌𝚎𝚎𝚍𝚜 𝚍𝚒𝚛𝚎𝚌𝚝𝚎𝚍 𝚝𝚘𝚠𝚊𝚛𝚍𝚜 𝚛𝚎𝚖𝚒𝚕𝚒𝚊 𝚝𝚛𝚎𝚊𝚜𝚞𝚛𝚢</p>
           <p>𝟻% 𝚍𝚒𝚛𝚎𝚌𝚝𝚎𝚍 𝚝𝚘𝚠𝚊𝚛𝚍𝚜 𝚎𝚖𝚘𝚓𝚒𝚌𝚘𝚒𝚗 𝚊𝚜𝚜𝚎𝚝𝚜 𝚘𝚗 𝙰𝚙𝚝𝚘𝚜! 🌐🐝🧀</p>
-          <p>𝟻% 𝚊𝚕𝚕𝚘𝚌𝚊𝚝𝚎𝚍 𝚏𝚘𝚛 𝚐𝚒𝚟𝚎𝚊𝚠𝚊𝚢𝚜/𝚌𝚘𝚗𝚝𝚎𝚜𝚝 𝚠𝚒𝚝𝚑𝚒𝚗 𝚝𝚑𝚎 𝚌𝚘𝚖𝚖𝚞𝚗𝚒𝚝𝚢</p>
+          <p>𝟻% 𝚊𝚕𝚕𝚘𝚌𝚊𝚝𝚎𝚍 �𝚏𝚘𝚛 𝚐𝚒𝚟𝚎𝚊𝚠𝚊𝚢𝚜/𝚌𝚘𝚗𝚝𝚎𝚜𝚝 𝚠𝚒𝚝𝚑𝚒𝚗 𝚝𝚑𝚎 𝚌𝚘𝚖𝚖𝚞𝚗𝚒𝚝𝚢</p>
         </div>
       </div>
-      {/* Fixed-position elements wrapped in a container for mobile reordering */}
       <div className="fixed-elements">
         {!isMobile && (
           <ErrorBoundary>
@@ -369,6 +366,14 @@ const App = () => {
           className="gif-button stargate-button"
         >
           <img src="/assets/bridgeaptos.gif" alt="Bridge to Aptos" loading="lazy" />
+        </a>
+        <a
+          href="https://discord.gg/awCdeuepAQ"
+          target="_blank"
+          rel="noreferrer"
+          className="gif-button discord-button"
+        >
+          <img src="/assets/discord.gif" alt="Discord" loading="lazy" />
         </a>
         <a
           href="https://x.com/MiladyOnApt"
