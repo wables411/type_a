@@ -276,6 +276,13 @@
             .trait label {
                 width: 100px; /* Adjust label width for smaller screens */
             }
+            
+            /* Mobile-specific download button styling */
+            #download-btn {
+                min-height: 44px; /* iOS minimum touch target */
+                font-size: 18px; /* Larger text for mobile */
+                padding: 12px 20px;
+            }
         }
     </style>
 </head>
@@ -493,6 +500,16 @@
                     <label for="glow-checkbox">Glow Text</label>
                     <input type="checkbox" id="glow-checkbox" onchange="updateGlow(this.checked)">
                 </div>
+                <button id="download-btn" onclick="downloadImage()" style="
+                    background-color: #D9BFB7;
+                    border: 1px solid #000;
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    margin-top: 10px;
+                    width: 100%;
+                    max-width: 200px;
+                ">Download Image</button>
             </div>
         </div>
     </main>
@@ -1153,6 +1170,103 @@
                 }
             });
             updateCharacterImage();
+        };
+
+        window.downloadImage = () => {
+            const canvas = document.getElementById('character-canvas');
+            if (!canvas) {
+                logError('Canvas not found');
+                return;
+            }
+
+            // Create a temporary canvas for high-quality download
+            const tempCanvas = document.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
+            
+            // Set high resolution for better quality
+            const scale = 2; // 2x resolution
+            tempCanvas.width = CANVAS_WIDTH * scale;
+            tempCanvas.height = CANVAS_HEIGHT * scale;
+            
+            // Scale the context for high resolution
+            tempCtx.scale(scale, scale);
+            
+            // Draw the current canvas content
+            tempCtx.drawImage(canvas, 0, 0);
+            
+            // Add text if present
+            const topText = document.getElementById('top-text').value;
+            const bottomText = document.getElementById('bottom-text').value;
+            
+            if (topText || bottomText) {
+                tempCtx.scale(scale, scale); // Reset scale for text
+                tempCtx.font = `${state.fontSize * scale}px Arial`;
+                tempCtx.fillStyle = '#FFFFFF';
+                tempCtx.strokeStyle = '#000000';
+                tempCtx.lineWidth = 3 * scale;
+                tempCtx.textAlign = 'center';
+                
+                if (topText) {
+                    const y = 50 * scale;
+                    if (state.glowEnabled) {
+                        tempCtx.shadowColor = '#FFFF00';
+                        tempCtx.shadowBlur = 10 * scale;
+                    }
+                    tempCtx.strokeText(topText, tempCanvas.width / 2, y);
+                    tempCtx.fillText(topText, tempCanvas.width / 2, y);
+                    tempCtx.shadowBlur = 0;
+                }
+                
+                if (bottomText) {
+                    const y = tempCanvas.height - 50 * scale;
+                    if (state.glowEnabled) {
+                        tempCtx.shadowColor = '#FFFF00';
+                        tempCtx.shadowBlur = 10 * scale;
+                    }
+                    tempCtx.strokeText(bottomText, tempCanvas.width / 2, y);
+                    tempCtx.fillText(bottomText, tempCanvas.width / 2, y);
+                    tempCtx.shadowBlur = 0;
+                }
+            }
+            
+            // Convert to blob and download
+            tempCanvas.toBlob((blob) => {
+                if (!blob) {
+                    logError('Failed to create image blob');
+                    return;
+                }
+                
+                // Create download link
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'milady-meme.png';
+                
+                // For mobile devices, we need to trigger the download differently
+                if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    // Mobile approach: open in new tab and let user save manually
+                    const newWindow = window.open(url, '_blank');
+                    if (newWindow) {
+                        // Show instructions for mobile users
+                        setTimeout(() => {
+                            alert('Image opened in new tab. Long press and select "Save Image" to download.');
+                        }, 100);
+                    } else {
+                        // Fallback: try to trigger download directly
+                        link.click();
+                    }
+                } else {
+                    // Desktop approach: direct download
+                    link.click();
+                }
+                
+                // Clean up
+                setTimeout(() => {
+                    URL.revokeObjectURL(url);
+                }, 1000);
+                
+                logInfo('Download initiated');
+            }, 'image/png', 1.0);
         };
 
         // Initialize
