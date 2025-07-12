@@ -389,28 +389,28 @@
             </div>
             <div class="trait">
                 <label>Clothing</label>
-                <div class="trait-nav" data-layer="Clothing re">
-                    <button onclick="changeTrait('Clothing re', -1)">◄</button>
-                    <span class="trait-name" id="clothing-re-name">None</span>
-                    <button onclick="changeTrait('Clothing re', 1)">►</button>
+                <div class="trait-nav" data-layer="clothing">
+                    <button onclick="changeTrait('clothing', -1)">◄</button>
+                    <span class="trait-name" id="clothing-name">None</span>
+                    <button onclick="changeTrait('clothing', 1)">►</button>
                 </div>
             </div>
             <div class="trait">
                 <label>Pin</label>
-                <button class="eye-toggle" onclick="toggleLayerVisibility('Pin re', this)">👁️</button>
-                <div class="trait-nav" data-layer="Pin re">
-                    <button onclick="changeTrait('Pin re', -1)">◄</button>
-                    <span class="trait-name" id="pin-re-name">None</span>
-                    <button onclick="changeTrait('Pin re', 1)">►</button>
+                <button class="eye-toggle" onclick="toggleLayerVisibility('pin', this)">👁️</button>
+                <div class="trait-nav" data-layer="pin">
+                    <button onclick="changeTrait('pin', -1)">◄</button>
+                    <span class="trait-name" id="pin-name">None</span>
+                    <button onclick="changeTrait('pin', 1)">►</button>
                 </div>
             </div>
             <div class="trait">
                 <label>Hair</label>
-                <button class="eye-toggle" onclick="toggleLayerVisibility('Hair re', this)">👁️</button>
-                <div class="trait-nav" data-layer="Hair re">
-                    <button onclick="changeTrait('Hair re', -1)">◄</button>
-                    <span class="trait-name" id="hair-re-name">None</span>
-                    <button onclick="changeTrait('Hair re', 1)">►</button>
+                <button class="eye-toggle" onclick="toggleLayerVisibility('hair', this)">👁️</button>
+                <div class="trait-nav" data-layer="hair">
+                    <button onclick="changeTrait('hair', -1)">◄</button>
+                    <span class="trait-name" id="hair-name">None</span>
+                    <button onclick="changeTrait('hair', 1)">►</button>
                 </div>
             </div>
             <div class="trait">
@@ -460,20 +460,20 @@
             </div>
             <div class="trait">
                 <label>Item</label>
-                <button class="eye-toggle" onclick="toggleLayerVisibility('Item re', this)">👁️</button>
-                <div class="trait-nav" data-layer="Item re">
-                    <button onclick="changeTrait('Item re', -1)">◄</button>
-                    <span class="trait-name" id="item-re-name">None</span>
-                    <button onclick="changeTrait('Item re', 1)">►</button>
+                <button class="eye-toggle" onclick="toggleLayerVisibility('item', this)">👁️</button>
+                <div class="trait-nav" data-layer="item">
+                    <button onclick="changeTrait('item', -1)">◄</button>
+                    <span class="trait-name" id="item-name">None</span>
+                    <button onclick="changeTrait('item', 1)">►</button>
                 </div>
             </div>
             <div class="trait">
                 <label>Overlay</label>
-                <button class="eye-toggle" onclick="toggleLayerVisibility('Overlay re', this)">👁️</button>
-                <div class="trait-nav" data-layer="Overlay re">
-                    <button onclick="changeTrait('Overlay re', -1)">◄</button>
-                    <span class="trait-name" id="overlay-re-name">None</span>
-                    <button onclick="changeTrait('Overlay re', 1)">►</button>
+                <button class="eye-toggle" onclick="toggleLayerVisibility('overlay', this)">👁️</button>
+                <div class="trait-nav" data-layer="overlay">
+                    <button onclick="changeTrait('overlay', -1)">◄</button>
+                    <span class="trait-name" id="overlay-name">None</span>
+                    <button onclick="changeTrait('overlay', 1)">►</button>
                 </div>
             </div>
         </div>
@@ -653,33 +653,33 @@
             { name: 'Cheese necklace', path: 'necklace/cheese necklace.png' }, { name: 'Dororo', path: 'necklace/dororo-resized.png' }
         ];
         const CLOTHING_TRAITS = [
-            { name: 'Anteiku uniform', path: 'clothing re/Anteiku%20uniform.png' }, { name: 'Anya dress', path: 'clothing re/Anya%20dress.png' },
-            { name: 'Aptos White Shirt', path: 'clothing re/Aptos%20White%20Shirt-resized.png' }, { name: 'Avery sweater', path: 'clothing re/Avery%20sweater.png' },
-            { name: 'Buzz', path: 'clothing re/Buzz-resized.png' }, { name: 'Dolores', path: 'clothing re/Dolores.png' },
-            { name: 'Food Not Pharma short sleeve', path: 'clothing re/Food%20Not%20Pharma%20-%20short%20sleeve-resized.png' }, { name: 'Mape hoodie', path: 'clothing re/Mape%20hoodie.png' },
-            { name: 'Random Black Robes', path: 'clothing re/Random%20Black%20Robes-resized.png' }, { name: 'Senna', path: 'clothing re/Senna.png' },
-            { name: 'UA uniform', path: 'clothing re/UA%20uniform.png' }, { name: 'White dress', path: 'clothing re/White%20dress.png' },
-            { name: 'Aqua', path: 'clothing re/aqua-resized.png' }, { name: 'Autism shirt', path: 'clothing re/autismshirt-resized.png' },
-            { name: 'Black princess 1', path: 'clothing re/blackprincess1-resized.png' }, { name: 'Black shirt 1', path: 'clothing re/blackshirt1-resized.png' },
-            { name: 'Blazer', path: 'clothing re/blazer.png' }, { name: 'Bleach uniform', path: 'clothing re/bleach%20uniform.png' },
-            { name: 'Bosozuku', path: 'clothing re/bosozuku.png' }, { name: 'Corbin', path: 'clothing re/corbin-resized.png' },
-            { name: 'Cortana', path: 'clothing re/cortana-resized.png' }, { name: 'Covid', path: 'clothing re/covid-resized.png' },
-            { name: 'Evangalion', path: 'clothing re/evangalion-resized.png' }, { name: 'Garagura', path: 'clothing re/garagura-resized.png' },
-            { name: 'Goth lolita', path: 'clothing re/goth%20lolita.png' }, { name: 'Green flannel', path: 'clothing re/green%20flannel.png' },
-            { name: 'Griffith', path: 'clothing re/griffith.png' }, { name: 'Hammer shirt', path: 'clothing re/hammershirt-resized.png' },
-            { name: 'Hikki tee', path: 'clothing re/hikki%20tee.png' }, { name: 'Judge Judy', path: 'clothing re/judgejudy-resized.png' },
-            { name: 'Miad 1', path: 'clothing re/miad1-resized.png' }, { name: 'Princess 1', path: 'clothing re/princess1-resized.png' },
-            { name: 'Princess pink 5', path: 'clothing re/princesspink5-resized.png' }, { name: 'Rocket 1', path: 'clothing re/rocket1-resized.png' },
-            { name: 'Sailor', path: 'clothing re/sailor-resized.png' }, { name: 'Sorayama', path: 'clothing re/sorayama.png' },
-            { name: 'Sweater', path: 'clothing re/sweater.png' }, { name: 'Type A jacket', path: 'clothing re/typeajacket-resized.png' },
-            { name: 'Ukraine', path: 'clothing re/ukraine-resized.png' }, { name: 'Vaccine', path: 'clothing re/vaccine-resized.png' },
-            { name: 'Violet Evergarden', path: 'clothing re/violet%20evrgarden.png' }, { name: 'White shirt 11', path: 'clothing re/whiteshirt11-resized.png' },
-            { name: 'White shirt 5', path: 'clothing re/whiteshirt5-resized.png' }, { name: 'White tank', path: 'clothing re/whitetank-resized.png' },
-            { name: 'White tank 2', path: 'clothing re/whitetank2-resized.png' }, { name: 'White tank 3', path: 'clothing re/whitetank3-resized.png' },
-            { name: 'Yeezy 1', path: 'clothing re/yeezy1-resized.png' }
+            { name: 'Anteiku uniform', path: 'clothing/Anteiku%20uniform.png' }, { name: 'Anya dress', path: 'clothing/Anya%20dress.png' },
+            { name: 'Aptos White Shirt', path: 'clothing/Aptos%20White%20Shirt-resized.png' }, { name: 'Avery sweater', path: 'clothing/Avery%20sweater.png' },
+            { name: 'Buzz', path: 'clothing/Buzz-resized.png' }, { name: 'Dolores', path: 'clothing/Dolores.png' },
+            { name: 'Food Not Pharma short sleeve', path: 'clothing/Food%20Not%20Pharma%20-%20short%20sleeve-resized.png' }, { name: 'Mape hoodie', path: 'clothing/Mape%20hoodie.png' },
+            { name: 'Random Black Robes', path: 'clothing/Random%20Black%20Robes-resized.png' }, { name: 'Senna', path: 'clothing/Senna.png' },
+            { name: 'UA uniform', path: 'clothing/UA%20uniform.png' }, { name: 'White dress', path: 'clothing/White%20dress.png' },
+            { name: 'Aqua', path: 'clothing/aqua-resized.png' }, { name: 'Autism shirt', path: 'clothing/autismshirt-resized.png' },
+            { name: 'Black princess 1', path: 'clothing/blackprincess1-resized.png' }, { name: 'Black shirt 1', path: 'clothing/blackshirt1-resized.png' },
+            { name: 'Blazer', path: 'clothing/blazer.png' }, { name: 'Bleach uniform', path: 'clothing/bleach%20uniform.png' },
+            { name: 'Bosozuku', path: 'clothing/bosozuku.png' }, { name: 'Corbin', path: 'clothing/corbin-resized.png' },
+            { name: 'Cortana', path: 'clothing/cortana-resized.png' }, { name: 'Covid', path: 'clothing/covid-resized.png' },
+            { name: 'Evangalion', path: 'clothing/evangalion-resized.png' }, { name: 'Garagura', path: 'clothing/garagura-resized.png' },
+            { name: 'Goth lolita', path: 'clothing/goth%20lolita.png' }, { name: 'Green flannel', path: 'clothing/green%20flannel.png' },
+            { name: 'Griffith', path: 'clothing/griffith.png' }, { name: 'Hammer shirt', path: 'clothing/hammershirt-resized.png' },
+            { name: 'Hikki tee', path: 'clothing/hikki%20tee.png' }, { name: 'Judge Judy', path: 'clothing/judgejudy-resized.png' },
+            { name: 'Miad 1', path: 'clothing/miad1-resized.png' }, { name: 'Princess 1', path: 'clothing/princess1-resized.png' },
+            { name: 'Princess pink 5', path: 'clothing/princesspink5-resized.png' }, { name: 'Rocket 1', path: 'clothing/rocket1-resized.png' },
+            { name: 'Sailor', path: 'clothing/sailor-resized.png' }, { name: 'Sorayama', path: 'clothing/sorayama.png' },
+            { name: 'Sweater', path: 'clothing/sweater.png' }, { name: 'Type A jacket', path: 'clothing/typeajacket-resized.png' },
+            { name: 'Ukraine', path: 'clothing/ukraine-resized.png' }, { name: 'Vaccine', path: 'clothing/vaccine-resized.png' },
+            { name: 'Violet Evergarden', path: 'clothing/violet%20evrgarden.png' }, { name: 'White shirt 11', path: 'clothing/whiteshirt11-resized.png' },
+            { name: 'White shirt 5', path: 'clothing/whiteshirt5-resized.png' }, { name: 'White tank', path: 'clothing/whitetank-resized.png' },
+            { name: 'White tank 2', path: 'clothing/whitetank2-resized.png' }, { name: 'White tank 3', path: 'clothing/whitetank3-resized.png' },
+            { name: 'Yeezy 1', path: 'clothing/yeezy1-resized.png' }
         ];
         const PIN_TRAITS = [
-            { name: 'Aptos pin', path: 'pin re/Aptos%20pin-resized.png' }, { name: 'Holopin', path: 'pin re/holopin-resized.png' }
+            { name: 'Aptos pin', path: 'pin/Aptos%20pin-resized.png' }, { name: 'Holopin', path: 'pin/holopin-resized.png' }
         ];
         const HAIR_TRAITS = [
             { name: 'Silver 65', path: 'hair/silver65-resized.png' }, { name: 'Teal 65', path: 'hair/teal65-resized.png' },
@@ -811,26 +811,26 @@
         // Populate Trait Lists
         async function populateTraitLists() {
             const filesByCategory = {
-                'bgs re': BACKGROUND_TRAITS,
-                'Full aura re': FULL_AURA_TRAITS,
-                'Behind head re': BEHIND_HEAD_TRAITS,
-                'Bun re': BUN_TRAITS,
-                'Body re': BODY_TRAITS,
-                'Face decoration re': FACE_DECORATION_TRAITS,
-                'Blush re': BLUSH_TRAITS,
-                'Eyes re': EYES_TRAITS,
-                'Glasses re': GLASSES_TRAITS,
-                'Necklace re': NECKLACE_TRAITS,
-                'Clothing re': CLOTHING_TRAITS, 
-                'Pin re': PIN_TRAITS,
-                'Hair re': HAIR_TRAITS,        
-                'Earring re': EARRING_TRAITS,
-                'Head re': HEAD_TRAITS,
-                'Eyebrows re': EYEBROWS_TRAITS,
-                'Mouth re': MOUTH_TRAITS,
-                'Half aura': HALF_AURA_TRAITS,
-                'Item re': ITEM_TRAITS,
-                'Overlay re': OVERLAY_TRAITS
+                'bgs': BACKGROUND_TRAITS,
+                'full aura': FULL_AURA_TRAITS,
+                'behind head': BEHIND_HEAD_TRAITS,
+                'bun': BUN_TRAITS,
+                'body': BODY_TRAITS,
+                'face decoration': FACE_DECORATION_TRAITS,
+                'blush': BLUSH_TRAITS,
+                'eyes': EYES_TRAITS,
+                'glasses': GLASSES_TRAITS,
+                'necklace': NECKLACE_TRAITS,
+                'clothing': CLOTHING_TRAITS, 
+                'pin': PIN_TRAITS,
+                'hair': HAIR_TRAITS,        
+                'earring': EARRING_TRAITS,
+                'head': HEAD_TRAITS,
+                'eyebrows': EYEBROWS_TRAITS,
+                'mouth': MOUTH_TRAITS,
+                'half aura': HALF_AURA_TRAITS,
+                'item': ITEM_TRAITS,
+                'overlay': OVERLAY_TRAITS
             };
 
             CATEGORIES.forEach(category => {
@@ -838,7 +838,7 @@
                 // Ensure files are sorted by name for consistent order
                 const sortedFiles = files.sort((a, b) => a.name.localeCompare(b.name));
 
-                if (category === 'Clothing re' || category === 'Hair re') {
+                if (category === 'clothing' || category === 'hair') {
                     state.traitLists[category] = [...sortedFiles];
                     if (sortedFiles.length > 0) {
                         state.currentIndices[category] = 0;
@@ -968,7 +968,7 @@
                 const { layer } = DRAWING_ORDER[index];
 
                 // Clothing layer visibility is always true as it has no UI toggle.
-                if (!state.layerVisibility[layer] && layer !== 'Clothing re') { 
+                if (!state.layerVisibility[layer] && layer !== 'clothing') { 
                     logInfo(`Layer ${layer} is hidden, skipping.`);
                     await loadImageLayer(index + 1); 
                     return;
