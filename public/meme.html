@@ -502,155 +502,155 @@
         const CANVAS_WIDTH = 723;
         const CANVAS_HEIGHT = 904;
         const GATEWAYS = [
-            'https://gateway.pinata.cloud/ipfs/',
-            'https://ipfs.io/ipfs/',
-            'https://cf-ipfs.com/ipfs/',
-            'https://ipfs-gateway.cloud/ipfs/'
+            'https://gateway.lighthouse.storage/ipfs/',
+            'https://nftstorage.link/ipfs/',
+            'https://w3s.link/ipfs/',
+            'https://ipfs.io/ipfs/'
         ];
         const API_BASE = 'https://dweb.link/api/v0/ls?arg=';
-        const FOLDER_CID = 'bafybeib7t2idfh73u4tdxjbp2xoaprhpmlqei5fhy3m6q27py6vgeqon2a';
+        const FOLDER_CID = 'bafybeihzodcfp5bzd5b2gwlw47h3vpwbvv3t4px4ql6viggtnpv24x5bvi';
         const MAX_RETRIES = 2;
         const CATEGORIES = [
-            'bgs re', 'Full aura re', 'Behind head re', 'Bun re', 'Body re',
-            'Face decoration re', 'Blush re', 'Eyes re', 'Glasses re', 'Necklace re',
-            'Clothing re', 'Pin re', 'Hair re', 'Earring re', 'Head re',
-            'Eyebrows re', 'Mouth re', 'Half aura', 'Item re', 'Overlay re'
+            'bgs', 'full aura', 'behind head', 'bun', 'body',
+            'face decoration', 'blush', 'eyes', 'glasses', 'necklace',
+            'clothing', 'pin', 'hair', 'earring', 'head',
+            'eyebrows', 'mouth', 'half aura', 'item', 'overlay'
         ];
         const DRAWING_ORDER = [ 
-            { layer: 'bgs re' }, { layer: 'Full aura re' }, { layer: 'Behind head re' }, 
-            { layer: 'Bun re' }, { layer: 'Body re' }, { layer: 'Face decoration re' }, 
-            { layer: 'Blush re' }, { layer: 'Eyes re' }, { layer: 'Glasses re' }, 
-            { layer: 'Necklace re' }, { layer: 'Clothing re' }, { layer: 'Pin re' }, 
-            { layer: 'Hair re' }, { layer: 'Earring re' }, { layer: 'Head re' }, 
-            { layer: 'Eyebrows re' }, { layer: 'Mouth re' }, { layer: 'Half aura' }, 
-            { layer: 'Item re' }, { layer: 'Overlay re' }
+            { layer: 'bgs' }, { layer: 'full aura' }, { layer: 'behind head' }, 
+            { layer: 'bun' }, { layer: 'body' }, { layer: 'face decoration' }, 
+            { layer: 'blush' }, { layer: 'eyes' }, { layer: 'glasses' }, 
+            { layer: 'necklace' }, { layer: 'clothing' }, { layer: 'pin' }, 
+            { layer: 'hair' }, { layer: 'earring' }, { layer: 'head' }, 
+            { layer: 'eyebrows' }, { layer: 'mouth' }, { layer: 'half aura' }, 
+            { layer: 'item' }, { layer: 'overlay' }
         ];
         
         // **IMPORTANT**: Ensure these trait arrays are complete and match your original full dataset.
         // The following are restored based on the earlier version of the code.
         const BACKGROUND_TRAITS = [
-            { name: 'Black pyramids', path: 'bgs re/Black%20pyramids.png' }, { name: 'Bridge scene', path: 'bgs re/Bridge%20scene.png' },
-            { name: 'C6', path: 'bgs re/C6.png' }, { name: 'Cherry blossom', path: 'bgs re/Cherry%20blossom.png' },
-            { name: 'Eclipse', path: 'bgs re/Eclipse.png' }, { name: 'Girls dead monster', path: 'bgs re/Girls%20dead%20monster.png' },
-            { name: 'Gundamcar', path: 'bgs re/Gundamcar.png' }, { name: 'Halo 2', path: 'bgs re/Halo%202.png' },
-            { name: 'Han', path: 'bgs re/Han.png' }, { name: 'Hatsune', path: 'bgs re/Hatsune.png' },
-            { name: 'Honda', path: 'bgs re/Honda.png' }, { name: 'Hueco mundo', path: 'bgs re/Hueco%20mundo.png' },
-            { name: 'Izumi van', path: 'bgs re/Izumi%20van.png' }, { name: 'Jesus', path: 'bgs re/Jesus.png' },
-            { name: 'Lain', path: 'bgs re/Lain.png' }, { name: 'Paul walker', path: 'bgs re/Paul%20walker.png' },
-            { name: 'Peachgini', path: 'bgs re/Peachgini.png' }, { name: 'Rei 2', path: 'bgs re/Rei%202.png' },
-            { name: 'Rei van', path: 'bgs re/Rei%20van.png' }, { name: 'Rei', path: 'bgs re/Rei.png' },
-            { name: 'Riku and sora', path: 'bgs re/Riku%20and%20sora.png' }, { name: 'Roadside', path: 'bgs re/Roadside.png' },
-            { name: 'Rukia bonkai', path: 'bgs re/Rukia%20bonkai.png' }, { name: 'Silvia', path: 'bgs re/Silvia.png' },
-            { name: 'Streets', path: 'bgs re/Streets.png' }, { name: 'Tank', path: 'bgs re/Tank.png' },
-            { name: 'Train', path: 'bgs re/Train.png' }, { name: 'Twilight town', path: 'bgs re/Twilight%20town.png' },
-            { name: 'Ugly miku', path: 'bgs re/Ugly%20miku.png' }, { name: 'UwU', path: 'bgs re/UwU.png' },
-            { name: 'Uzi', path: 'bgs re/Uzi.png' }, { name: 'Viper', path: 'bgs re/Viper.png' }
+            { name: 'Black pyramids', path: 'bgs/Black pyramids.png' }, { name: 'Bridge scene', path: 'bgs/Bridge scene.png' },
+            { name: 'C6', path: 'bgs/C6.png' }, { name: 'Cherry blossom', path: 'bgs/Cherry blossom.png' },
+            { name: 'Eclipse', path: 'bgs/Eclipse.png' }, { name: 'Girls dead monster', path: 'bgs/Girls dead monster.png' },
+            { name: 'Gundamcar', path: 'bgs/Gundamcar.png' }, { name: 'Halo 2', path: 'bgs/Halo 2.png' },
+            { name: 'Han', path: 'bgs/Han.png' }, { name: 'Hatsune', path: 'bgs/Hatsune.png' },
+            { name: 'Honda', path: 'bgs/Honda.png' }, { name: 'Hueco mundo', path: 'bgs/Hueco mundo.png' },
+            { name: 'Izumi van', path: 'bgs/Izumi van.png' }, { name: 'Jesus', path: 'bgs/Jesus.png' },
+            { name: 'Lain', path: 'bgs/Lain.png' }, { name: 'Paul walker', path: 'bgs/Paul walker.png' },
+            { name: 'Peachgini', path: 'bgs/Peachgini.png' }, { name: 'Rei 2', path: 'bgs/Rei 2.png' },
+            { name: 'Rei van', path: 'bgs/Rei van.png' }, { name: 'Rei', path: 'bgs/Rei.png' },
+            { name: 'Riku and sora', path: 'bgs/Riku and sora.png' }, { name: 'Roadside', path: 'bgs/Roadside.png' },
+            { name: 'Rukia bonkai', path: 'bgs/Rukia bonkai.png' }, { name: 'Silvia', path: 'bgs/Silvia.png' },
+            { name: 'Streets', path: 'bgs/Streets.png' }, { name: 'Tank', path: 'bgs/Tank.png' },
+            { name: 'Train', path: 'bgs/Train.png' }, { name: 'Twilight town', path: 'bgs/Twilight town.png' },
+            { name: 'Ugly miku', path: 'bgs/Ugly miku.png' }, { name: 'UwU', path: 'bgs/UwU.png' },
+            { name: 'Uzi', path: 'bgs/Uzi.png' }, { name: 'Viper', path: 'bgs/Viper.png' }
         ];
         const FULL_AURA_TRAITS = [
-            { name: 'Apol indigo', path: 'full aura re/Apol%20indigo-resized.png' }, { name: 'Apol iridescent', path: 'full aura re/Apol%20iridescent%20-resized.png' },
-            { name: 'Apol pensive', path: 'full aura re/Apol%20pensive-resized.png' }, { name: 'Apol sleepy', path: 'full aura re/Apol%20sleepy-resized.png' },
-            { name: 'Apol soft', path: 'full aura re/Apol%20soft-resized.png' }, { name: 'Braid copper', path: 'full aura re/Braid%20copper-resized.png' },
-            { name: 'Braid dark', path: 'full aura re/Braid%20dark-resized.png' }, { name: 'Braid grey', path: 'full aura re/Braid%20grey-resized.png' },
-            { name: 'Braid iridescent', path: 'full aura re/Braid%20iridescent%20-resized.png' }, { name: 'Braid ketamine', path: 'full aura re/Braid%20ketamine-resized.png' },
-            { name: 'Braid purple', path: 'full aura re/Braid%20purple-resized.png' }, { name: 'Braid sweet', path: 'full aura re/Braid%20sweet-resized.png' },
-            { name: 'Bright', path: 'full aura re/Bright-resized.png' }, { name: 'Dion bright', path: 'full aura re/Dion%20bright-resized.png' },
-            { name: 'Dion copper', path: 'full aura re/Dion%20copper-resized.png' }, { name: 'Dion dark', path: 'full aura re/Dion%20dark-resized.png' },
-            { name: 'Dion floating', path: 'full aura re/Dion%20floating-resized.png' }, { name: 'Dion grey', path: 'full aura re/Dion%20grey-resized.png' },
-            { name: 'Dion indigo', path: 'full aura re/Dion%20indigo-resized.png' }, { name: 'Dion iridescent', path: 'full aura re/Dion%20iridescent%20-resized.png' },
-            { name: 'Dion ketamine', path: 'full aura re/Dion%20ketamine-resized.png' }, { name: 'Dion sleepy (1)', path: 'full aura re/Dion%20sleepy%281%29-resized.png' },
-            { name: 'Dion sleepy', path: 'full aura re/Dion%20sleepy-resized.png' }, { name: 'Dion soft', path: 'full aura re/Dion%20soft-resized.png' },
-            { name: 'Dion somber', path: 'full aura re/Dion%20somber-resized.png' }, { name: 'Dion sunny', path: 'full aura re/Dion%20sunny-resized.png' },
-            { name: 'Dion sweet', path: 'full aura re/Dion%20sweet-resized.png' }, { name: 'Dion terracotta', path: 'full aura re/Dion%20terracotta-resized.png' },
-            { name: 'Dion watermelon', path: 'full aura re/Dion%20watermelon-resized.png' }, { name: 'Dionysian calm', path: 'full aura re/Dionysian%20calm-resized.png' },
-            { name: 'Eggy', path: 'full aura re/Eggy-resized.png' }, { name: 'Floating', path: 'full aura re/Floating-resized.png' },
-            { name: 'Grey', path: 'full aura re/Grey-resized.png' }, { name: 'Joy division', path: 'full aura re/Joy%20division-resized.png' },
-            { name: 'Peachy', path: 'full aura re/Peachy-resized.png' }, { name: 'Soft', path: 'full aura re/Soft-resized.png' },
-            { name: 'Sweet', path: 'full aura re/Sweet-resized.png' }, { name: 'Tang', path: 'full aura re/Tang-resized.png' },
-            { name: 'Thinking', path: 'full aura re/Thinking-resized.png' }, { name: 'Watermelon', path: 'full aura re/Watermelon-resized.png' },
-            { name: 'Apollonian laptop', path: 'full aura re/apollonian%20laptop-resized.png' }, { name: 'Apollonian limewire', path: 'full aura re/apollonian%20limewire-resized.png' }
+            { name: 'Apol indigo', path: 'full aura/Apol indigo-resized.png' }, { name: 'Apol iridescent', path: 'full aura/Apol iridescent -resized.png' },
+            { name: 'Apol pensive', path: 'full aura/Apol pensive-resized.png' }, { name: 'Apol sleepy', path: 'full aura/Apol sleepy-resized.png' },
+            { name: 'Apol soft', path: 'full aura/Apol soft-resized.png' }, { name: 'Braid copper', path: 'full aura/Braid copper-resized.png' },
+            { name: 'Braid dark', path: 'full aura/Braid dark-resized.png' }, { name: 'Braid grey', path: 'full aura/Braid grey-resized.png' },
+            { name: 'Braid iridescent', path: 'full aura/Braid iridescent -resized.png' }, { name: 'Braid ketamine', path: 'full aura/Braid ketamine-resized.png' },
+            { name: 'Braid purple', path: 'full aura/Braid purple-resized.png' }, { name: 'Braid sweet', path: 'full aura/Braid sweet-resized.png' },
+            { name: 'Bright', path: 'full aura/Bright-resized.png' }, { name: 'Dion bright', path: 'full aura/Dion bright-resized.png' },
+            { name: 'Dion copper', path: 'full aura/Dion copper-resized.png' }, { name: 'Dion dark', path: 'full aura/Dion dark-resized.png' },
+            { name: 'Dion floating', path: 'full aura/Dion floating-resized.png' }, { name: 'Dion grey', path: 'full aura/Dion grey-resized.png' },
+            { name: 'Dion indigo', path: 'full aura/Dion indigo-resized.png' }, { name: 'Dion iridescent', path: 'full aura/Dion iridescent -resized.png' },
+            { name: 'Dion ketamine', path: 'full aura/Dion ketamine-resized.png' }, { name: 'Dion sleepy (1)', path: 'full aura/Dion sleepy(1)-resized.png' },
+            { name: 'Dion sleepy', path: 'full aura/Dion sleepy-resized.png' }, { name: 'Dion soft', path: 'full aura/Dion soft-resized.png' },
+            { name: 'Dion somber', path: 'full aura/Dion somber-resized.png' }, { name: 'Dion sunny', path: 'full aura/Dion sunny-resized.png' },
+            { name: 'Dion sweet', path: 'full aura/Dion sweet-resized.png' }, { name: 'Dion terracotta', path: 'full aura/Dion terracotta-resized.png' },
+            { name: 'Dion watermelon', path: 'full aura/Dion watermelon-resized.png' }, { name: 'Dionysian calm', path: 'full aura/Dionysian calm-resized.png' },
+            { name: 'Eggy', path: 'full aura/Eggy-resized.png' }, { name: 'Floating', path: 'full aura/Floating-resized.png' },
+            { name: 'Grey', path: 'full aura/Grey-resized.png' }, { name: 'Joy division', path: 'full aura/Joy division-resized.png' },
+            { name: 'Peachy', path: 'full aura/Peachy-resized.png' }, { name: 'Soft', path: 'full aura/Soft-resized.png' },
+            { name: 'Sweet', path: 'full aura/Sweet-resized.png' }, { name: 'Tang', path: 'full aura/Tang-resized.png' },
+            { name: 'Thinking', path: 'full aura/Thinking-resized.png' }, { name: 'Watermelon', path: 'full aura/Watermelon-resized.png' },
+            { name: 'Apollonian laptop', path: 'full aura/apollonian_laptop-resized.png' }, { name: 'Apollonian limewire', path: 'full aura/apollonian_limewire-resized.png' }
         ];
         const BEHIND_HEAD_TRAITS = [
-            { name: 'Asuna scarf', path: 'behind head re/asuna%20scarf.png' }, { name: 'Shelter', path: 'behind head re/shelter.png' }
+            { name: 'Asuna scarf', path: 'behind head/asuna scarf.png' }, { name: 'Shelter', path: 'behind head/shelter.png' }
         ];
         const BUN_TRAITS = [
-            { name: 'Bun 1', path: 'bun re/bun1.png' }, { name: 'Bun 65', path: 'bun re/bun65.png' },
-            { name: 'Bun green 765', path: 'bun re/bungreen765.png' }, { name: 'Panda buns', path: 'bun re/pandabuns.png' },
-            { name: 'Pink bun 65', path: 'bun re/pinkbuyn65.png' }
+            { name: 'Bun 1', path: 'bun/bun1.png' }, { name: 'Bun 65', path: 'bun/bun65.png' },
+            { name: 'Bun green 765', path: 'bun/bungreen765.png' }, { name: 'Panda buns', path: 'bun/pandabuns.png' },
+            { name: 'Pink bun 65', path: 'bun/pinkbuyn65.png' }
         ];
         const BODY_TRAITS = [
-            { name: 'Apricot', path: 'body re/apricot.png' }, { name: 'Arcturian', path: 'body re/arcturian.png' },
-            { name: 'Brown', path: 'body re/brown.png' }, { name: 'Brownie', path: 'body re/brownie.png' },
-            { name: 'Cherry', path: 'body re/cherry.png' }, { name: 'Lemon', path: 'body re/lemon.png' },
-            { name: 'Metal', path: 'body re/metal.png' }, { name: 'Orange', path: 'body re/orange.png' },
-            { name: 'Pink pastel', path: 'body re/pinkpastel.png' }, { name: 'Shrek', path: 'body re/shrek.png' },
-            { name: 'Tartarian', path: 'body re/tartarian.png' }, { name: 'Unicorn', path: 'body re/unicorn.png' },
-            { name: 'Vanilla', path: 'body re/vanilla.png' }, { name: 'White', path: 'body re/white.png' }
+            { name: 'Apricot', path: 'body/apricot.png' }, { name: 'Arcturian', path: 'body/arcturian.png' },
+            { name: 'Brown', path: 'body/brown.png' }, { name: 'Brownie', path: 'body/brownie.png' },
+            { name: 'Cherry', path: 'body/cherry.png' }, { name: 'Lemon', path: 'body/lemon.png' },
+            { name: 'Metal', path: 'body/metal.png' }, { name: 'Orange', path: 'body/orange.png' },
+            { name: 'Pink pastel', path: 'body/pinkpastel.png' }, { name: 'Shrek', path: 'body/shrek.png' },
+            { name: 'Tartarian', path: 'body/tartarian.png' }, { name: 'Unicorn', path: 'body/unicorn.png' },
+            { name: 'Vanilla', path: 'body/vanilla.png' }, { name: 'White', path: 'body/white.png' }
         ];
         const FACE_DECORATION_TRAITS = [
-            { name: 'Apt cheek', path: 'face decoration re/Apt%20cheek-resized.png' }, { name: 'Apt neck', path: 'face decoration re/Apt%20neck-resized.png' },
-            { name: 'Mononoke', path: 'face decoration re/Mononoke-resized.png' }, { name: 'Naruto whiskers', path: 'face decoration re/Naruto%20whiskers-resized.png' },
-            { name: 'Sasha', path: 'face decoration re/Sasha-resized.png' }, { name: 'Bandaid', path: 'face decoration re/bandaid-resized.png' },
-            { name: 'Bleach 1', path: 'face decoration re/bleach1-resized.png' }, { name: 'Blood 1', path: 'face decoration re/blood1-resized.png' },
-            { name: 'Blue whisker', path: 'face decoration re/bluewisker-resized.png' }, { name: 'Chrome 1', path: 'face decoration re/chrome1-resized.png' },
-            { name: 'Chrome 44', path: 'face decoration re/chrome44-resized.png' }, { name: 'Dole sticker', path: 'face decoration re/dolesticker-resized.png' },
-            { name: 'Eren', path: 'face decoration re/eren-resized.png' }, { name: 'Eren 2', path: 'face decoration re/eren2-resized.png' },
-            { name: 'Goul', path: 'face decoration re/goul.png' }, { name: 'Love garra', path: 'face decoration re/lovegarra-resized.png' },
-            { name: 'Mark 2', path: 'face decoration re/mark2-resized.png' }, { name: 'Mark 4', path: 'face decoration re/mark4-resized.png' },
-            { name: 'Mark 55', path: 'face decoration re/mark55-resized.png' }, { name: 'Purple marks', path: 'face decoration re/purplemarks-resized.png' },
-            { name: 'Scar 1', path: 'face decoration re/scar1-resized.png' }, { name: 'Scar 2', path: 'face decoration re/scar2-resized.png' },
-            { name: 'Scar 5', path: 'face decoration re/scar5-resized.png' }, { name: 'Tattoo 1', path: 'face decoration re/tattoo1-resized.png' },
-            { name: 'Tattoo 2', path: 'face decoration re/tattoo2-resized.png' }, { name: 'Tattoo 3', path: 'face decoration re/tattoo3-resized.png' },
-            { name: 'Tattoo 333', path: 'face decoration re/tattoo333-resized.png' }, { name: 'Tattoo 4', path: 'face decoration re/tattoo4-resized.png' },
-            { name: 'Tattoo 6', path: 'face decoration re/tattoo6-resized.png' }, { name: 'Whisker 1', path: 'face decoration re/wisker1-resized.png' }
+            { name: 'Apt cheek', path: 'face decoration/Apt cheek-resized.png' }, { name: 'Apt neck', path: 'face decoration/Apt neck-resized.png' },
+            { name: 'Mononoke', path: 'face decoration/Mononoke-resized.png' }, { name: 'Naruto whiskers', path: 'face decoration/Naruto whiskers-resized.png' },
+            { name: 'Sasha', path: 'face decoration/Sasha-resized.png' }, { name: 'Bandaid', path: 'face decoration/bandaid-resized.png' },
+            { name: 'Bleach 1', path: 'face decoration/bleach1-resized.png' }, { name: 'Blood 1', path: 'face decoration/blood1-resized.png' },
+            { name: 'Blue whisker', path: 'face decoration/bluewisker-resized.png' }, { name: 'Chrome 1', path: 'face decoration/chrome1-resized.png' },
+            { name: 'Chrome 44', path: 'face decoration/chrome44-resized.png' }, { name: 'Dole sticker', path: 'face decoration/dolesticker-resized.png' },
+            { name: 'Eren', path: 'face decoration/eren-resized.png' }, { name: 'Eren 2', path: 'face decoration/eren2-resized.png' },
+            { name: 'Goul', path: 'face decoration/goul.png' }, { name: 'Love garra', path: 'face decoration/lovegarra-resized.png' },
+            { name: 'Mark 2', path: 'face decoration/mark2-resized.png' }, { name: 'Mark 4', path: 'face decoration/mark4-resized.png' },
+            { name: 'Mark 55', path: 'face decoration/mark55-resized.png' }, { name: 'Purple marks', path: 'face decoration/purplemarks-resized.png' },
+            { name: 'Scar 1', path: 'face decoration/scar1-resized.png' }, { name: 'Scar 2', path: 'face decoration/scar2-resized.png' },
+            { name: 'Scar 5', path: 'face decoration/scar5-resized.png' }, { name: 'Tattoo 1', path: 'face decoration/tattoo1-resized.png' },
+            { name: 'Tattoo 2', path: 'face decoration/tattoo2-resized.png' }, { name: 'Tattoo 3', path: 'face decoration/tattoo3-resized.png' },
+            { name: 'Tattoo 333', path: 'face decoration/tattoo333-resized.png' }, { name: 'Tattoo 4', path: 'face decoration/tattoo4-resized.png' },
+            { name: 'Tattoo 6', path: 'face decoration/tattoo6-resized.png' }, { name: 'Whisker 1', path: 'face decoration/wisker1-resized.png' }
         ];
         const BLUSH_TRAITS = [
-            { name: 'Eyebrow blush', path: 'blush re/eyebrowblush.png' }, { name: 'Eyepatch', path: 'blush re/eyepatch_-resized.png' },
-            { name: 'Light pink blush', path: 'blush re/lightpinkblush.png' }, { name: 'Pink blush', path: 'blush re/pinkblush.png' },
-            { name: 'Red circle blush', path: 'blush re/redcircleblush.png' }
+            { name: 'Eyebrow blush', path: 'blush/eyebrowblush.png' }, { name: 'Eyepatch', path: 'blush/eyepatch_-resized.png' },
+            { name: 'Light pink blush', path: 'blush/lightpinkblush.png' }, { name: 'Pink blush', path: 'blush/pinkblush.png' },
+            { name: 'Red circle blush', path: 'blush/redcircleblush.png' }
         ];
         const EYES_TRAITS = [
-            { name: 'Alien 1', path: 'eyes re/Alien%281%29-resized.png' }, { name: 'Classic', path: 'eyes re/Classic-resized.png' },
-            { name: 'Closed', path: 'eyes re/Closed-resized.png' }, { name: 'Crying 1', path: 'eyes re/Crying%281%29-resized.png' },
-            { name: 'Crying', path: 'eyes re/Crying-resized.png' }, { name: 'Heart Eyes', path: 'eyes re/Heart%20Eyes-resized.png' },
-            { name: 'Oracle', path: 'eyes re/Oracle-resized.png' }, { name: 'Sleepy', path: 'eyes re/Sleepy-resized.png' },
-            { name: 'Smug', path: 'eyes re/Smug-resized.png' }, { name: 'Teary', path: 'eyes re/Teary-resized.png' },
-            { name: 'Alien', path: 'eyes re/alien-resized.png' }, { name: 'Aqua 2', path: 'eyes re/aqua2-resized.png' },
-            { name: 'Aqua 3', path: 'eyes re/aqua3-resized.png' }, { name: 'Aqua hearts', path: 'eyes re/aquahearts-resized.png' },
-            { name: 'Blue green 2', path: 'eyes re/bluegreeen2-resized.png' }, { name: 'Blue hearts', path: 'eyes re/bluehearts-resized.png' },
-            { name: 'Blue red', path: 'eyes re/bluered-resized.png' }, { name: 'Brown 2', path: 'eyes re/brown2-resized.png' },
-            { name: 'Brown eyes 44', path: 'eyes re/browneyes44-resized.png' }, { name: 'Brush eyes', path: 'eyes re/brusheyes-resized.png' },
-            { name: 'Chinese', path: 'eyes re/chinese-resized.png' }, { name: 'Chocolate', path: 'eyes re/chocolate-resized.png' },
-            { name: 'Dark blue 1', path: 'eyes re/darkblue1-resized.png' }, { name: 'Green 2', path: 'eyes re/green2-resized.png' },
-            { name: 'Green 44', path: 'eyes re/green44-resized.png' }, { name: 'Green brown', path: 'eyes re/greenbrown-resized.png' },
-            { name: 'Green eyes 1', path: 'eyes re/greeneyes1-resized.png' }, { name: 'Kakashi', path: 'eyes re/kakashi-resized.png' },
-            { name: 'Light brown', path: 'eyes re/lightbrown-resized.png' }, { name: 'Light green 2', path: 'eyes re/lightgreen2-resized.png' },
-            { name: 'Madara', path: 'eyes re/madara-resized.png' }, { name: 'No eyes', path: 'eyes re/noeyes-resized.png' },
-            { name: 'No eyes 2', path: 'eyes re/noeyes2-resized.png' }, { name: 'Obito', path: 'eyes re/obito-resized.png' },
-            { name: 'One eyed', path: 'eyes re/oneeyed-resized.png' }, { name: 'Pink eyed', path: 'eyes re/pinkeyed-resized.png' },
-            { name: 'Pink hearts 2', path: 'eyes re/pinkhearts2-resized.png' }, { name: 'Purple 2', path: 'eyes re/purple2-resized.png' },
-            { name: 'Rainbow 2', path: 'eyes re/rainbow2-resized.png' }, { name: 'Red eyes', path: 'eyes re/redeyes-resized.png' },
-            { name: 'Retart', path: 'eyes re/retart-resized.png' }, { name: 'Rinnegan', path: 'eyes re/rinnegan-resized.png' },
-            { name: 'Sasuke', path: 'eyes re/sasuke-resized.png' }, { name: 'Solar', path: 'eyes re/solar-resized.png' },
-            { name: 'Star eyes', path: 'eyes re/stareyes-resized.png' }, { name: 'Unicorn', path: 'eyes re/unicorn-resized.png' },
-            { name: 'UwU', path: 'eyes re/uwu-resized.png' }, { name: 'Yellow green', path: 'eyes re/yellowgreen-resized.png' },
-            { name: 'Yellow pink 1', path: 'eyes re/yellowpink1-resized.png' }
+            { name: 'Alien 1', path: 'eyes/Alien(1)-resized.png' }, { name: 'Classic', path: 'eyes/Classic-resized.png' },
+            { name: 'Closed', path: 'eyes/Closed-resized.png' }, { name: 'Crying 1', path: 'eyes/Crying(1)-resized.png' },
+            { name: 'Crying', path: 'eyes/Crying-resized.png' }, { name: 'Heart Eyes', path: 'eyes/Heart Eyes-resized.png' },
+            { name: 'Oracle', path: 'eyes/Oracle-resized.png' }, { name: 'Sleepy', path: 'eyes/Sleepy-resized.png' },
+            { name: 'Smug', path: 'eyes/Smug-resized.png' }, { name: 'Teary', path: 'eyes/Teary-resized.png' },
+            { name: 'Alien', path: 'eyes/alien-resized.png' }, { name: 'Aqua 2', path: 'eyes/aqua2-resized.png' },
+            { name: 'Aqua 3', path: 'eyes/aqua3-resized.png' }, { name: 'Aqua hearts', path: 'eyes/aquahearts-resized.png' },
+            { name: 'Blue green 2', path: 'eyes/bluegreeen2-resized.png' }, { name: 'Blue hearts', path: 'eyes/bluehearts-resized.png' },
+            { name: 'Blue red', path: 'eyes/bluered-resized.png' }, { name: 'Brown 2', path: 'eyes/brown2-resized.png' },
+            { name: 'Brown eyes 44', path: 'eyes/browneyes44-resized.png' }, { name: 'Brush eyes', path: 'eyes/brusheyes-resized.png' },
+            { name: 'Chinese', path: 'eyes/chinese-resized.png' }, { name: 'Chocolate', path: 'eyes/chocolate-resized.png' },
+            { name: 'Dark blue 1', path: 'eyes/darkblue1-resized.png' }, { name: 'Green 2', path: 'eyes/green2-resized.png' },
+            { name: 'Green 44', path: 'eyes/green44-resized.png' }, { name: 'Green brown', path: 'eyes/greenbrown-resized.png' },
+            { name: 'Green eyes 1', path: 'eyes/greeneyes1-resized.png' }, { name: 'Kakashi', path: 'eyes/kakashi-resized.png' },
+            { name: 'Light brown', path: 'eyes/lightbrown-resized.png' }, { name: 'Light green 2', path: 'eyes/lightgreen2-resized.png' },
+            { name: 'Madara', path: 'eyes/madara-resized.png' }, { name: 'No eyes', path: 'eyes/noeyes-resized.png' },
+            { name: 'No eyes 2', path: 'eyes/noeyes2-resized.png' }, { name: 'Obito', path: 'eyes/obito-resized.png' },
+            { name: 'One eyed', path: 'eyes/oneeyed-resized.png' }, { name: 'Pink eyed', path: 'eyes/pinkeyed-resized.png' },
+            { name: 'Pink hearts 2', path: 'eyes/pinkhearts2-resized.png' }, { name: 'Purple 2', path: 'eyes/purple2-resized.png' },
+            { name: 'Rainbow 2', path: 'eyes/rainbow2-resized.png' }, { name: 'Red eyes', path: 'eyes/redeyes-resized.png' },
+            { name: 'Retart', path: 'eyes/retart-resized.png' }, { name: 'Rinnegan', path: 'eyes/rinnegan-resized.png' },
+            { name: 'Sasuke', path: 'eyes/sasuke-resized.png' }, { name: 'Solar', path: 'eyes/solar-resized.png' },
+            { name: 'Star eyes', path: 'eyes/stareyes-resized.png' }, { name: 'Unicorn', path: 'eyes/unicorn-resized.png' },
+            { name: 'UwU', path: 'eyes/uwu-resized.png' }, { name: 'Yellow green', path: 'eyes/yellowgreen-resized.png' },
+            { name: 'Yellow pink 1', path: 'eyes/yellowpink1-resized.png' }
         ];
         const GLASSES_TRAITS = [
-            { name: 'Cobain aptos', path: 'glasses re/Cobain%20aptos-resized.png' }, { name: 'Eyes Glasses Round', path: 'glasses re/Eyes-Glasses%20Round-resized.png' },
-            { name: 'Eyes Glasses Orange Harajuku', path: 'glasses re/Eyes-Glasses-Orange-Harajuku-resized.png' }, { name: 'Glasses Prescription Frames', path: 'glasses re/Glasses-Perscription-Frames-resized.png' },
-            { name: 'Larry Glasses', path: 'glasses re/Larry%20Glasses-resized.png' }, { name: 'Rize', path: 'glasses re/Rize-resized.png' },
-            { name: 'White cobain aptos', path: 'glasses re/White%20cobain%20aptos-resized.png' }, { name: 'YY Glasses', path: 'glasses re/YY%20Glasses-resized.png' }
+            { name: 'Cobain aptos', path: 'glasses/Cobain aptos-resized.png' }, { name: 'Eyes Glasses Round', path: 'glasses/Eyes-Glasses Round-resized.png' },
+            { name: 'Eyes Glasses Orange Harajuku', path: 'glasses/Eyes-Glasses-Orange-Harajuku-resized.png' }, { name: 'Glasses Prescription Frames', path: 'glasses/Glasses-Perscription-Frames-resized.png' },
+            { name: 'Larry Glasses', path: 'glasses/Larry Glasses-resized.png' }, { name: 'Rize', path: 'glasses/Rize-resized.png' },
+            { name: 'White cobain aptos', path: 'glasses/White cobain aptos-resized.png' }, { name: 'YY Glasses', path: 'glasses/YY Glasses-resized.png' }
         ];
         const NECKLACE_TRAITS = [
-            { name: 'Apt globe', path: 'necklace re/Apt%20globe-resized.png' }, { name: 'Bear', path: 'necklace re/Bear-resized.png' },
-            { name: 'Cash', path: 'necklace re/Cash-resized.png' }, { name: 'Cherry', path: 'necklace re/Cherry-resized.png' },
-            { name: 'Cross', path: 'necklace re/Cross-resized.png' }, { name: 'Diamond', path: 'necklace re/Diamond-resized.png' },
-            { name: 'Flower of life', path: 'necklace re/Flower%20of%20life-resized.png' }, { name: 'Kitty', path: 'necklace re/Kitty-resized.png' },
-            { name: 'Misa', path: 'necklace re/Misa-resized.png' }, { name: 'Naruto', path: 'necklace re/Naruto-resized.png' },
-            { name: 'Neck Evil eye', path: 'necklace re/Neck-Evil-eye-resized.png' }, { name: 'Orb', path: 'necklace re/Orb-resized.png' },
-            { name: 'Phone', path: 'necklace re/Phone-resized.png' }, { name: 'Star', path: 'necklace re/Star-resized.png' },
-            { name: 'Sword', path: 'necklace re/Sword-resized.png' }, { name: 'Beetle', path: 'necklace re/beetle.png' },
-            { name: 'Cheese necklace', path: 'necklace re/cheese%20necklace.png' }, { name: 'Dororo', path: 'necklace re/dororo-resized.png' }
+            { name: 'Apt globe', path: 'necklace/Apt globe-resized.png' }, { name: 'Bear', path: 'necklace/Bear-resized.png' },
+            { name: 'Cash', path: 'necklace/Cash-resized.png' }, { name: 'Cherry', path: 'necklace/Cherry-resized.png' },
+            { name: 'Cross', path: 'necklace/Cross-resized.png' }, { name: 'Diamond', path: 'necklace/Diamond-resized.png' },
+            { name: 'Flower of life', path: 'necklace/Flower of life-resized.png' }, { name: 'Kitty', path: 'necklace/Kitty-resized.png' },
+            { name: 'Misa', path: 'necklace/Misa-resized.png' }, { name: 'Naruto', path: 'necklace/Naruto-resized.png' },
+            { name: 'Neck Evil eye', path: 'necklace/Neck-Evil-eye-resized.png' }, { name: 'Orb', path: 'necklace/Orb-resized.png' },
+            { name: 'Phone', path: 'necklace/Phone-resized.png' }, { name: 'Star', path: 'necklace/Star-resized.png' },
+            { name: 'Sword', path: 'necklace/Sword-resized.png' }, { name: 'Beetle', path: 'necklace/beetle.png' },
+            { name: 'Cheese necklace', path: 'necklace/cheese necklace.png' }, { name: 'Dororo', path: 'necklace/dororo-resized.png' }
         ];
         const CLOTHING_TRAITS = [
             { name: 'Anteiku uniform', path: 'clothing re/Anteiku%20uniform.png' }, { name: 'Anya dress', path: 'clothing re/Anya%20dress.png' },
@@ -682,123 +682,80 @@
             { name: 'Aptos pin', path: 'pin re/Aptos%20pin-resized.png' }, { name: 'Holopin', path: 'pin re/holopin-resized.png' }
         ];
         const HAIR_TRAITS = [
-            { name: 'Aqua blue 1', path: 'hair re/aquablue1-resized.png' }, { name: 'Auburn', path: 'hair re/auburn-resized.png' },
-            { name: 'Auburn 2233', path: 'hair re/auburn2233-resized.png' }, { name: 'Bang pink', path: 'hair re/bangpink-resized.png' },
-            { name: 'Bang red', path: 'hair re/bangred-resized.png' }, { name: 'Bangs blue 11', path: 'hair re/bangsblue11-resized.png' },
-            { name: 'Black 65', path: 'hair re/black65-resized.png' }, { name: 'Black long', path: 'hair re/blacklong-resized.png' },
-            { name: 'Braid black', path: 'hair re/braid%20black.png' }, { name: 'Braid chocolate', path: 'hair re/braid%20choco%20late.png' },
-            { name: 'Braid corn', path: 'hair re/braid%20corn.png' }, { name: 'Braid creme', path: 'hair re/braid%20creme.png' },
-            { name: 'Braid green', path: 'hair re/braid%20green.png' }, { name: 'Braid mold', path: 'hair re/braid%20mold.png' },
-            { name: 'Braid pink', path: 'hair re/braid%20pink.png' }, { name: 'Braid purple', path: 'hair re/braid%20purple.png' },
-            { name: 'Braid teal', path: 'hair re/braid%20teal.png' }, { name: 'Braid white', path: 'hair re/braid%20white.png' },
-            { name: 'Brown 55', path: 'hair re/brown55-resized.png' }, { name: 'Brown 65', path: 'hair re/brown65-resized.png' },
-            { name: 'Brown long', path: 'hair re/brownlong-resized.png' }, { name: 'Brown short 22', path: 'hair re/brownshort22-resized.png' },
-            { name: 'Corn 33', path: 'hair re/corn33-resized.png' }, { name: 'Corn 34', path: 'hair re/corn34-resized.png' },
-            { name: 'Corn 44', path: 'hair re/corn44-resized.png' }, { name: 'Cortana blue', path: 'hair re/cortanablue-resized.png' },
-            { name: 'Creme 2', path: 'hair re/creme2-resized.png' }, { name: 'Dark 11', path: 'hair re/dark11-resized.png' },
-            { name: 'Dark 65', path: 'hair re/dark65-resized.png' }, { name: 'Dark black 65', path: 'hair re/darkblack65-resized.png' },
-            { name: 'Dark blue 65', path: 'hair re/darkblue65-resized.png' }, { name: 'Dark brown', path: 'hair re/darkbrown-resized.png' },
-            { name: 'Dark dark 22', path: 'hair re/darkdark22-resized.png' }, { name: 'Dark pink 65', path: 'hair re/darkpink65-resized.png' },
-            { name: 'Eto', path: 'hair re/eto-resized.png' }, { name: 'Fixed pink 1122', path: 'hair re/fixedpink1122-resized.png' },
-            { name: 'Fuzzy red', path: 'hair re/fuzzyred-resized.png' }, { name: 'Gargura', path: 'hair re/gargura-resized.png' },
-            { name: 'Green', path: 'hair re/green-resized.png' }, { name: 'Green 1165', path: 'hair re/green1165-resized.png' },
-            { name: 'Green 4', path: 'hair re/green4-resized.png' }, { name: 'Green 5', path: 'hair re/green5-resized.png' },
-            { name: 'Green bang 11', path: 'hair re/greenbang11-resized.png' }, { name: 'Green 1122', path: 'hair re/gren1122-resized.png' },
-            { name: 'Grey 65', path: 'hair re/grey65-resized.png' }, { name: 'Honda', path: 'hair re/honda-resized.png' },
-            { name: 'Light blue', path: 'hair re/lightblue-resized.png' }, { name: 'Light blue 22113', path: 'hair re/lightblue22113-resized.png' },
-            { name: 'Light brown', path: 'hair re/lightbrown-resized.png' }, { name: 'Long black 1122', path: 'hair re/longblack1122-resized.png' },
-            { name: 'Long black 1212', path: 'hair re/longblack1212-resized.png' }, { name: 'Long brown 1', path: 'hair re/longbrown1-resized.png' },
-            { name: 'Medium green', path: 'hair re/mediumgreen-resized.png' }, { name: 'Mel mel', path: 'hair re/melmel-resized.png' },
-            { name: 'Messy green', path: 'hair re/messygreen-resized.png' }, { name: 'Midnight 65', path: 'hair re/midnight65-resized.png' },
-            { name: 'Mix red', path: 'hair re/mixred-resized.png' }, { name: 'Naruto', path: 'hair re/naruto-resized.png' },
-            { name: 'Navy 55', path: 'hair re/navy55-resized.png' }, { name: 'Navy blue 11', path: 'hair re/navyblue11-resized.png' },
-            { name: 'Off white', path: 'hair re/offwhite-resized.png' }, { name: 'Off white 2', path: 'hair re/offwhite2-resized.png' },
-            { name: 'Off white 22', path: 'hair re/offwhite22-resized.png' }, { name: 'Off white 33', path: 'hair re/offwhite33-resized.png' },
-            { name: 'Pink 22', path: 'hair re/pink22-resized.png' }, { name: 'Pink short 1212', path: 'hair re/pinkshort1212-resized.png' },
-            { name: 'Purple 55', path: 'hair re/purple55-resized.png' }, { name: 'Purple 65', path: 'hair re/purple65-resized.png' },
-            { name: 'Rainbow 11', path: 'hair re/rainbow11-resized.png' }, { name: 'Rainbow 3322', path: 'hair re/rainbow3322-resized.png' },
-            { name: 'Red 5', path: 'hair re/red5-resized.png' }, { name: 'Red 65', path: 'hair re/red65-resized.png' },
-            { name: 'Rose 65', path: 'hair re/rose65-resized.png' }, { name: 'Seto green', path: 'hair re/setogreen-resized.png' },
-            { name: 'Short black', path: 'hair re/shortblack-resized.png' }, { name: 'Short black 11', path: 'hair re/shortblack11-resized.png' },
-            { name: 'Short blue 11', path: 'hair re/shortblue11-resized.png' }, { name: 'Short brown 5544', path: 'hair re/shortbrown5544-resized.png' },
-            { name: 'Short dark black brown', path: 'hair re/shortdarkbalckbriown-resized.png' }, { name: 'Short grey 11', path: 'hair re/shortgrey11-resized.png' },
-            { name: 'Short pink', path: 'hair re/shortpink-resized.png' }, { name: 'Short purple', path: 'hair re/shortpurple-resized.png' },
-            { name: 'Short red', path: 'hair re/shortred-resized.png' }, { name: 'Short white 1', path: 'hair re/shortwhite1-resized.png' },
-            { name: 'Short yellow 1', path: 'hair re/shortyello1-resized.png' }, { name: 'Short yellow 112233', path: 'hair re/shortyello112233-resized.png' },
-            { name: 'Silver 65', path: 'hair re/silver65-resized.png' }, { name: 'Teal 65', path: 'hair re/teal65-resized.png' },
-            { name: 'White', path: 'hair re/white-resized.png' }, { name: 'White 2', path: 'hair re/white2-resized.png' },
-            { name: 'White 3', path: 'hair re/white3-resized.png' }, { name: 'White 55', path: 'hair re/white55-resized.png' },
-            { name: 'White 65', path: 'hair re/white65-resized.png' }, { name: 'Yellow', path: 'hair re/yellow-resized.png' },
-            { name: 'Yellow 112222', path: 'hair re/yellow112222-resized.png' }, { name: 'Yellow 2', path: 'hair re/yellow2-resized.png' },
-            { name: 'Yellow 2233', path: 'hair re/yellow2233-resized.png' }, { name: 'Yellow 65', path: 'hair re/yellow65-resized.png' }
+            { name: 'Silver 65', path: 'hair/silver65-resized.png' }, { name: 'Teal 65', path: 'hair/teal65-resized.png' },
+            { name: 'White', path: 'hair/white-resized.png' }, { name: 'White 2', path: 'hair/white2-resized.png' },
+            { name: 'White 3', path: 'hair/white3-resized.png' }, { name: 'White 55', path: 'hair/white55-resized.png' },
+            { name: 'White 65', path: 'hair/white65-resized.png' }, { name: 'Yellow', path: 'hair/yellow-resized.png' },
+            { name: 'Yellow 112222', path: 'hair/yellow112222-resized.png' }, { name: 'Yellow 2', path: 'hair/yellow2-resized.png' },
+            { name: 'Yellow 2233', path: 'hair/yellow2233-resized.png' }, { name: 'Yellow 65', path: 'hair/yellow65-resized.png' }
         ];
         const EARRING_TRAITS = [
-            { name: 'Aptos cross', path: 'earring re/aptoscross.png' }, { name: 'Aptos dangle', path: 'earring re/aptosdangle.png' },
-            { name: 'Aptos stud', path: 'earring re/aptosstud.png' }, { name: 'Bow', path: 'earring re/bow.png' },
-            { name: 'Cross emoji', path: 'earring re/crossemoji.png' }, { name: 'Floppy', path: 'earring re/floppy.png' },
-            { name: 'Headphones', path: 'earring re/headphones.png' }, { name: 'Mouse', path: 'earring re/mouse.png' },
-            { name: 'Pancakes', path: 'earring re/pancakes.png' }
+            { name: 'Aptos cross', path: 'earring/aptoscross.png' }, { name: 'Aptos dangle', path: 'earring/aptosdangle.png' },
+            { name: 'Aptos stud', path: 'earring/aptosstud.png' }, { name: 'Bow', path: 'earring/bow.png' },
+            { name: 'Cross emoji', path: 'earring/crossemoji.png' }, { name: 'Floppy', path: 'earring/floppy.png' },
+            { name: 'Headphones', path: 'earring/headphones.png' }, { name: 'Mouse', path: 'earring/mouse.png' },
+            { name: 'Pancakes', path: 'earring/pancakes.png' }
         ];
         const HEAD_TRAITS = [
-            { name: 'Cake Hat', path: 'head re/Cake%20Hat.png' }, { name: 'FEBB28EB', path: 'head re/FEBB28EB-9421-4E7B-9ECA-66CBF3A7A4F8-resized.png' },
-            { name: 'MWO', path: 'head re/MWO-resized.png' }, { name: 'MWO2', path: 'head re/MWO2-resized.png' },
-            { name: 'Anya', path: 'head re/anya-resized.png' }, { name: 'Apple head', path: 'head re/applehead-resized.png' },
-            { name: 'Aptos pin', path: 'head re/aptospin-resized.png' }, { name: 'Ashibie', path: 'head re/ashibie-resized.png' },
-            { name: 'Aura hat', path: 'head re/aurahat-resized.png' }, { name: 'Bass pro hat', path: 'head re/bassprohat-resized.png' },
-            { name: 'Brain zone', path: 'head re/brainzone-resized.png' }, { name: 'Cat ears', path: 'head re/catears-resized.png' },
-            { name: 'Crown 1', path: 'head re/crown1-resized.png' }, { name: 'Dole sticker', path: 'head re/dolesticker-resized.png' },
-            { name: 'Fujimoto', path: 'head re/fujimoto-resized.png' }, { name: 'Hair tibbet', path: 'head re/hairtibbet-resized.png' },
-            { name: 'Haku', path: 'head re/haku-resized.png' }, { name: 'Hinami', path: 'head re/hinami-resized.png' },
-            { name: 'Lettuce', path: 'head re/lettuce-resized.png' }, { name: 'McGriddle', path: 'head re/mcgriddle-resized.png' },
-            { name: 'One eye', path: 'head re/oneeye-resized.png' }, { name: 'Pink hair row', path: 'head re/pinkhairrow-resized.png' },
-            { name: 'Pink hat 11', path: 'head re/pinkhat11-resized.png' }, { name: 'Pink horns', path: 'head re/pinkhorns-resized.png' },
-            { name: 'Pink teeth', path: 'head re/pinkteeth-resized.png' }, { name: 'Plant head', path: 'head re/planthead-resized.png' },
-            { name: 'Purple bar', path: 'head re/purplebar-resized.png' }, { name: 'Radiation', path: 'head re/radiation-resized.png' },
-            { name: 'Retart puter', path: 'head re/retart%20puter.png' }, { name: 'Ribbons', path: 'head re/ribbons-resized.png' },
-            { name: 'Shark', path: 'head re/shark-resized.png' }, { name: 'Sharky', path: 'head re/sharky.png' },
-            { name: 'Slime', path: 'head re/slime-resized.png' }, { name: 'Strawberry', path: 'head re/strawberry-resized.png' },
-            { name: 'Tech horns', path: 'head re/techhorns-resized.png' }, { name: 'Toast', path: 'head re/toast-resized.png' },
-            { name: 'Toothless', path: 'head re/toothless-resized.png' }, { name: 'Yahikko', path: 'head re/yahikko-resized.png' }
+            { name: 'Cake Hat', path: 'head/Cake Hat.png' }, { name: 'FEBB28EB', path: 'head/FEBB28EB-9421-4E7B-9ECA-66CBF3A7A4F8-resized.png' },
+            { name: 'MWO', path: 'head/MWO-resized.png' }, { name: 'MWO2', path: 'head/MWO2-resized.png' },
+            { name: 'Anya', path: 'head/anya-resized.png' }, { name: 'Apple head', path: 'head/applehead-resized.png' },
+            { name: 'Aptos pin', path: 'head/aptospin-resized.png' }, { name: 'Ashibie', path: 'head/ashibie-resized.png' },
+            { name: 'Aura hat', path: 'head/aurahat-resized.png' }, { name: 'Bass pro hat', path: 'head/bassprohat-resized.png' },
+            { name: 'Brain zone', path: 'head/brainzone-resized.png' }, { name: 'Cat ears', path: 'head/catears-resized.png' },
+            { name: 'Crown 1', path: 'head/crown1-resized.png' }, { name: 'Dole sticker', path: 'head/dolesticker-resized.png' },
+            { name: 'Fujimoto', path: 'head/fujimoto-resized.png' }, { name: 'Hair tibbet', path: 'head/hairtibbet-resized.png' },
+            { name: 'Haku', path: 'head/haku-resized.png' }, { name: 'Hinami', path: 'head/hinami-resized.png' },
+            { name: 'Lettuce', path: 'head/lettuce-resized.png' }, { name: 'McGriddle', path: 'head/mcgriddle-resized.png' },
+            { name: 'One eye', path: 'head/oneeye-resized.png' }, { name: 'Pink hair row', path: 'head/pinkhairrow-resized.png' },
+            { name: 'Pink hat 11', path: 'head/pinkhat11-resized.png' }, { name: 'Pink horns', path: 'head/pinkhorns-resized.png' },
+            { name: 'Pink teeth', path: 'head/pinkteeth-resized.png' }, { name: 'Plant head', path: 'head/planthead-resized.png' },
+            { name: 'Purple bar', path: 'head/purplebar-resized.png' }, { name: 'Radiation', path: 'head/radiation-resized.png' },
+            { name: 'Retart puter', path: 'head/retart puter.png' }, { name: 'Ribbons', path: 'head/ribbons-resized.png' },
+            { name: 'Shark', path: 'head/shark-resized.png' }, { name: 'Sharky', path: 'head/sharky.png' },
+            { name: 'Slime', path: 'head/slime-resized.png' }, { name: 'Strawberry', path: 'head/strawberry-resized.png' },
+            { name: 'Tech horns', path: 'head/techhorns-resized.png' }, { name: 'Toast', path: 'head/toast-resized.png' },
+            { name: 'Toothless', path: 'head/toothless-resized.png' }, { name: 'Yahikko', path: 'head/yahikko-resized.png' }
         ];
         const EYEBROWS_TRAITS = [
-            { name: 'Albanian', path: 'eyebrows re/albanian-resized.png' }, { name: 'Alien', path: 'eyebrows re/alien-resized.png' },
-            { name: 'American', path: 'eyebrows re/american-resized.png' }, { name: 'Asian', path: 'eyebrows re/asian-resized.png' },
-            { name: 'Indian', path: 'eyebrows re/indian-resized.png' }, { name: 'Jewish', path: 'eyebrows re/jewish-resized.png' },
-            { name: 'Swordfish', path: 'eyebrows re/swordfish-resized.png' }
+            { name: 'Albanian', path: 'eyebrows/albanian-resized.png' }, { name: 'Alien', path: 'eyebrows/alien-resized.png' },
+            { name: 'American', path: 'eyebrows/american-resized.png' }, { name: 'Asian', path: 'eyebrows/asian-resized.png' },
+            { name: 'Indian', path: 'eyebrows/indian-resized.png' }, { name: 'Jewish', path: 'eyebrows/jewish-resized.png' },
+            { name: 'Swordfish', path: 'eyebrows/swordfish-resized.png' }
         ];
         const MOUTH_TRAITS = [
-            { name: '3', path: 'mouth re/3-resized.png' }, { name: 'Cat', path: 'mouth re/Cat-resized.png' },
-            { name: 'Cigar', path: 'mouth re/Cigar-resized.png' }, { name: 'Crooked', path: 'mouth re/Crooked-resized.png' },
-            { name: 'Elated', path: 'mouth re/Elated-resized.png' }, { name: 'Fang', path: 'mouth re/Fang-resized.png' },
-            { name: 'Flat', path: 'mouth re/Flat-resized.png' }, { name: 'Griffith', path: 'mouth re/Griffith-resized.png' },
-            { name: 'Half frown', path: 'mouth re/Half%20frown-resized.png' }, { name: 'Hm', path: 'mouth re/Hm-resized.png' },
-            { name: 'Pout', path: 'mouth re/Pout-resized.png' }, { name: 'Smile', path: 'mouth re/Smile-resized.png' },
-            { name: 'Smile B', path: 'mouth re/SmileB-resized.png' }, { name: 'Smile C', path: 'mouth re/SmileC-resized.png' },
-            { name: 'Smug', path: 'mouth re/Smug-resized.png' }, { name: 'Teeth', path: 'mouth re/Teeth-resized.png' },
-            { name: 'Tohru', path: 'mouth re/Tohru-resized.png' }, { name: 'Vamp', path: 'mouth re/Vamp-resized.png' }
+            { name: '3', path: 'mouth/3-resized.png' }, { name: 'Cat', path: 'mouth/Cat-resized.png' },
+            { name: 'Cigar', path: 'mouth/Cigar-resized.png' }, { name: 'Crooked', path: 'mouth/Crooked-resized.png' },
+            { name: 'Elated', path: 'mouth/Elated-resized.png' }, { name: 'Fang', path: 'mouth/Fang-resized.png' },
+            { name: 'Flat', path: 'mouth/Flat-resized.png' }, { name: 'Griffith', path: 'mouth/Griffith-resized.png' },
+            { name: 'Half frown', path: 'mouth/Half frown-resized.png' }, { name: 'Hm', path: 'mouth/Hm-resized.png' },
+            { name: 'Pout', path: 'mouth/Pout-resized.png' }, { name: 'Smile', path: 'mouth/Smile-resized.png' },
+            { name: 'Smile B', path: 'mouth/SmileB-resized.png' }, { name: 'Smile C', path: 'mouth/SmileC-resized.png' },
+            { name: 'Smug', path: 'mouth/Smug-resized.png' }, { name: 'Teeth', path: 'mouth/Teeth-resized.png' },
+            { name: 'Tohru', path: 'mouth/Tohru-resized.png' }, { name: 'Vamp', path: 'mouth/Vamp-resized.png' }
         ];
         const HALF_AURA_TRAITS = [
-            { name: 'Dark blue 22', path: 'Half aura/darkblue22.PNG' }, { name: 'Distorted 11', path: 'Half aura/distorted11.PNG' },
-            { name: 'Green wave', path: 'Half aura/greenwave.PNG' }, { name: 'Ocean blue 22', path: 'Half aura/oceanblue22.PNG' },
-            { name: 'Oil slick', path: 'Half aura/oilslick.PNG' }, { name: 'Rainbow 1', path: 'Half aura/rainbow1.PNG' },
-            { name: 'White heart', path: 'Half aura/whiteheart.PNG' }
+            { name: 'Dark blue 22', path: 'half aura/darkblue22.PNG' }, { name: 'Distorted 11', path: 'half aura/distorted11.PNG' },
+            { name: 'Green wave', path: 'half aura/greenwave.PNG' }, { name: 'Ocean blue 22', path: 'half aura/oceanblue22.PNG' },
+            { name: 'Oil slick', path: 'half aura/oilslick.PNG' }, { name: 'Rainbow 1', path: 'half aura/rainbow1.PNG' },
+            { name: 'White heart', path: 'half aura/whiteheart.PNG' }
         ];
         const ITEM_TRAITS = [
-            { name: 'Aqua keyblade', path: 'item re/Aqua%20keyblade-resized.png' }, { name: 'Bankai', path: 'item re/Bankai-resized.png' },
-            { name: 'Cartman', path: 'item re/Cartman-resized.png' }, { name: 'Cereal', path: 'item re/Cereal-resized.png' },
-            { name: 'Cheeseborgor', path: 'item re/Cheeseborgor-resized.png' }, { name: 'Cig', path: 'item re/Cig-resized.png' },
-            { name: 'Death note', path: 'item re/Death%20note-resized.png' }, { name: 'Final fantasy', path: 'item re/Final%20fantasy-resized.png' },
-            { name: 'Glep', path: 'item re/Glep-resized.png' }, { name: 'Kirito', path: 'item re/Kirito-resized.png' },
-            { name: 'Kittykaki', path: 'item re/Kittykaki-resized.png' }, { name: 'Leek', path: 'item re/Leek-resized.png' },
-            { name: 'Light sword', path: 'item re/light-resized.png' }, { name: 'Lily', path: 'item re/Lily-resized.png' },
-            { name: 'Milady Fumo', path: 'item re/Milady%20Fumo-resized.png' }, { name: 'OC hammer', path: 'item re/OC%20hammer-resized.png' },
-            { name: 'Pak-9', path: 'item re/Pak-9-resized.png' }, { name: 'Remilia', path: 'item re/remilia-resized.png' },
-            { name: 'Shishi', path: 'item re/Shishi-resized.png' }, { name: 'Spacekitty', path: 'item re/Spacekitty-resized.png' },
-            { name: 'Spoon', path: 'item re/spoon-resized.png' }, { name: 'Ilawbu', path: 'item re/ilaw-resized.png' }
+            { name: 'Aqua keyblade', path: 'item/Aqua keyblade-resized.png' }, { name: 'Bankai', path: 'item/Bankai-resized.png' },
+            { name: 'Cartman', path: 'item/Cartman-resized.png' }, { name: 'Cereal', path: 'item/Cereal-resized.png' },
+            { name: 'Cheeseborgor', path: 'item/Cheeseborgor-resized.png' }, { name: 'Cig', path: 'item/Cig-resized.png' },
+            { name: 'Death note', path: 'item/Death note-resized.png' }, { name: 'Final fantasy', path: 'item/Final fantasy-resized.png' },
+            { name: 'Glep', path: 'item/Glep-resized.png' }, { name: 'Kirito', path: 'item/Kirito-resized.png' },
+            { name: 'Kittykaki', path: 'item/Kittykaki-resized.png' }, { name: 'Leek', path: 'item/Leek-resized.png' },
+            { name: 'Light sword', path: 'item/light-resized.png' }, { name: 'Lily', path: 'item/Lily-resized.png' },
+            { name: 'Milady Fumo', path: 'item/Milady Fumo-resized.png' }, { name: 'OC hammer', path: 'item/OC hammer-resized.png' },
+            { name: 'Pak-9', path: 'item/Pak-9-resized.png' }, { name: 'Remilia', path: 'item/remilia-resized.png' },
+            { name: 'Shishi', path: 'item/Shishi-resized.png' }, { name: 'Spacekitty', path: 'item/Spacekitty-resized.png' },
+            { name: 'Spoon', path: 'item/spoon-resized.png' }, { name: 'Ilawbu', path: 'item/ilaw-resized.png' }
         ];
         const OVERLAY_TRAITS = [
-            { name: 'Bees', path: 'overlay re/Bees-resized.png' }, { name: 'Jesus Fish', path: 'overlay re/jesus-resized.png' },
-            { name: 'Sparkles', path: 'overlay re/sparkles-resized.png' },
+            { name: 'Bees', path: 'overlay/Bees-resized.png' }, { name: 'Jesus Fish', path: 'overlay/Jesus fish-resized.png' },
+            { name: 'Sparkles', path: 'overlay/Sparkles-resized.png' },
         ];
 
 
