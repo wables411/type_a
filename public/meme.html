@@ -9,8 +9,8 @@
             font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 10px;
-            background-color: #FFFFEE;
-            color: #000000;
+            background-color: #000000;
+            color: #FFFFFF;
             line-height: 1.5;
         }
 
@@ -58,7 +58,7 @@
 
         .traits-panel {
             background-color: #F0E0D6;
-            border: 1px solid #D9BFB7;
+            border: 1px solid #0000EE;
             padding: 10px;
             width: 35%; /* Adjusted from 35% to make space for wider panel if needed */
             min-width: 380px; /* Ensure panel is wide enough for controls */
@@ -71,7 +71,7 @@
             margin-bottom: 10px;
             font-size: 18px;
             font-weight: bold;
-            border-bottom: 1px solid #D9BFB7;
+            border-bottom: 1px solid #0000EE;
             padding-bottom: 5px;
             display: flex;
             justify-content: space-between;
@@ -79,15 +79,17 @@
         }
 
         .random-btn {
-            background-color: #D9BFB7;
-            border: 1px solid #000;
+            background-color: #000000;
+            border: 1px solid #0000EE;
+            color: #0000EE;
             padding: 5px 10px;
             font-size: 14px;
             cursor: pointer;
         }
 
         .random-btn:hover {
-            background-color: #C0A098;
+            background-color: #0000EE;
+            color: #FFFFFF;
         }
 
         .trait {
@@ -101,7 +103,7 @@
             width: 110px; /* Adjusted width */
             font-size: 14px;
             text-align: right;
-            color: #800000;
+            color: #0000EE;
             flex-shrink: 0; /* Prevent label from shrinking */
         }
 
@@ -128,7 +130,7 @@
             align-items: center;
             justify-content: space-between;
             background-color: #FFF;
-            border: 1px solid #D9BFB7;
+            border: 1px solid #0000EE;
             padding: 5px;
             min-width: 180px; /* Adjusted min-width */
         }
@@ -165,7 +167,7 @@
 
         .milady-image {
             background-color: #FFF;
-            border: 1px solid #D9BFB7;
+            border: 1px solid #0000EE;
             padding: 10px;
             position: relative;
             width: 506px;
@@ -186,7 +188,7 @@
             font-size: 16px;
             background: #F0E0D6;
             padding: 5px;
-            border: 1px solid #D9BFB7;
+            border: 1px solid #0000EE;
         }
 
         .image-controls {
@@ -198,7 +200,7 @@
             width: 100%;
             max-width: 250px;
             background-color: #F0E0D6;
-            border: 1px solid #D9BFB7;
+            border: 1px solid #0000EE;
             padding: 10px;
         }
 
@@ -206,7 +208,7 @@
             padding: 10px;
             width: 200px;
             background-color: #FFF;
-            border: 1px solid #D9BFB7;
+            border: 1px solid #0000EE;
             font-size: 14px;
             text-align: center;
         }
@@ -224,7 +226,7 @@
 
         .font-size-control label {
             font-size: 14px;
-            color: #800000;
+            color: #0000EE;
         }
 
         .font-size-control input[type="range"] {
@@ -239,7 +241,7 @@
 
         .glow-control label {
             font-size: 14px;
-            color: #0000FF;
+            color: #0000EE;
         }
 
         .glow-control input[type="checkbox"] {
@@ -283,6 +285,12 @@
                 font-size: 18px; /* Larger text for mobile */
                 padding: 12px 20px;
             }
+        }
+        
+        /* Download button hover effect */
+        #download-btn:hover {
+            background-color: #0000EE !important;
+            color: #FFFFFF !important;
         }
     </style>
 </head>
@@ -501,8 +509,9 @@
                     <input type="checkbox" id="glow-checkbox" onchange="updateGlow(this.checked)">
                 </div>
                 <button id="download-btn" onclick="downloadImage()" style="
-                    background-color: #D9BFB7;
-                    border: 1px solid #000;
+                    background-color: #000000;
+                    border: 1px solid #0000EE;
+                    color: #0000EE;
                     padding: 10px 20px;
                     font-size: 16px;
                     cursor: pointer;
