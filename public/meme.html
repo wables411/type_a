@@ -531,10 +531,10 @@
         const CANVAS_WIDTH = 723;
         const CANVAS_HEIGHT = 904;
         const GATEWAYS = [
-            'https://gateway.lighthouse.storage/ipfs/',
-            'https://nftstorage.link/ipfs/',
-            'https://w3s.link/ipfs/',
-            'https://ipfs.io/ipfs/'
+            'https://gateway.lighthouse.storage/ipfs/',  // Fastest - pinned
+            'https://nftstorage.link/ipfs/',             // Fast - NFT.Storage
+            'https://w3s.link/ipfs/',                    // Fast - Web3.Storage
+            'https://ipfs.io/ipfs/'                      // Slower - public gateway
         ];
         const API_BASE = 'https://dweb.link/api/v0/ls?arg=';
         const FOLDER_CID = 'bafybeihzodcfp5bzd5b2gwlw47h3vpwbvv3t4px4ql6viggtnpv24x5bvi';
@@ -939,7 +939,7 @@
         }
 
 
-        // Image Loading with Retry (Original function)
+        // Optimized Image Loading with Parallel Loading and Smart Caching
         async function loadImage(url, traitName, retryCount = 0, gatewayIndex = 0) {
             if (state.imageCache.has(url)) {
                 logInfo(`Cache hit for ${traitName}: ${url}`);
@@ -956,12 +956,20 @@
             return new Promise((resolve, reject) => {
                 const img = new Image();
                 img.crossOrigin = 'Anonymous';
+                
+                // Set a timeout to prevent hanging
+                const timeout = setTimeout(() => {
+                    img.onerror();
+                }, 10000); // 10 second timeout
+                
                 img.onload = () => {
+                    clearTimeout(timeout);
                     state.imageCache.set(url, img);
                     logInfo(`Loaded and cached ${traitName}: ${gatewayUrl}`);
                     resolve(img);
                 };
                 img.onerror = async () => {
+                    clearTimeout(timeout);
                     logError(`Failed to load ${traitName}: ${gatewayUrl}`);
                     if (retryCount < MAX_RETRIES) {
                         try {
@@ -979,6 +987,33 @@
                 };
                 img.src = gatewayUrl;
             });
+        }
+
+        // Preload commonly used images in parallel
+        async function preloadCommonImages() {
+            logInfo('Starting preload of common images...');
+            const commonTraits = [
+                // Preload first few traits from each category for faster initial load
+                ...BACKGROUND_TRAITS.slice(0, 3),
+                ...BODY_TRAITS.slice(0, 3),
+                ...EYES_TRAITS.slice(0, 3),
+                ...MOUTH_TRAITS.slice(0, 3),
+                ...HAIR_TRAITS.slice(0, 3)
+            ];
+
+            const preloadPromises = commonTraits.map(trait => 
+                loadImage(trait.path, trait.name).catch(error => {
+                    logError(`Preload failed for ${trait.name}`, error);
+                    return null;
+                })
+            );
+
+            try {
+                await Promise.allSettled(preloadPromises);
+                logInfo('Common images preload completed');
+            } catch (error) {
+                logError('Preload failed', error);
+            }
         }
 
         // Render Text (Original function)
@@ -1017,7 +1052,7 @@
             ctx.shadowColor = 'transparent';
         }
 
-        // Update Canvas
+        // Optimized Canvas Update with Parallel Image Loading
         async function updateCharacterImage() {
             logInfo('Updating character image');
             if (!Object.keys(state.traitLists).length || CATEGORIES.some(cat => !state.traitLists[cat])) {
@@ -1027,21 +1062,11 @@
             ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
             showLoading();
 
-            async function loadImageLayer(index) {
-                if (index >= DRAWING_ORDER.length) {
-                    renderText(); 
-                    hideLoading();
-                    logInfo('Canvas update complete');
-                    return;
-                }
-
-                const { layer } = DRAWING_ORDER[index];
-
-                // Clothing layer visibility is always true as it has no UI toggle.
-                if (!state.layerVisibility[layer] && layer !== 'clothing') { 
+            // Collect all visible layers that need images
+            const layersToLoad = DRAWING_ORDER.filter(({ layer }) => {
+                if (!state.layerVisibility[layer] && layer !== 'clothing') {
                     logInfo(`Layer ${layer} is hidden, skipping.`);
-                    await loadImageLayer(index + 1); 
-                    return;
+                    return false;
                 }
 
                 const traitIndex = state.currentIndices[layer];
@@ -1049,49 +1074,63 @@
 
                 if (!traitListForLayer || traitListForLayer.length === 0) {
                     logError(`No trait list found or empty for layer: ${layer}`);
-                    await loadImageLayer(index + 1);
-                    return;
+                    return false;
                 }
                 
-                if (traitIndex === -1) { // Handles empty Clothing/Hair lists
+                if (traitIndex === -1) {
                     logInfo(`Layer ${layer} has no valid selection (index is -1), skipping image load.`);
-                    await loadImageLayer(index + 1);
-                    return;
+                    return false;
                 }
                 
                 const trait = traitListForLayer[traitIndex];
                 if (!trait) {
                     logError(`No trait found for ${layer} at index ${traitIndex}`);
-                    await loadImageLayer(index + 1);
-                    return;
+                    return false;
                 }
 
-                // Check for 'none' path. This should only apply to layers that still have a "None" option.
-                // Clothing and Hair layers should not have a 'none' path if logic is correct.
                 if (trait.path === 'none') {
                     logInfo(`Layer ${layer} is set to 'None', skipping image load.`);
-                    await loadImageLayer(index + 1);
-                    return;
+                    return false;
                 }
 
-                logInfo(`Loading image for ${layer}: ${trait.name} from ${trait.path}`);
+                return true;
+            });
 
+            // Load all images in parallel
+            const imagePromises = layersToLoad.map(async ({ layer }) => {
+                const traitIndex = state.currentIndices[layer];
+                const traitListForLayer = state.traitLists[layer];
+                const trait = traitListForLayer[traitIndex];
+                
+                logInfo(`Loading image for ${layer}: ${trait.name} from ${trait.path}`);
+                
                 try {
                     const img = await loadImage(trait.path, trait.name);
-                    ctx.drawImage(img, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-                    logInfo(`Rendered ${trait.name} (layer: ${layer})`);
+                    return { layer, img, trait };
                 } catch (error) {
-                    logError(`Failed to load or draw image for ${layer}: ${trait.name}`, error);
+                    logError(`Failed to load image for ${layer}: ${trait.name}`, error);
+                    return { layer, img: null, trait };
                 }
-                await loadImageLayer(index + 1); 
-            }
+            });
 
             try {
-                await loadImageLayer(0);
+                const loadedImages = await Promise.all(imagePromises);
+                
+                // Draw images in correct order
+                for (const { layer, img, trait } of loadedImages) {
+                    if (img) {
+                        ctx.drawImage(img, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+                        logInfo(`Rendered ${trait.name} (layer: ${layer})`);
+                    }
+                }
+                
+                renderText();
+                hideLoading();
+                logInfo('Canvas update complete');
             } catch (error) {
                 logError('Overall canvas update failed during layer processing', error);
-                hideLoading(); 
-                renderText(); 
+                hideLoading();
+                renderText();
             }
         }
 
@@ -1301,6 +1340,12 @@
             }
         });
         await updateCharacterImage(); 
+        
+        // Start preloading common images in the background for faster subsequent loads
+        preloadCommonImages().catch(error => {
+            logError('Background preload failed', error);
+        });
+        
         logInfo('Initialization complete');
     } catch (error) {
         logError('Initialization failed', error);
