@@ -1414,43 +1414,8 @@
             // Scale the context for high resolution
             tempCtx.scale(scale, scale);
             
-            // Draw the current canvas content
+            // Draw the current canvas content (which already includes the text)
             tempCtx.drawImage(canvas, 0, 0);
-            
-            // Add text if present
-            const topText = document.getElementById('top-text').value;
-            const bottomText = document.getElementById('bottom-text').value;
-            
-            if (topText || bottomText) {
-                tempCtx.scale(scale, scale); // Reset scale for text
-                tempCtx.font = `${state.fontSize * scale}px Arial`;
-                tempCtx.fillStyle = '#FFFFFF';
-                tempCtx.strokeStyle = '#000000';
-                tempCtx.lineWidth = 3 * scale;
-                tempCtx.textAlign = 'center';
-                
-                if (topText) {
-                    const y = 50 * scale;
-                    if (state.glowEnabled) {
-                        tempCtx.shadowColor = '#FFFF00';
-                        tempCtx.shadowBlur = 10 * scale;
-                    }
-                    tempCtx.strokeText(topText, tempCanvas.width / 2, y);
-                    tempCtx.fillText(topText, tempCanvas.width / 2, y);
-                    tempCtx.shadowBlur = 0;
-                }
-                
-                if (bottomText) {
-                    const y = tempCanvas.height - 50 * scale;
-                    if (state.glowEnabled) {
-                        tempCtx.shadowColor = '#FFFF00';
-                        tempCtx.shadowBlur = 10 * scale;
-                    }
-                    tempCtx.strokeText(bottomText, tempCanvas.width / 2, y);
-                    tempCtx.fillText(bottomText, tempCanvas.width / 2, y);
-                    tempCtx.shadowBlur = 0;
-                }
-            }
             
             // Convert to blob and handle download
             tempCanvas.toBlob((blob) => {
