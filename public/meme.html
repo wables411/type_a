@@ -213,6 +213,8 @@
             font-size: 14px;
             text-align: center;
             color: #0000EE;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
         .image-controls input[type="text"]::placeholder {
@@ -501,8 +503,8 @@
                 <canvas id="character-canvas"></canvas>
                 </div>
             <div class="image-controls">
-                <input type="text" id="top-text" placeholder="Top Text" oninput="updateCharacterImage()">
-                <input type="text" id="bottom-text" placeholder="Bottom Text" oninput="updateCharacterImage()">
+                        <input type="text" id="top-text" placeholder="TOP TEXT" oninput="updateCharacterImage(); this.value = this.value.toUpperCase();">
+        <input type="text" id="bottom-text" placeholder="BOTTOM TEXT" oninput="updateCharacterImage(); this.value = this.value.toUpperCase();">
                 <div class="font-size-control">
                     <label id="font-size-label">Font Size: 50px</label>
                     <input type="range" id="font-size-slider" min="20" max="100" value="50" oninput="updateFontSize(this.value)">
@@ -1489,6 +1491,26 @@
             }, 'image/png', 1.0);
         };
 
+        // Setup uppercase text inputs
+        function setupUppercaseInputs() {
+            const topTextInput = document.getElementById('top-text');
+            const bottomTextInput = document.getElementById('bottom-text');
+            
+            if (topTextInput) {
+                topTextInput.addEventListener('input', function() {
+                    this.value = this.value.toUpperCase();
+                });
+            }
+            
+            if (bottomTextInput) {
+                bottomTextInput.addEventListener('input', function() {
+                    this.value = this.value.toUpperCase();
+                });
+            }
+            
+            logInfo('Uppercase text inputs configured');
+        }
+
         // Initialize
         async function initialize() {
     logInfo('Initializing character generator');
@@ -1509,6 +1531,9 @@
             }
         });
         await updateCharacterImage(); 
+        
+        // Setup uppercase text inputs
+        setupUppercaseInputs();
         
         // Start preloading common images in the background for faster subsequent loads
         preloadCommonImages().catch(error => {
