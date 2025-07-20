@@ -1495,7 +1495,7 @@
                     
                     // Add instructions
                     const instructions = document.createElement('div');
-                    instructions.innerHTML = 'Long press image to save or copy<br><small>Copying will add "我爱你" to clipboard</small>';
+                    instructions.innerHTML = 'Long press or tap image to copy<br><small>Will add "我爱你" to clipboard</small>';
                     instructions.style.position = 'absolute';
                     instructions.style.bottom = '10px';
                     instructions.style.left = '50%';
@@ -1532,6 +1532,15 @@
                             pressTimer = null;
                         }
                     });
+
+                    // Also add click event as fallback for some mobile browsers
+                    img.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (!hasTriggered) {
+                            hasTriggered = true;
+                            copyImageWithText(blob);
+                        }
+                    });
                     
                     document.body.appendChild(img);
                     document.body.appendChild(closeBtn);
@@ -1559,45 +1568,102 @@
         // Function to copy image with text to clipboard
         async function copyImageWithText(blob) {
             try {
-                // Create a new blob with the image
+                // First, try to copy just the image (more reliable on mobile)
                 const imageBlob = new Blob([blob], { type: 'image/png' });
-                
-                // Create clipboard item with both image and text
                 const clipboardItem = new ClipboardItem({
-                    'image/png': imageBlob,
-                    'text/plain': new Blob(['我爱你'], { type: 'text/plain' })
+                    'image/png': imageBlob
                 });
                 
-                // Copy to clipboard
                 await navigator.clipboard.write([clipboardItem]);
                 
-                // Show success message
-                showCopySuccess();
-                
-                logInfo('Image and text copied to clipboard');
-            } catch (error) {
-                logError('Failed to copy image with text', error);
-                
-                // Fallback: try to copy just the image
+                // Then try to add text separately (this is more mobile-friendly)
                 try {
-                    const imageBlob = new Blob([blob], { type: 'image/png' });
-                    const clipboardItem = new ClipboardItem({
-                        'image/png': imageBlob
-                    });
-                    await navigator.clipboard.write([clipboardItem]);
+                    await navigator.clipboard.writeText('我爱你');
                     showCopySuccess();
-                    logInfo('Image copied to clipboard (text copy failed)');
+                    logInfo('Image and text copied to clipboard');
+                } catch (textError) {
+                    // If text copy fails, at least we have the image
+                    showCopySuccessImageOnly();
+                    logInfo('Image copied to clipboard, text copy failed');
+                }
+                
+            } catch (error) {
+                logError('Failed to copy image', error);
+                
+                // Try alternative approach for older browsers
+                try {
+                    await copyImageFallback(blob);
+                    showCopySuccess();
+                    logInfo('Image copied using fallback method');
                 } catch (fallbackError) {
-                    logError('Fallback copy also failed', fallbackError);
+                    logError('All copy methods failed', fallbackError);
                     showCopyError();
                 }
             }
+        }
+
+        // Fallback method for copying images on older browsers
+        async function copyImageFallback(blob) {
+            // Create a canvas element
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            return new Promise((resolve, reject) => {
+                img.onload = () => {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    
+                    // Try to copy using canvas
+                    canvas.toBlob(async (blob) => {
+                        try {
+                            const clipboardItem = new ClipboardItem({
+                                'image/png': blob
+                            });
+                            await navigator.clipboard.write([clipboardItem]);
+                            resolve();
+                        } catch (error) {
+                            reject(error);
+                        }
+                    }, 'image/png');
+                };
+                
+                img.onerror = () => reject(new Error('Failed to load image for fallback'));
+                img.src = URL.createObjectURL(blob);
+            });
         }
 
         // Show copy success message
         function showCopySuccess() {
             const message = document.createElement('div');
             message.innerHTML = '✅ Image copied!<br><small>Text "我爱你" added to clipboard</small>';
+            message.style.position = 'fixed';
+            message.style.top = '20px';
+            message.style.left = '50%';
+            message.style.transform = 'translateX(-50%)';
+            message.style.backgroundColor = '#4CAF50';
+            message.style.color = '#fff';
+            message.style.padding = '15px 20px';
+            message.style.borderRadius = '5px';
+            message.style.zIndex = '10002';
+            message.style.textAlign = 'center';
+            message.style.fontSize = '16px';
+            message.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                if (document.body.contains(message)) {
+                    document.body.removeChild(message);
+                }
+            }, 3000);
+        }
+
+        // Show copy success message for image only
+        function showCopySuccessImageOnly() {
+            const message = document.createElement('div');
+            message.innerHTML = '✅ Image copied!<br><small>Type "我爱你" manually when posting</small>';
             message.style.position = 'fixed';
             message.style.top = '20px';
             message.style.left = '50%';
