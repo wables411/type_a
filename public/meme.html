@@ -1461,92 +1461,29 @@
                 
                 // Check if mobile device
                 if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                    // Mobile approach: create image element for long-press
+                    // Mobile approach: open image in new tab for native save/copy
                     const url = URL.createObjectURL(blob);
-                    const img = document.createElement('img');
-                    img.src = url;
-                    img.style.position = 'fixed';
-                    img.style.top = '50%';
-                    img.style.left = '50%';
-                    img.style.transform = 'translate(-50%, -50%)';
-                    img.style.maxWidth = '90vw';
-                    img.style.maxHeight = '90vh';
-                    img.style.zIndex = '10000';
-                    img.style.backgroundColor = '#000';
-                    img.style.padding = '20px';
-                    img.style.borderRadius = '10px';
-                    img.style.boxShadow = '0 0 20px rgba(0,0,0,0.8)';
+                    const newWindow = window.open(url, '_blank');
                     
-                    // Add close button
-                    const closeBtn = document.createElement('div');
-                    closeBtn.innerHTML = '✕';
-                    closeBtn.style.position = 'absolute';
-                    closeBtn.style.top = '10px';
-                    closeBtn.style.right = '15px';
-                    closeBtn.style.color = '#fff';
-                    closeBtn.style.fontSize = '24px';
-                    closeBtn.style.cursor = 'pointer';
-                    closeBtn.style.zIndex = '10001';
-                    closeBtn.onclick = () => {
-                        document.body.removeChild(img);
-                        document.body.removeChild(closeBtn);
+                    if (newWindow) {
+                        // Show simple instructions
+                        setTimeout(() => {
+                            alert('Image opened in new tab. Long press the image to save or copy it.');
+                        }, 100);
+                    } else {
+                        // Fallback: create download link
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = 'milady-meme.png';
+                        link.click();
+                    }
+                    
+                    // Clean up
+                    setTimeout(() => {
                         URL.revokeObjectURL(url);
-                    };
+                    }, 1000);
                     
-                    // Add instructions
-                    const instructions = document.createElement('div');
-                    instructions.innerHTML = 'Long press or tap image to copy<br><small>Image will be copied to clipboard</small>';
-                    instructions.style.position = 'absolute';
-                    instructions.style.bottom = '10px';
-                    instructions.style.left = '50%';
-                    instructions.style.transform = 'translateX(-50%)';
-                    instructions.style.color = '#fff';
-                    instructions.style.textAlign = 'center';
-                    instructions.style.fontSize = '14px';
-                    instructions.style.zIndex = '10001';
-                    
-                    // Add long-press event for copy with text
-                    let pressTimer = null;
-                    let hasTriggered = false;
-                    
-                    img.addEventListener('touchstart', (e) => {
-                        e.preventDefault();
-                        pressTimer = setTimeout(() => {
-                            if (!hasTriggered) {
-                                hasTriggered = true;
-                                copyImage(blob);
-                            }
-                        }, 500); // 500ms long press
-                    });
-                    
-                    img.addEventListener('touchend', () => {
-                        if (pressTimer) {
-                            clearTimeout(pressTimer);
-                            pressTimer = null;
-                        }
-                    });
-                    
-                    img.addEventListener('touchmove', () => {
-                        if (pressTimer) {
-                            clearTimeout(pressTimer);
-                            pressTimer = null;
-                        }
-                    });
-
-                    // Also add click event as fallback for some mobile browsers
-                    img.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        if (!hasTriggered) {
-                            hasTriggered = true;
-                            copyImage(blob);
-                        }
-                    });
-                    
-                    document.body.appendChild(img);
-                    document.body.appendChild(closeBtn);
-                    document.body.appendChild(instructions);
-                    
-                    logInfo('Mobile image viewer opened for long-press save/copy');
+                    logInfo('Mobile image opened in new tab for native save/copy');
                 } else {
                     // Desktop approach: direct download
                     const url = URL.createObjectURL(blob);
@@ -1565,117 +1502,7 @@
             }, 'image/png', 1.0);
         };
 
-        // Function to copy image to clipboard
-        async function copyImage(blob) {
-            try {
-                // Try to copy the image to clipboard
-                const imageBlob = new Blob([blob], { type: 'image/png' });
-                const clipboardItem = new ClipboardItem({
-                    'image/png': imageBlob
-                });
-                
-                await navigator.clipboard.write([clipboardItem]);
-                showCopySuccess();
-                logInfo('Image copied to clipboard');
-                
-            } catch (error) {
-                logError('Failed to copy image', error);
-                
-                // Try alternative approach for older browsers
-                try {
-                    await copyImageFallback(blob);
-                    showCopySuccess();
-                    logInfo('Image copied using fallback method');
-                } catch (fallbackError) {
-                    logError('All copy methods failed', fallbackError);
-                    showCopyError();
-                }
-            }
-        }
 
-        // Fallback method for copying images on older browsers
-        async function copyImageFallback(blob) {
-            // Create a canvas element
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            const img = new Image();
-            
-            return new Promise((resolve, reject) => {
-                img.onload = () => {
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    ctx.drawImage(img, 0, 0);
-                    
-                    // Try to copy using canvas
-                    canvas.toBlob(async (blob) => {
-                        try {
-                            const clipboardItem = new ClipboardItem({
-                                'image/png': blob
-                            });
-                            await navigator.clipboard.write([clipboardItem]);
-                            resolve();
-                        } catch (error) {
-                            reject(error);
-                        }
-                    }, 'image/png');
-                };
-                
-                img.onerror = () => reject(new Error('Failed to load image for fallback'));
-                img.src = URL.createObjectURL(blob);
-            });
-        }
-
-        // Show copy success message
-        function showCopySuccess() {
-            const message = document.createElement('div');
-            message.innerHTML = '✅ Image copied!<br><small>Image is now in your clipboard</small>';
-            message.style.position = 'fixed';
-            message.style.top = '20px';
-            message.style.left = '50%';
-            message.style.transform = 'translateX(-50%)';
-            message.style.backgroundColor = '#4CAF50';
-            message.style.color = '#fff';
-            message.style.padding = '15px 20px';
-            message.style.borderRadius = '5px';
-            message.style.zIndex = '10002';
-            message.style.textAlign = 'center';
-            message.style.fontSize = '16px';
-            message.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
-            
-            document.body.appendChild(message);
-            
-            setTimeout(() => {
-                if (document.body.contains(message)) {
-                    document.body.removeChild(message);
-                }
-            }, 3000);
-        }
-
-        // Show copy error message
-        function showCopyError() {
-            const message = document.createElement('div');
-            message.innerHTML = '❌ Copy failed<br><small>Try long-pressing again</small>';
-            message.style.position = 'fixed';
-            message.style.top = '20px';
-            message.style.left = '50%';
-            message.style.transform = 'translateX(-50%)';
-            message.style.backgroundColor = '#f44336';
-            message.style.color = '#fff';
-            message.style.padding = '15px 20px';
-            message.style.borderRadius = '5px';
-            message.style.zIndex = '10002';
-            message.style.textAlign = 'center';
-            message.style.fontSize = '16px';
-            message.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
-            
-            document.body.appendChild(message);
-            
-            setTimeout(() => {
-                if (document.body.contains(message)) {
-                    document.body.removeChild(message);
-                }
-            }, 3000);
-        }
 
         // Setup uppercase text inputs
         function setupUppercaseInputs() {
