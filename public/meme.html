@@ -372,21 +372,21 @@
                 </div>
             </div>
             <div class="trait">
-                <label>Blush</label>
-                <button class="eye-toggle" onclick="toggleLayerVisibility('blush', this)">👁️</button>
-                <div class="trait-nav" data-layer="blush">
-                    <button onclick="changeTrait('blush', -1)">◄</button>
-                    <span class="trait-name" id="blush-name">None</span>
-                    <button onclick="changeTrait('blush', 1)">►</button>
-                </div>
-            </div>
-            <div class="trait">
                 <label>Eyes</label>
                 <button class="eye-toggle" onclick="toggleLayerVisibility('eyes', this)">👁️</button>
                 <div class="trait-nav" data-layer="eyes">
                     <button onclick="changeTrait('eyes', -1)">◄</button>
                     <span class="trait-name" id="eyes-name">None</span>
                     <button onclick="changeTrait('eyes', 1)">►</button>
+                </div>
+            </div>
+            <div class="trait">
+                <label>Blush</label>
+                <button class="eye-toggle" onclick="toggleLayerVisibility('blush', this)">👁️</button>
+                <div class="trait-nav" data-layer="blush">
+                    <button onclick="changeTrait('blush', -1)">◄</button>
+                    <span class="trait-name" id="blush-name">None</span>
+                    <button onclick="changeTrait('blush', 1)">►</button>
                 </div>
             </div>
             <div class="trait">
@@ -399,20 +399,20 @@
                 </div>
             </div>
             <div class="trait">
+                <label>Clothing</label>
+                <div class="trait-nav" data-layer="clothing">
+                    <button onclick="changeTrait('clothing', -1)">◄</button>
+                    <span class="trait-name" id="clothing-name">None</span>
+                    <button onclick="changeTrait('clothing', 1)">►</button>
+                </div>
+            </div>
+            <div class="trait">
                 <label>Necklace</label>
                 <button class="eye-toggle" onclick="toggleLayerVisibility('necklace', this)">👁️</button>
                 <div class="trait-nav" data-layer="necklace">
                     <button onclick="changeTrait('necklace', -1)">◄</button>
                     <span class="trait-name" id="necklace-name">None</span>
                     <button onclick="changeTrait('necklace', 1)">►</button>
-                </div>
-            </div>
-            <div class="trait">
-                <label>Clothing</label>
-                <div class="trait-nav" data-layer="clothing">
-                    <button onclick="changeTrait('clothing', -1)">◄</button>
-                    <span class="trait-name" id="clothing-name">None</span>
-                    <button onclick="changeTrait('clothing', 1)">►</button>
                 </div>
             </div>
             <div class="trait">
@@ -443,15 +443,6 @@
                 </div>
             </div>
             <div class="trait">
-                <label>Head</label>
-                <button class="eye-toggle" onclick="toggleLayerVisibility('head', this)">👁️</button>
-                <div class="trait-nav" data-layer="head">
-                    <button onclick="changeTrait('head', -1)">◄</button>
-                    <span class="trait-name" id="head-name">None</span>
-                    <button onclick="changeTrait('head', 1)">►</button>
-                </div>
-            </div>
-            <div class="trait">
                 <label>Eyebrows</label>
                 <button class="eye-toggle" onclick="toggleLayerVisibility('eyebrows', this)">👁️</button>
                 <div class="trait-nav" data-layer="eyebrows">
@@ -467,6 +458,15 @@
                     <button onclick="changeTrait('mouth', -1)">◄</button>
                     <span class="trait-name" id="mouth-name">None</span>
                     <button onclick="changeTrait('mouth', 1)">►</button>
+                </div>
+            </div>
+            <div class="trait">
+                <label>Head</label>
+                <button class="eye-toggle" onclick="toggleLayerVisibility('head', this)">👁️</button>
+                <div class="trait-nav" data-layer="head">
+                    <button onclick="changeTrait('head', -1)">◄</button>
+                    <span class="trait-name" id="head-name">None</span>
+                    <button onclick="changeTrait('head', 1)">►</button>
                 </div>
             </div>
             <div class="trait">
@@ -533,9 +533,9 @@
         const CANVAS_WIDTH = 723;
         const CANVAS_HEIGHT = 904;
         const GATEWAYS = [
-            'https://gateway.lighthouse.storage/ipfs/',  // Fastest - pinned
             'https://nftstorage.link/ipfs/',             // Fast - NFT.Storage
             'https://w3s.link/ipfs/',                    // Fast - Web3.Storage
+            'https://gateway.lighthouse.storage/ipfs/',  // Fastest - pinned
             'https://ipfs.io/ipfs/'                      // Slower - public gateway
         ];
         const API_BASE = 'https://dweb.link/api/v0/ls?arg=';
@@ -552,8 +552,8 @@
             { layer: 'bun' }, { layer: 'body' }, { layer: 'face decoration' }, 
             { layer: 'eyes' }, { layer: 'blush' }, { layer: 'glasses' }, 
             { layer: 'clothing' }, { layer: 'necklace' }, { layer: 'pin' }, 
-            { layer: 'hair' }, { layer: 'earring' }, { layer: 'head' }, 
-            { layer: 'eyebrows' }, { layer: 'mouth' }, { layer: 'Half aura' }, 
+            { layer: 'hair' }, { layer: 'earring' }, { layer: 'eyebrows' }, 
+            { layer: 'mouth' }, { layer: 'head' }, { layer: 'Half aura' }, 
             { layer: 'item' }, { layer: 'overlay' }
         ];
         
@@ -1126,7 +1126,7 @@
                 logInfo('Essential images preload completed');
                 
                 // Phase 2: Load popular hair styles in background
-                const popularHairTraits = HAIR_TRAITS.slice(0, 10); // Load first 10 hair styles
+                const popularHairTraits = HAIR_TRAITS.slice(0, 3); // Load first 3 hair styles
                 const hairPromises = popularHairTraits.map(trait => 
                     loadImage(trait.path, trait.name).catch(error => {
                         logError(`Hair preload failed for ${trait.name}`, error);
