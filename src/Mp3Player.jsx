@@ -2,11 +2,14 @@ import { useEffect, useRef, useMemo, useState } from "react";
 import Webamp from "webamp";
 import "./Mp3Player.css";
 
-const Mp3Player = () => {
+const Mp3Player = ({ className = "" }) => {
   const webampRef = useRef(null);
   const containerRef = useRef(null);
   const isMountedRef = useRef(false);
   const [error, setError] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isPlayerEnabled, setIsPlayerEnabled] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const skins = useMemo(() => [
     { name: "Kaori Amp 2", url: "/assets/skins/1Kaori_Amp_2.wsz" },
@@ -72,7 +75,89 @@ const Mp3Player = () => {
   ], []);
 
   useEffect(() => {
+    const updateViewport = () => {
+      const mobileViewport = window.innerWidth <= 768;
+      setIsMobile(mobileViewport);
+      // Desktop keeps auto-init behavior; mobile waits for explicit user start.
+      if (!mobileViewport) {
+        setIsPlayerEnabled(true);
+        setIsCollapsed(false);
+      }
+    };
+
+    updateViewport();
+    window.addEventListener("resize", updateViewport);
+    return () => window.removeEventListener("resize", updateViewport);
+  }, []);
+
+  useEffect(() => {
+    if (!isPlayerEnabled) {
+      return undefined;
+    }
+
     let isCancelled = false;
+    let mediaSessionCleanup = null;
+    let mediaSessionPoll = null;
+
+    const attachMediaSession = () => {
+      if (typeof navigator === "undefined" || !("mediaSession" in navigator)) {
+        return null;
+      }
+
+      const root = containerRef.current || document;
+      const audio = root.querySelector("audio");
+      if (!audio) {
+        return null;
+      }
+
+      audio.setAttribute("playsinline", "true");
+      audio.setAttribute("preload", "auto");
+
+      if ("MediaMetadata" in window) {
+        navigator.mediaSession.metadata = new window.MediaMetadata({
+          title: "Milady Type A Radio",
+          artist: "Milady Type A",
+          album: "Webamp Playlist",
+        });
+      }
+
+      const updatePlaybackState = () => {
+        navigator.mediaSession.playbackState = audio.paused ? "paused" : "playing";
+      };
+
+      const safePlay = () => {
+        audio.play().catch(() => {});
+      };
+
+      const safePause = () => {
+        audio.pause();
+      };
+
+      navigator.mediaSession.setActionHandler("play", safePlay);
+      navigator.mediaSession.setActionHandler("pause", safePause);
+      navigator.mediaSession.setActionHandler("seekbackward", () => {
+        audio.currentTime = Math.max(0, audio.currentTime - 10);
+      });
+      navigator.mediaSession.setActionHandler("seekforward", () => {
+        audio.currentTime = Math.min(audio.duration || Infinity, audio.currentTime + 10);
+      });
+
+      audio.addEventListener("play", updatePlaybackState);
+      audio.addEventListener("pause", updatePlaybackState);
+      audio.addEventListener("ended", updatePlaybackState);
+      updatePlaybackState();
+
+      return () => {
+        audio.removeEventListener("play", updatePlaybackState);
+        audio.removeEventListener("pause", updatePlaybackState);
+        audio.removeEventListener("ended", updatePlaybackState);
+        navigator.mediaSession.playbackState = "none";
+        navigator.mediaSession.setActionHandler("play", null);
+        navigator.mediaSession.setActionHandler("pause", null);
+        navigator.mediaSession.setActionHandler("seekbackward", null);
+        navigator.mediaSession.setActionHandler("seekforward", null);
+      };
+    };
 
     const initializeWebamp = async () => {
       if (isMountedRef.current || isCancelled || !containerRef.current) {
@@ -100,26 +185,22 @@ const Mp3Player = () => {
         await webamp.renderWhenReady(containerRef.current);
         console.log('Webamp rendered successfully');
 
-        // Check for Webamp root in container
-        const rootInContainer = containerRef.current.querySelector('div[data-webamp-root]');
-        if (rootInContainer) {
-          console.log('Webamp root size in container:', {
-            width: rootInContainer.offsetWidth,
-            height: rootInContainer.offsetHeight,
-          });
-        } else {
-          console.log('No div[data-webamp-root] in container');
-          // Check entire DOM
-          const rootInDom = document.querySelector('div[data-webamp-root]');
-          if (rootInDom) {
-            console.log('Found div[data-webamp-root] elsewhere in DOM:', rootInDom);
-            console.log('Webamp root size in DOM:', {
-              width: rootInDom.offsetWidth,
-              height: rootInDom.offsetHeight,
-            });
-          } else {
-            console.log('No div[data-webamp-root] anywhere in DOM');
-          }
+        mediaSessionCleanup = attachMediaSession();
+        if (!mediaSessionCleanup) {
+          let attempts = 0;
+          mediaSessionPoll = window.setInterval(() => {
+            if (isCancelled) {
+              window.clearInterval(mediaSessionPoll);
+              mediaSessionPoll = null;
+              return;
+            }
+            attempts += 1;
+            mediaSessionCleanup = attachMediaSession();
+            if (mediaSessionCleanup || attempts >= 20) {
+              window.clearInterval(mediaSessionPoll);
+              mediaSessionPoll = null;
+            }
+          }, 500);
         }
       } catch (err) {
         if (!isCancelled) {
@@ -134,6 +215,14 @@ const Mp3Player = () => {
 
     return () => {
       isCancelled = true;
+      if (mediaSessionPoll) {
+        window.clearInterval(mediaSessionPoll);
+        mediaSessionPoll = null;
+      }
+      if (mediaSessionCleanup) {
+        mediaSessionCleanup();
+        mediaSessionCleanup = null;
+      }
       if (webampRef.current && isMountedRef.current) {
         try {
           webampRef.current.dispose();
@@ -144,13 +233,92 @@ const Mp3Player = () => {
         isMountedRef.current = false;
       }
     };
-  }, [skins, tracks]);
+  }, [isPlayerEnabled, skins, tracks]);
+
+  useEffect(() => {
+    if (typeof document === "undefined" || typeof window === "undefined") {
+      return undefined;
+    }
+
+    const shouldCollapse = isMobile && isPlayerEnabled && isCollapsed;
+    let intervalId = null;
+
+    const applyVisibility = () => {
+      const roots = document.querySelectorAll("div[data-webamp-root]");
+      roots.forEach((root) => {
+        if (shouldCollapse) {
+          if (!root.dataset.prevInlineDisplay) {
+            root.dataset.prevInlineDisplay = root.style.display || "";
+          }
+          root.style.display = "none";
+        } else if (root.dataset.prevInlineDisplay !== undefined) {
+          root.style.display = root.dataset.prevInlineDisplay;
+          delete root.dataset.prevInlineDisplay;
+        }
+      });
+    };
+
+    applyVisibility();
+    if (shouldCollapse) {
+      intervalId = window.setInterval(applyVisibility, 500);
+    }
+
+    return () => {
+      if (intervalId) {
+        window.clearInterval(intervalId);
+      }
+      if (shouldCollapse) {
+        const roots = document.querySelectorAll("div[data-webamp-root]");
+        roots.forEach((root) => {
+          if (root.dataset.prevInlineDisplay !== undefined) {
+            root.style.display = root.dataset.prevInlineDisplay;
+            delete root.dataset.prevInlineDisplay;
+          }
+        });
+      }
+    };
+  }, [isCollapsed, isMobile, isPlayerEnabled]);
 
   if (error) {
     throw error;
   }
 
-  return <div ref={containerRef} className="webamp-container" />;
+  return (
+    <div className={className}>
+      {isMobile && !isPlayerEnabled ? (
+        <button
+          type="button"
+          className="mp3-start-button"
+          onClick={() => setIsPlayerEnabled(true)}
+        >
+          Start music player
+        </button>
+      ) : (
+        <div className="mobile-player-shell">
+          {isMobile && (
+            <div className="mobile-player-controls">
+              <button
+                type="button"
+                className="mp3-toggle-button"
+                onClick={() => setIsCollapsed((prev) => !prev)}
+              >
+                {isCollapsed ? "Show player" : "Minimize player"}
+              </button>
+            </div>
+          )}
+          <div
+            ref={containerRef}
+            className="webamp-container"
+          />
+        </div>
+      )}
+      {isMobile && isPlayerEnabled && (
+        <p className="mp3-mobile-hint">
+          Background playback depends on your browser and OS power settings.
+        </p>
+      )}
+    </div>
+  );
 };
 
 export default Mp3Player;

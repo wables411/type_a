@@ -424,9 +424,17 @@ body {
     height: 100%;
   }
 
-  /* Hide MP3 player on mobile */
+  /* Keep MP3 player in flow on mobile */
   .mp3-player {
-    display: none;
+    position: relative;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    width: 100%;
+    max-width: clamp(300px, 90vw, 500px);
+    margin: 15px auto;
+    z-index: 2;
   }
 
   /* Move fixed elements into document flow for single-column layout */
@@ -472,6 +480,10 @@ body {
   }
   .fixed-elements > .chat {
     order: 7;
+  }
+
+  .fixed-elements > .mp3-player {
+    order: 8;
   }
 
   .chat {

@@ -8,6 +8,56 @@
   overflow: visible; /* Ensure scaled content isn’t clipped */
 }
 
+.mp3-start-button {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 10px 14px;
+  border: 2px solid #21aaf4;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mp3-start-button:hover {
+  border-color: #ff85c0;
+}
+
+.mp3-mobile-hint {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #d9edff;
+}
+
+.mobile-player-shell {
+  width: 100%;
+}
+
+.mobile-player-controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.mp3-toggle-button {
+  width: 100%;
+  max-width: 320px;
+  padding: 8px 12px;
+  border: 2px solid #21aaf4;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mp3-toggle-button:hover {
+  border-color: #ff85c0;
+}
+
 .webamp-container > div[data-webamp-root] {
   transform: scale(1.5) !important;
   transform-origin: bottom left !important;
@@ -31,10 +81,17 @@
     width: 100%;
     max-width: 275px;
     margin: 10px auto;
+    height: auto;
   }
 
   .webamp-container > div[data-webamp-root] {
     transform: scale(1.2) !important;
-    transform-origin: bottom left !important;
+    transform-origin: top center !important;
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+    z-index: 2 !important;
   }
 }

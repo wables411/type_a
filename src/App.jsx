@@ -92,23 +92,12 @@ const Chat = () => {
 const App = () => {
   const [playerError, setPlayerError] = useState(null);
   const [retryKey, setRetryKey] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
   const iframeRef = useRef(null);
   const playerRef = useRef(null);
   const timeoutRef = useRef(null);
   const lastMouseXRef = useRef(null);
 
   console.log('App rendering');
-
-  // Detect mobile and update on resize
-  useEffect(() => {
-    const updateDevice = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    updateDevice();
-    window.addEventListener('resize', updateDevice);
-    return () => window.removeEventListener('resize', updateDevice);
-  }, []);
 
   const throttle = (func, limit) => {
     let lastFunc;
@@ -340,13 +329,11 @@ const App = () => {
         </div>
       </div>
       <div className="fixed-elements">
-        {!isMobile && (
-          <ErrorBoundary>
-            <Suspense fallback={<div>Loading MP3 Player...</div>}>
-              <Mp3Player className="mp3-player" />
-            </Suspense>
-          </ErrorBoundary>
-        )}
+        <ErrorBoundary>
+          <Suspense fallback={<div>Loading MP3 Player...</div>}>
+            <Mp3Player className="mp3-player" />
+          </Suspense>
+        </ErrorBoundary>
         <img
           src="/assets/bluetypea.png"
           alt="Blue Type A"
