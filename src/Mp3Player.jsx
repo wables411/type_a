@@ -7,22 +7,6 @@ const Mp3Player = ({ className = "" }) => {
   const containerRef = useRef(null);
   const isMountedRef = useRef(false);
   const [error, setError] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isPlayerEnabled, setIsPlayerEnabled] = useState(false);
-
-  const pinMobilePlayer = () => {
-    if (typeof document === "undefined") return;
-    const roots = document.querySelectorAll("div[data-webamp-root]");
-    roots.forEach((root) => {
-      root.style.position = "fixed";
-      root.style.bottom = "0";
-      root.style.left = "50%";
-      root.style.transform = "translateX(-50%) scale(1.2)";
-      root.style.transformOrigin = "bottom center";
-      root.style.margin = "0";
-      root.style.zIndex = "2147483647";
-    });
-  };
 
   const skins = useMemo(() => [
     { name: "Kaori Amp 2", url: "/assets/skins/1Kaori_Amp_2.wsz" },
@@ -88,25 +72,6 @@ const Mp3Player = ({ className = "" }) => {
   ], []);
 
   useEffect(() => {
-    const updateViewport = () => {
-      const mobileViewport = window.innerWidth <= 768;
-      setIsMobile(mobileViewport);
-      // Desktop keeps auto-init behavior; mobile waits for explicit user start.
-      if (!mobileViewport) {
-        setIsPlayerEnabled(true);
-      }
-    };
-
-    updateViewport();
-    window.addEventListener("resize", updateViewport);
-    return () => window.removeEventListener("resize", updateViewport);
-  }, []);
-
-  useEffect(() => {
-    if (!isPlayerEnabled) {
-      return undefined;
-    }
-
     let isCancelled = false;
     let mediaSessionCleanup = null;
     let mediaSessionPoll = null;
@@ -196,9 +161,6 @@ const Mp3Player = ({ className = "" }) => {
         console.log('Rendering Webamp into container...');
         await webamp.renderWhenReady(containerRef.current);
         console.log('Webamp rendered successfully');
-        if (isMobile) {
-          pinMobilePlayer();
-        }
 
         mediaSessionCleanup = attachMediaSession();
         if (!mediaSessionCleanup) {
@@ -248,13 +210,7 @@ const Mp3Player = ({ className = "" }) => {
         isMountedRef.current = false;
       }
     };
-  }, [isMobile, isPlayerEnabled, skins, tracks]);
-
-  useEffect(() => {
-    if (isMobile && isPlayerEnabled) {
-      pinMobilePlayer();
-    }
-  }, [isMobile, isPlayerEnabled]);
+  }, [skins, tracks]);
 
   if (error) {
     throw error;
@@ -262,28 +218,7 @@ const Mp3Player = ({ className = "" }) => {
 
   return (
     <div className={className}>
-      {isMobile && !isPlayerEnabled ? (
-        <button
-          type="button"
-          className="mp3-start-button"
-          onClick={() => setIsPlayerEnabled(true)}
-          aria-label="click for musics"
-        >
-          <img
-            src="/assets/CLICK-4-MUSICS.gif"
-            alt="click for musics !!"
-            className="mp3-start-button-image"
-            loading="lazy"
-          />
-        </button>
-      ) : (
-        <div ref={containerRef} className="webamp-container" />
-      )}
-      {isMobile && isPlayerEnabled && (
-        <p className="mp3-mobile-hint">
-          Background playback depends on your browser and OS power settings.
-        </p>
-      )}
+      <div ref={containerRef} className="webamp-container" />
     </div>
   );
 };

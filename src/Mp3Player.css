@@ -8,30 +8,6 @@
   overflow: visible; /* Ensure scaled content isn’t clipped */
 }
 
-.mp3-start-button {
-  display: block;
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-
-.mp3-start-button-image {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.mp3-mobile-hint {
-  margin-top: 8px;
-  text-align: center;
-  font-size: 0.75rem;
-  color: #d9edff;
-}
-
 .webamp-container > div[data-webamp-root] {
   transform: scale(1.5) !important;
   transform-origin: bottom left !important;
@@ -49,27 +25,25 @@
 }
 
 /* Mobile adjustments */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .webamp-container {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
+    position: relative;
     width: 275px;
     max-width: 275px;
-    height: 0;
-    margin: 0;
-    transform: translateX(-50%);
-    z-index: 2147483647;
+    height: auto;
+    margin: 0 auto;
+    transform: none;
+    z-index: 1;
   }
 
   .webamp-container > div[data-webamp-root] {
-    transform: translateX(-50%) scale(1.2) !important;
-    transform-origin: bottom center !important;
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 50% !important;
+    transform: scale(1.1) !important;
+    transform-origin: top center !important;
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
     display: block !important;
-    margin: 0 !important;
-    z-index: 2147483647 !important;
+    margin: 0 auto !important;
+    z-index: 1 !important;
   }
 }
