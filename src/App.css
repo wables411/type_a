@@ -376,6 +376,10 @@ body {
 
 /* Mobile styles (below 768px) */
 @media (max-width: 768px) {
+  body {
+    padding-bottom: 340px;
+  }
+
   .container,
   .fixed-elements {
     max-width: 100%;
@@ -493,6 +497,7 @@ body {
     max-width: clamp(300px, 90vw, 500px);
     border-radius: 10px;
     overflow: visible;
+    z-index: 0;
   }
 
   .chat-log {

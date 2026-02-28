@@ -9,7 +9,20 @@ const Mp3Player = ({ className = "" }) => {
   const [error, setError] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isPlayerEnabled, setIsPlayerEnabled] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const pinMobilePlayer = () => {
+    if (typeof document === "undefined") return;
+    const roots = document.querySelectorAll("div[data-webamp-root]");
+    roots.forEach((root) => {
+      root.style.position = "fixed";
+      root.style.bottom = "0";
+      root.style.left = "50%";
+      root.style.transform = "translateX(-50%) scale(1.2)";
+      root.style.transformOrigin = "bottom center";
+      root.style.margin = "0";
+      root.style.zIndex = "2147483647";
+    });
+  };
 
   const skins = useMemo(() => [
     { name: "Kaori Amp 2", url: "/assets/skins/1Kaori_Amp_2.wsz" },
@@ -81,7 +94,6 @@ const Mp3Player = ({ className = "" }) => {
       // Desktop keeps auto-init behavior; mobile waits for explicit user start.
       if (!mobileViewport) {
         setIsPlayerEnabled(true);
-        setIsCollapsed(false);
       }
     };
 
@@ -184,6 +196,9 @@ const Mp3Player = ({ className = "" }) => {
         console.log('Rendering Webamp into container...');
         await webamp.renderWhenReady(containerRef.current);
         console.log('Webamp rendered successfully');
+        if (isMobile) {
+          pinMobilePlayer();
+        }
 
         mediaSessionCleanup = attachMediaSession();
         if (!mediaSessionCleanup) {
@@ -233,51 +248,13 @@ const Mp3Player = ({ className = "" }) => {
         isMountedRef.current = false;
       }
     };
-  }, [isPlayerEnabled, skins, tracks]);
+  }, [isMobile, isPlayerEnabled, skins, tracks]);
 
   useEffect(() => {
-    if (typeof document === "undefined" || typeof window === "undefined") {
-      return undefined;
+    if (isMobile && isPlayerEnabled) {
+      pinMobilePlayer();
     }
-
-    const shouldCollapse = isMobile && isPlayerEnabled && isCollapsed;
-    let intervalId = null;
-
-    const applyVisibility = () => {
-      const roots = document.querySelectorAll("div[data-webamp-root]");
-      roots.forEach((root) => {
-        if (shouldCollapse) {
-          if (!root.dataset.prevInlineDisplay) {
-            root.dataset.prevInlineDisplay = root.style.display || "";
-          }
-          root.style.display = "none";
-        } else if (root.dataset.prevInlineDisplay !== undefined) {
-          root.style.display = root.dataset.prevInlineDisplay;
-          delete root.dataset.prevInlineDisplay;
-        }
-      });
-    };
-
-    applyVisibility();
-    if (shouldCollapse) {
-      intervalId = window.setInterval(applyVisibility, 500);
-    }
-
-    return () => {
-      if (intervalId) {
-        window.clearInterval(intervalId);
-      }
-      if (shouldCollapse) {
-        const roots = document.querySelectorAll("div[data-webamp-root]");
-        roots.forEach((root) => {
-          if (root.dataset.prevInlineDisplay !== undefined) {
-            root.style.display = root.dataset.prevInlineDisplay;
-            delete root.dataset.prevInlineDisplay;
-          }
-        });
-      }
-    };
-  }, [isCollapsed, isMobile, isPlayerEnabled]);
+  }, [isMobile, isPlayerEnabled]);
 
   if (error) {
     throw error;
@@ -290,27 +267,17 @@ const Mp3Player = ({ className = "" }) => {
           type="button"
           className="mp3-start-button"
           onClick={() => setIsPlayerEnabled(true)}
+          aria-label="click for musics"
         >
-          Start music player
+          <img
+            src="/assets/CLICK-4-MUSICS.gif"
+            alt="click for musics !!"
+            className="mp3-start-button-image"
+            loading="lazy"
+          />
         </button>
       ) : (
-        <div className="mobile-player-shell">
-          {isMobile && (
-            <div className="mobile-player-controls">
-              <button
-                type="button"
-                className="mp3-toggle-button"
-                onClick={() => setIsCollapsed((prev) => !prev)}
-              >
-                {isCollapsed ? "Show player" : "Minimize player"}
-              </button>
-            </div>
-          )}
-          <div
-            ref={containerRef}
-            className="webamp-container"
-          />
-        </div>
+        <div ref={containerRef} className="webamp-container" />
       )}
       {isMobile && isPlayerEnabled && (
         <p className="mp3-mobile-hint">
