@@ -28,15 +28,17 @@
 @media (max-width: 768px) {
   .webamp-container {
     position: relative;
-    width: 275px;
-    max-width: 275px;
+    width: 100%;
+    max-width: 320px;
     height: auto;
     margin: 0 auto;
     transform: none;
-    z-index: 1;
+    z-index: 3;
+    overflow: visible;
+    min-height: 220px;
   }
 
-  .webamp-container > div[data-webamp-root] {
+  .webamp-container div[data-webamp-root] {
     transform: scale(1.1) !important;
     transform-origin: top center !important;
     position: relative !important;
@@ -44,6 +46,6 @@
     left: auto !important;
     display: block !important;
     margin: 0 auto !important;
-    z-index: 1 !important;
+    z-index: 3 !important;
   }
 }

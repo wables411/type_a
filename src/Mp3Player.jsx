@@ -7,6 +7,34 @@ const Mp3Player = ({ className = "" }) => {
   const containerRef = useRef(null);
   const isMountedRef = useRef(false);
   const [error, setError] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const applyMobileInFlowLayout = () => {
+    if (typeof document === "undefined" || !isMobile || !containerRef.current) {
+      return;
+    }
+
+    const root = document.querySelector("div[data-webamp-root]");
+    if (!root) {
+      return;
+    }
+
+    // Ensure Webamp stays attached to this section in the mobile document flow.
+    if (root.parentElement !== containerRef.current) {
+      containerRef.current.appendChild(root);
+    }
+
+    root.style.setProperty("position", "relative", "important");
+    root.style.setProperty("left", "auto", "important");
+    root.style.setProperty("right", "auto", "important");
+    root.style.setProperty("top", "auto", "important");
+    root.style.setProperty("bottom", "auto", "important");
+    root.style.setProperty("margin", "0 auto", "important");
+    root.style.setProperty("transform", "scale(1.05)", "important");
+    root.style.setProperty("transform-origin", "top center", "important");
+    root.style.setProperty("z-index", "3", "important");
+    root.style.setProperty("display", "block", "important");
+  };
 
   const skins = useMemo(() => [
     { name: "Kaori Amp 2", url: "/assets/skins/1Kaori_Amp_2.wsz" },
@@ -72,9 +100,19 @@ const Mp3Player = ({ className = "" }) => {
   ], []);
 
   useEffect(() => {
+    const updateViewport = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    updateViewport();
+    window.addEventListener("resize", updateViewport);
+    return () => window.removeEventListener("resize", updateViewport);
+  }, []);
+
+  useEffect(() => {
     let isCancelled = false;
     let mediaSessionCleanup = null;
     let mediaSessionPoll = null;
+    let mobileLayoutPoll = null;
 
     const attachMediaSession = () => {
       if (typeof navigator === "undefined" || !("mediaSession" in navigator)) {
@@ -161,6 +199,22 @@ const Mp3Player = ({ className = "" }) => {
         console.log('Rendering Webamp into container...');
         await webamp.renderWhenReady(containerRef.current);
         console.log('Webamp rendered successfully');
+        if (isMobile) {
+          let attempts = 0;
+          mobileLayoutPoll = window.setInterval(() => {
+            if (isCancelled) {
+              window.clearInterval(mobileLayoutPoll);
+              mobileLayoutPoll = null;
+              return;
+            }
+            attempts += 1;
+            applyMobileInFlowLayout();
+            if (attempts >= 20) {
+              window.clearInterval(mobileLayoutPoll);
+              mobileLayoutPoll = null;
+            }
+          }, 250);
+        }
 
         mediaSessionCleanup = attachMediaSession();
         if (!mediaSessionCleanup) {
@@ -192,6 +246,10 @@ const Mp3Player = ({ className = "" }) => {
 
     return () => {
       isCancelled = true;
+      if (mobileLayoutPoll) {
+        window.clearInterval(mobileLayoutPoll);
+        mobileLayoutPoll = null;
+      }
       if (mediaSessionPoll) {
         window.clearInterval(mediaSessionPoll);
         mediaSessionPoll = null;
@@ -210,7 +268,13 @@ const Mp3Player = ({ className = "" }) => {
         isMountedRef.current = false;
       }
     };
-  }, [skins, tracks]);
+  }, [isMobile, skins, tracks]);
+
+  useEffect(() => {
+    if (isMobile) {
+      applyMobileInFlowLayout();
+    }
+  }, [isMobile]);
 
   if (error) {
     throw error;
