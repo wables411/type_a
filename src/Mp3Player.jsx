@@ -49,7 +49,9 @@ const Mp3Player = ({ className = "" }) => {
     });
 
     if (tallestRoot > 0) {
-      containerRef.current.style.minHeight = `${tallestRoot + 16}px`;
+      // Keep enough reserved vertical space so Webamp never climbs over chat on mobile.
+      const minMobileHeight = 560;
+      containerRef.current.style.minHeight = `${Math.max(tallestRoot + 16, minMobileHeight)}px`;
     }
   };
 

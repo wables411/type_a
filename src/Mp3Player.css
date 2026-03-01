@@ -33,13 +33,15 @@
     transform: none;
     z-index: 1;
     overflow: visible;
-    min-height: 380px;
+    min-height: 560px;
+    padding-top: 8px;
   }
 
+  .webamp-container > div[data-webamp-root],
   .webamp-container div[data-webamp-root] {
     transform: none !important;
     transform-origin: top center !important;
-    position: static !important;
+    position: relative !important;
     bottom: auto !important;
     left: auto !important;
     right: auto !important;
@@ -47,12 +49,13 @@
     display: block !important;
     margin: 0 auto !important;
     z-index: 1 !important;
+    inset: auto !important;
   }
 }
 
 @media (max-width: 390px) {
   .webamp-container {
     margin: 14px auto 18px;
-    min-height: 340px;
+    min-height: 520px;
   }
 }
