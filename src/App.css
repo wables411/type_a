@@ -544,6 +544,13 @@ body {
     overflow: visible;
     z-index: 10;
     margin-bottom: 28px;
+    pointer-events: none;
+  }
+
+  .chat input,
+  .chat button,
+  .chat .chat-log {
+    pointer-events: auto;
   }
 
   .mp3-player {

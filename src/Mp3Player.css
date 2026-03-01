@@ -36,6 +36,7 @@
     min-height: 560px;
     padding-top: 8px;
     pointer-events: auto;
+    touch-action: manipulation;
   }
 
   .webamp-container > div[data-webamp-root],
@@ -49,9 +50,14 @@
     top: auto !important;
     display: block !important;
     margin: 0 auto !important;
-    z-index: 1 !important;
+    z-index: 50 !important;
     inset: auto !important;
     pointer-events: auto !important;
+    touch-action: manipulation !important;
+  }
+
+  .webamp-container * {
+    pointer-events: auto;
   }
 }
 
