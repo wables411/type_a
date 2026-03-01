@@ -4,10 +4,14 @@ import "./Mp3Player.css";
 
 const Mp3Player = ({ className = "" }) => {
   const webampRef = useRef(null);
+  const mobileAudioRef = useRef(null);
+  const mobileAutoPlayNextRef = useRef(false);
   const containerRef = useRef(null);
   const isMountedRef = useRef(false);
   const [error, setError] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [mobileTrackIndex, setMobileTrackIndex] = useState(0);
+  const [mobileIsPlaying, setMobileIsPlaying] = useState(false);
 
   const applyMobileInFlowLayout = () => {
     if (typeof document === "undefined" || !isMobile || !containerRef.current) {
@@ -109,6 +113,8 @@ const Mp3Player = ({ className = "" }) => {
     { metaData: { artist: "Unknown", title: "mononoaware" }, url: "/assets/audio/mononoaware.mp3" },
   ], []);
 
+  const currentMobileTrack = tracks[mobileTrackIndex] || tracks[0];
+
   useEffect(() => {
     const updateViewport = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -155,6 +161,10 @@ const Mp3Player = ({ className = "" }) => {
     let mediaSessionCleanup = null;
     let mediaSessionPoll = null;
     let mobileLayoutTimeout = null;
+
+    if (isMobile) {
+      return undefined;
+    }
 
     const attachMediaSession = () => {
       if (typeof navigator === "undefined" || !("mediaSession" in navigator)) {
@@ -343,11 +353,143 @@ const Mp3Player = ({ className = "" }) => {
     };
   }, [isMobile]);
 
+  useEffect(() => {
+    if (!isMobile || typeof window === "undefined") {
+      return undefined;
+    }
+
+    const audio = mobileAudioRef.current;
+    if (!audio) {
+      return undefined;
+    }
+
+    const updatePlaybackState = () => {
+      setMobileIsPlaying(!audio.paused);
+    };
+
+    const handlePlay = () => updatePlaybackState();
+    const handlePause = () => updatePlaybackState();
+    const handleEnded = () => {
+      mobileAutoPlayNextRef.current = true;
+      setMobileTrackIndex((prev) => (prev + 1) % tracks.length);
+    };
+
+    audio.addEventListener("play", handlePlay);
+    audio.addEventListener("pause", handlePause);
+    audio.addEventListener("ended", handleEnded);
+    updatePlaybackState();
+
+    if ("mediaSession" in navigator) {
+      if ("MediaMetadata" in window) {
+        navigator.mediaSession.metadata = new window.MediaMetadata({
+          title: currentMobileTrack?.metaData?.title || "Milady Type A Radio",
+          artist: currentMobileTrack?.metaData?.artist || "Milady Type A",
+          album: "Mobile Player",
+        });
+      }
+
+      navigator.mediaSession.setActionHandler("play", () => {
+        audio.play().catch(() => {});
+      });
+      navigator.mediaSession.setActionHandler("pause", () => {
+        audio.pause();
+      });
+      navigator.mediaSession.setActionHandler("previoustrack", () => {
+        const shouldResume = !audio.paused;
+        setMobileTrackIndex((prev) => (prev - 1 + tracks.length) % tracks.length);
+        mobileAutoPlayNextRef.current = shouldResume;
+      });
+      navigator.mediaSession.setActionHandler("nexttrack", () => {
+        const shouldResume = !audio.paused;
+        setMobileTrackIndex((prev) => (prev + 1) % tracks.length);
+        mobileAutoPlayNextRef.current = shouldResume;
+      });
+      navigator.mediaSession.playbackState = audio.paused ? "paused" : "playing";
+    }
+
+    return () => {
+      audio.removeEventListener("play", handlePlay);
+      audio.removeEventListener("pause", handlePause);
+      audio.removeEventListener("ended", handleEnded);
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.setActionHandler("play", null);
+        navigator.mediaSession.setActionHandler("pause", null);
+        navigator.mediaSession.setActionHandler("previoustrack", null);
+        navigator.mediaSession.setActionHandler("nexttrack", null);
+      }
+    };
+  }, [isMobile, tracks, mobileTrackIndex, currentMobileTrack]);
+
+  useEffect(() => {
+    if (!isMobile || !mobileAutoPlayNextRef.current) {
+      return;
+    }
+    const audio = mobileAudioRef.current;
+    if (!audio) {
+      return;
+    }
+    mobileAutoPlayNextRef.current = false;
+    audio.play().catch(() => {});
+  }, [isMobile, mobileTrackIndex]);
+
   if (error) {
     throw error;
   }
 
   const containerClassName = ["webamp-container", className].filter(Boolean).join(" ");
+
+  const handleMobilePlayPause = () => {
+    const audio = mobileAudioRef.current;
+    if (!audio) return;
+    if (audio.paused) {
+      audio.play().catch(() => {});
+    } else {
+      audio.pause();
+    }
+  };
+
+  const handleMobilePrevious = () => {
+    const audio = mobileAudioRef.current;
+    const shouldResume = audio ? !audio.paused : false;
+    setMobileTrackIndex((prev) => (prev - 1 + tracks.length) % tracks.length);
+    mobileAutoPlayNextRef.current = shouldResume;
+  };
+
+  const handleMobileNext = () => {
+    const audio = mobileAudioRef.current;
+    const shouldResume = audio ? !audio.paused : false;
+    setMobileTrackIndex((prev) => (prev + 1) % tracks.length);
+    mobileAutoPlayNextRef.current = shouldResume;
+  };
+
+  if (isMobile) {
+    return (
+      <div className={["native-mobile-player", className].filter(Boolean).join(" ")}>
+        <div className="mobile-audio-player">
+          <p className="mobile-audio-title">
+            Now Playing: {currentMobileTrack?.metaData?.title || "Unknown"}
+          </p>
+          <p className="mobile-audio-artist">
+            {currentMobileTrack?.metaData?.artist || "Unknown Artist"}
+          </p>
+          <div className="mobile-audio-controls">
+            <button type="button" onClick={handleMobilePrevious}>Prev</button>
+            <button type="button" onClick={handleMobilePlayPause}>
+              {mobileIsPlaying ? "Pause" : "Play"}
+            </button>
+            <button type="button" onClick={handleMobileNext}>Next</button>
+          </div>
+          <audio
+            ref={mobileAudioRef}
+            src={currentMobileTrack?.url}
+            controls
+            preload="auto"
+            playsInline
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div ref={containerRef} className={containerClassName} />
