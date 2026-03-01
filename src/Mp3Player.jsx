@@ -347,10 +347,10 @@ const Mp3Player = ({ className = "" }) => {
     throw error;
   }
 
+  const containerClassName = ["webamp-container", className].filter(Boolean).join(" ");
+
   return (
-    <div className={className}>
-      <div ref={containerRef} className="webamp-container" />
-    </div>
+    <div ref={containerRef} className={containerClassName} />
   );
 };
 
