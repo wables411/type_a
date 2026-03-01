@@ -163,7 +163,7 @@ const Mp3Player = ({ className = "" }) => {
     let isCancelled = false;
     let mediaSessionCleanup = null;
     let mediaSessionPoll = null;
-    let mobileLayoutPoll = null;
+    let mobileLayoutTimeout = null;
 
     const attachMediaSession = () => {
       if (typeof navigator === "undefined" || !("mediaSession" in navigator)) {
@@ -252,14 +252,11 @@ const Mp3Player = ({ className = "" }) => {
         console.log('Webamp rendered successfully');
         if (isMobile) {
           applyMobileInFlowLayout();
-          mobileLayoutPoll = window.setInterval(() => {
-            if (isCancelled) {
-              window.clearInterval(mobileLayoutPoll);
-              mobileLayoutPoll = null;
-              return;
+          mobileLayoutTimeout = window.setTimeout(() => {
+            if (!isCancelled) {
+              applyMobileInFlowLayout();
             }
-            applyMobileInFlowLayout();
-          }, 300);
+          }, 250);
         }
 
         mediaSessionCleanup = attachMediaSession();
@@ -292,9 +289,9 @@ const Mp3Player = ({ className = "" }) => {
 
     return () => {
       isCancelled = true;
-      if (mobileLayoutPoll) {
-        window.clearInterval(mobileLayoutPoll);
-        mobileLayoutPoll = null;
+      if (mobileLayoutTimeout) {
+        window.clearTimeout(mobileLayoutTimeout);
+        mobileLayoutTimeout = null;
       }
       if (mediaSessionPoll) {
         window.clearInterval(mediaSessionPoll);
@@ -320,9 +317,26 @@ const Mp3Player = ({ className = "" }) => {
   }, [isMobile, skins, tracks]);
 
   useEffect(() => {
-    if (isMobile) {
-      applyMobileInFlowLayout();
+    if (!isMobile || typeof window === "undefined") {
+      return undefined;
     }
+
+    const handleLayoutRefresh = () => {
+      applyMobileInFlowLayout();
+    };
+
+    applyMobileInFlowLayout();
+    window.addEventListener("resize", handleLayoutRefresh);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", handleLayoutRefresh);
+    }
+
+    return () => {
+      window.removeEventListener("resize", handleLayoutRefresh);
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", handleLayoutRefresh);
+      }
+    };
   }, [isMobile]);
 
   if (error) {
