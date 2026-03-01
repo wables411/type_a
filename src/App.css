@@ -540,12 +540,14 @@ body {
     max-width: min(92vw, var(--mobile-card-max));
     border-radius: 10px;
     overflow: visible;
-    z-index: 0;
+    z-index: 20;
+    margin-bottom: 20px;
   }
 
   .mp3-player {
     margin-top: 0;
     margin-bottom: 24px;
+    z-index: 1;
   }
 
   .chat-log {
