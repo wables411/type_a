@@ -329,11 +329,6 @@ const App = () => {
         </div>
       </div>
       <div className="fixed-elements">
-        <ErrorBoundary>
-          <Suspense fallback={<div>Loading MP3 Player...</div>}>
-            <Mp3Player className="mp3-player" />
-          </Suspense>
-        </ErrorBoundary>
         <img
           src="/assets/bluetypea.png"
           alt="Blue Type A"
@@ -379,6 +374,11 @@ const App = () => {
           <img src="/assets/miladytypeadrift.gif" alt="YouTube Button" loading="lazy" />
         </a>
         <Chat key="chat-component" />
+        <ErrorBoundary>
+          <Suspense fallback={<div>Loading MP3 Player...</div>}>
+            <Mp3Player className="mp3-player" />
+          </Suspense>
+        </ErrorBoundary>
       </div>
     </>
   );

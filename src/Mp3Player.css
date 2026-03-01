@@ -1,8 +1,6 @@
 .webamp-container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 10000;
+  position: relative;
+  z-index: 1;
   width: 275px; /* Base width before scaling */
   height: 0;    /* Let Webamp determine height */
   overflow: visible; /* Ensure scaled content isn’t clipped */
@@ -29,13 +27,13 @@
   .webamp-container {
     position: relative;
     width: 100%;
-    max-width: 320px;
+    max-width: 100%;
     height: auto;
     margin: 18px auto 24px;
     transform: none;
     z-index: 1;
     overflow: visible;
-    min-height: 560px;
+    min-height: 380px;
   }
 
   .webamp-container div[data-webamp-root] {
@@ -49,5 +47,12 @@
     display: block !important;
     margin: 0 auto !important;
     z-index: 1 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .webamp-container {
+    margin: 14px auto 18px;
+    min-height: 340px;
   }
 }

@@ -376,12 +376,37 @@ body {
 
 /* Mobile styles (below 768px) */
 @media (max-width: 768px) {
+  body {
+    display: block;
+    align-items: initial;
+    justify-content: initial;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-attachment: scroll;
+  }
+
+  #root {
+    width: 100%;
+  }
+
   .container,
   .fixed-elements {
     max-width: 100%;
     padding: 10px;
-    gap: 20px; /* Increased for spacing */
+    gap: 16px;
     align-items: center;
+  }
+
+  .container {
+    min-width: 0;
+  }
+
+  .fixed-elements {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto 20px;
   }
 
   .box {
@@ -402,11 +427,11 @@ body {
   .whitelist-button-inline img,
   .wallet-button img {
     width: 100%;
-    max-width: clamp(250px, 85vw, 350px); /* Better mobile scaling */
+    max-width: clamp(280px, 92vw, 500px);
     height: auto;
-    margin: 15px auto; /* Increased spacing */
-    max-height: none; /* Prevent cutoff */
-    object-fit: contain; /* Ensure full visibility */
+    margin: 12px auto;
+    max-height: none;
+    object-fit: contain;
   }
 
   .video-wrapper {
@@ -452,48 +477,24 @@ body {
     right: auto;
     transform: none; /* Remove desktop transform */
     width: 100%;
-    max-width: clamp(250px, 85vw, 350px); /* Matches other elements */
-    margin: 15px auto; /* Increased spacing */
+    max-width: clamp(280px, 92vw, 500px);
+    margin: 12px auto;
     z-index: 1;
-    max-height: none; /* Prevent cutoff */
-    object-fit: contain; /* Ensure full visibility */
-  }
-
-  /* Ensure correct order on mobile */
-  .fixed-elements > .bluetypea-image {
-    order: 1;
-  }
-  .fixed-elements > .youtube-button {
-    order: 2;
-  }
-  .fixed-elements > .aptos-sunset {
-    order: 3;
-  }
-  .fixed-elements > .stargate-button {
-    order: 4;
-  }
-  .fixed-elements > .discord-button {
-    order: 5;
-  }
-  .fixed-elements > .twitter-button {
-    order: 6;
-  }
-  .fixed-elements > .chat {
-    order: 7;
-  }
-
-  .fixed-elements > .mp3-player {
-    order: 8;
+    max-height: none;
+    object-fit: contain;
   }
 
   .chat {
-    order: 7;
     height: auto;
     padding: 10px;
     max-width: clamp(300px, 90vw, 500px);
     border-radius: 10px;
     overflow: visible;
     z-index: 0;
+  }
+
+  .mp3-player {
+    margin-top: 0;
   }
 
   .chat-log {
@@ -530,6 +531,49 @@ body {
     margin: 15px auto;
   }
 
+}
+
+@media (max-width: 390px) {
+  .container,
+  .fixed-elements {
+    padding: 8px;
+    gap: 12px;
+  }
+
+  .box {
+    padding: 12px;
+  }
+
+  .description p,
+  .minting p {
+    font-size: clamp(0.78rem, 3.8vw, 0.88rem);
+    line-height: 1.4;
+  }
+
+  .chat {
+    padding: 8px;
+  }
+
+  .chat p {
+    font-size: 0.75rem;
+  }
+
+  .chat-log {
+    max-height: 130px;
+    font-size: 0.8rem;
+  }
+
+  .chat-input input,
+  .username-input input {
+    font-size: 16px;
+    min-height: 40px;
+    padding: 8px 10px;
+  }
+
+  .chat-button {
+    min-height: 40px;
+    font-size: 0.9rem;
+  }
 }
 
 /* Larger desktop screens (1920px and up) */
