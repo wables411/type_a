@@ -3,6 +3,7 @@
   z-index: 1;
   width: 275px;
   overflow: visible;
+  pointer-events: none;
 }
 
 .webamp-container > div[data-webamp-root] {
@@ -12,6 +13,7 @@
   margin: 0;
   z-index: 1;
   width: 275px;
+  pointer-events: auto;
 }
 
 /* Mobile adjustments */
@@ -34,6 +36,7 @@
     position: relative;
     margin: 0 auto;
     z-index: 1;
+    pointer-events: auto;
   }
 }
 
