@@ -35,6 +35,7 @@
     overflow: visible;
     min-height: 560px;
     padding-top: 8px;
+    pointer-events: auto;
   }
 
   .webamp-container > div[data-webamp-root],
@@ -50,6 +51,7 @@
     margin: 0 auto !important;
     z-index: 1 !important;
     inset: auto !important;
+    pointer-events: auto !important;
   }
 }
 
