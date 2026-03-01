@@ -27,17 +27,6 @@ const Mp3Player = ({ className = "" }) => {
         containerRef.current.appendChild(root);
       }
 
-      root.style.setProperty("position", "static", "important");
-      root.style.setProperty("left", "auto", "important");
-      root.style.setProperty("right", "auto", "important");
-      root.style.setProperty("top", "auto", "important");
-      root.style.setProperty("bottom", "auto", "important");
-      root.style.setProperty("margin", "0 auto", "important");
-      root.style.setProperty("transform", "none", "important");
-      root.style.setProperty("transform-origin", "top center", "important");
-      root.style.setProperty("z-index", "1", "important");
-      root.style.setProperty("display", "block", "important");
-
       let measuredHeight = Math.ceil(root.getBoundingClientRect().height || 0);
       const descendants = root.querySelectorAll("*");
       descendants.forEach((el) => {
@@ -164,7 +153,6 @@ const Mp3Player = ({ className = "" }) => {
     let mediaSessionCleanup = null;
     let mediaSessionPoll = null;
     let mobileLayoutTimeout = null;
-    let mobileTouchBridgeCleanup = null;
 
     const attachMediaSession = () => {
       if (typeof navigator === "undefined" || !("mediaSession" in navigator)) {
@@ -253,7 +241,6 @@ const Mp3Player = ({ className = "" }) => {
         console.log('Webamp rendered successfully');
         if (isMobile) {
           applyMobileInFlowLayout();
-          mobileTouchBridgeCleanup = attachMobileTouchBridge();
           mobileLayoutTimeout = window.setTimeout(() => {
             if (!isCancelled) {
               applyMobileInFlowLayout();
@@ -286,70 +273,6 @@ const Mp3Player = ({ className = "" }) => {
       }
     };
 
-    const attachMobileTouchBridge = () => {
-      if (typeof document === "undefined" || !isMobile || !containerRef.current) {
-        return null;
-      }
-
-      const root = containerRef.current.querySelector("div[data-webamp-root]");
-      if (!root) {
-        return null;
-      }
-
-      let touchMoved = false;
-      let startX = 0;
-      let startY = 0;
-
-      const handleTouchStart = (event) => {
-        const touch = event.touches && event.touches[0];
-        if (!touch) return;
-        startX = touch.clientX;
-        startY = touch.clientY;
-        touchMoved = false;
-      };
-
-      const handleTouchMove = (event) => {
-        const touch = event.touches && event.touches[0];
-        if (!touch) return;
-        const dx = Math.abs(touch.clientX - startX);
-        const dy = Math.abs(touch.clientY - startY);
-        if (dx > 10 || dy > 10) {
-          touchMoved = true;
-        }
-      };
-
-      const handleTouchEnd = (event) => {
-        const touch = event.changedTouches && event.changedTouches[0];
-        if (!touch || touchMoved) return;
-        const target = document.elementFromPoint(touch.clientX, touch.clientY);
-        if (!(target instanceof Element) || !root.contains(target)) {
-          return;
-        }
-
-        const options = {
-          bubbles: true,
-          cancelable: true,
-          clientX: touch.clientX,
-          clientY: touch.clientY,
-          view: window,
-        };
-
-        target.dispatchEvent(new MouseEvent("mousedown", options));
-        target.dispatchEvent(new MouseEvent("mouseup", options));
-        target.dispatchEvent(new MouseEvent("click", options));
-      };
-
-      root.addEventListener("touchstart", handleTouchStart, { passive: true });
-      root.addEventListener("touchmove", handleTouchMove, { passive: true });
-      root.addEventListener("touchend", handleTouchEnd, { passive: true });
-
-      return () => {
-        root.removeEventListener("touchstart", handleTouchStart);
-        root.removeEventListener("touchmove", handleTouchMove);
-        root.removeEventListener("touchend", handleTouchEnd);
-      };
-    };
-
     console.log('Mp3Player useEffect running');
     initializeWebamp();
 
@@ -358,10 +281,6 @@ const Mp3Player = ({ className = "" }) => {
       if (mobileLayoutTimeout) {
         window.clearTimeout(mobileLayoutTimeout);
         mobileLayoutTimeout = null;
-      }
-      if (mobileTouchBridgeCleanup) {
-        mobileTouchBridgeCleanup();
-        mobileTouchBridgeCleanup = null;
       }
       if (mediaSessionPoll) {
         window.clearInterval(mediaSessionPoll);
