@@ -407,6 +407,7 @@ body {
     flex-direction: column;
     width: 100%;
     margin: 0 auto 20px;
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 110px);
   }
 
   .box {
@@ -495,6 +496,7 @@ body {
 
   .mp3-player {
     margin-top: 0;
+    margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 72px);
   }
 
   .chat-log {
@@ -573,6 +575,14 @@ body {
   .chat-button {
     min-height: 40px;
     font-size: 0.9rem;
+  }
+
+  .fixed-elements {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 120px);
+  }
+
+  .mp3-player {
+    margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 84px);
   }
 }
 
