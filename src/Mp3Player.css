@@ -31,21 +31,23 @@
     width: 100%;
     max-width: 320px;
     height: auto;
-    margin: 0 auto;
+    margin: 18px auto 24px;
     transform: none;
-    z-index: 3;
+    z-index: 1;
     overflow: visible;
-    min-height: 220px;
+    min-height: 560px;
   }
 
   .webamp-container div[data-webamp-root] {
-    transform: scale(1.1) !important;
+    transform: none !important;
     transform-origin: top center !important;
-    position: relative !important;
+    position: static !important;
     bottom: auto !important;
     left: auto !important;
+    right: auto !important;
+    top: auto !important;
     display: block !important;
     margin: 0 auto !important;
-    z-index: 3 !important;
+    z-index: 1 !important;
   }
 }

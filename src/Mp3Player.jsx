@@ -14,26 +14,43 @@ const Mp3Player = ({ className = "" }) => {
       return;
     }
 
-    const root = document.querySelector("div[data-webamp-root]");
-    if (!root) {
+    const roots = Array.from(document.querySelectorAll("div[data-webamp-root]"));
+    if (!roots.length) {
       return;
     }
 
-    // Ensure Webamp stays attached to this section in the mobile document flow.
-    if (root.parentElement !== containerRef.current) {
-      containerRef.current.appendChild(root);
-    }
+    let tallestRoot = 0;
+    const containerRect = containerRef.current.getBoundingClientRect();
+    roots.forEach((root) => {
+      // Ensure all Webamp roots stay attached to this section in mobile flow.
+      if (root.parentElement !== containerRef.current) {
+        containerRef.current.appendChild(root);
+      }
 
-    root.style.setProperty("position", "relative", "important");
-    root.style.setProperty("left", "auto", "important");
-    root.style.setProperty("right", "auto", "important");
-    root.style.setProperty("top", "auto", "important");
-    root.style.setProperty("bottom", "auto", "important");
-    root.style.setProperty("margin", "0 auto", "important");
-    root.style.setProperty("transform", "scale(1.05)", "important");
-    root.style.setProperty("transform-origin", "top center", "important");
-    root.style.setProperty("z-index", "3", "important");
-    root.style.setProperty("display", "block", "important");
+      root.style.setProperty("position", "static", "important");
+      root.style.setProperty("left", "auto", "important");
+      root.style.setProperty("right", "auto", "important");
+      root.style.setProperty("top", "auto", "important");
+      root.style.setProperty("bottom", "auto", "important");
+      root.style.setProperty("margin", "0 auto", "important");
+      root.style.setProperty("transform", "none", "important");
+      root.style.setProperty("transform-origin", "top center", "important");
+      root.style.setProperty("z-index", "1", "important");
+      root.style.setProperty("display", "block", "important");
+
+      let measuredHeight = Math.ceil(root.getBoundingClientRect().height || 0);
+      const descendants = root.querySelectorAll("*");
+      descendants.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        const bottomOffset = Math.ceil(rect.bottom - containerRect.top);
+        measuredHeight = Math.max(measuredHeight, bottomOffset);
+      });
+      tallestRoot = Math.max(tallestRoot, measuredHeight);
+    });
+
+    if (tallestRoot > 0) {
+      containerRef.current.style.minHeight = `${tallestRoot + 16}px`;
+    }
   };
 
   const skins = useMemo(() => [
@@ -200,20 +217,15 @@ const Mp3Player = ({ className = "" }) => {
         await webamp.renderWhenReady(containerRef.current);
         console.log('Webamp rendered successfully');
         if (isMobile) {
-          let attempts = 0;
+          applyMobileInFlowLayout();
           mobileLayoutPoll = window.setInterval(() => {
             if (isCancelled) {
               window.clearInterval(mobileLayoutPoll);
               mobileLayoutPoll = null;
               return;
             }
-            attempts += 1;
             applyMobileInFlowLayout();
-            if (attempts >= 20) {
-              window.clearInterval(mobileLayoutPoll);
-              mobileLayoutPoll = null;
-            }
-          }, 250);
+          }, 300);
         }
 
         mediaSessionCleanup = attachMediaSession();
@@ -266,6 +278,9 @@ const Mp3Player = ({ className = "" }) => {
         }
         webampRef.current = null;
         isMountedRef.current = false;
+      }
+      if (containerRef.current) {
+        containerRef.current.style.minHeight = "";
       }
     };
   }, [isMobile, skins, tracks]);
