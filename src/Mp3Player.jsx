@@ -14,7 +14,9 @@ const Mp3Player = ({ className = "" }) => {
       return;
     }
 
-    const roots = Array.from(document.querySelectorAll("div[data-webamp-root]"));
+    const roots = Array.from(
+      containerRef.current.querySelectorAll("div[data-webamp-root]")
+    );
     if (!roots.length) {
       return;
     }
@@ -221,6 +223,19 @@ const Mp3Player = ({ className = "" }) => {
       }
 
       try {
+        // Remove stale roots before creating a new instance, which prevents
+        // invisible overlapped layers from intercepting mobile taps.
+        containerRef.current
+          .querySelectorAll("div[data-webamp-root]")
+          .forEach((node) => node.remove());
+        document
+          .querySelectorAll("div[data-webamp-root]")
+          .forEach((node) => {
+            if (!containerRef.current?.contains(node)) {
+              node.remove();
+            }
+          });
+
         console.log('Webamp constructor:', Webamp);
         console.log('Container element:', containerRef.current);
         const webamp = new Webamp({
