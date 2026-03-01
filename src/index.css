@@ -5,9 +5,18 @@
 }
 
 html, body, #root {
-  height: 100%;
   width: 100%;
-  overflow: auto;
+}
+
+html,
+body {
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100%;
+  overflow: visible;
 }
 
 body {

@@ -376,6 +376,13 @@ body {
 
 /* Mobile styles (below 768px) */
 @media (max-width: 768px) {
+  :root {
+    --mobile-feed-max: 520px;
+    --mobile-card-max: 500px;
+    --mobile-decor-max: 260px;
+    --mobile-social-max: 220px;
+  }
+
   body {
     display: block;
     align-items: initial;
@@ -393,7 +400,7 @@ body {
   .fixed-elements {
     max-width: 100%;
     padding: 10px;
-    gap: 16px;
+    gap: 14px;
     align-items: center;
   }
 
@@ -407,12 +414,22 @@ body {
     flex-direction: column;
     width: 100%;
     margin: 0 auto 20px;
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 110px);
+    padding-bottom: 24px;
+  }
+
+  .fixed-elements::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: var(--mobile-webamp-bottom-buffer, 180px);
+    flex: 0 0 auto;
   }
 
   .box {
     padding: 15px;
-    max-width: 100%;
+    width: min(100%, var(--mobile-card-max));
+    max-width: var(--mobile-card-max);
+    margin-inline: auto;
   }
 
   .description p,
@@ -428,9 +445,9 @@ body {
   .whitelist-button-inline img,
   .wallet-button img {
     width: 100%;
-    max-width: clamp(280px, 92vw, 500px);
+    max-width: min(92vw, var(--mobile-card-max));
     height: auto;
-    margin: 12px auto;
+    margin: 10px auto;
     max-height: none;
     object-fit: contain;
   }
@@ -458,8 +475,8 @@ body {
     left: auto;
     right: auto;
     width: 100%;
-    max-width: clamp(300px, 90vw, 500px);
-    margin: 15px auto;
+    max-width: min(92vw, var(--mobile-card-max));
+    margin: 12px auto;
     z-index: 2;
   }
 
@@ -477,18 +494,50 @@ body {
     left: auto;
     right: auto;
     transform: none; /* Remove desktop transform */
-    width: 100%;
-    max-width: clamp(280px, 92vw, 500px);
-    margin: 12px auto;
+    width: min(100%, var(--mobile-feed-max));
+    max-width: var(--mobile-feed-max);
+    margin: 10px auto;
     z-index: 1;
     max-height: none;
     object-fit: contain;
   }
 
+  /* Keep decorative elements visible but visually lighter on mobile */
+  .bluetypea-image,
+  .aptos-sunset {
+    max-width: var(--mobile-decor-max);
+    opacity: 0.88;
+  }
+
+  .youtube-button {
+    max-width: min(92vw, 380px);
+  }
+
+  .stargate-button,
+  .discord-button,
+  .twitter-button {
+    max-width: var(--mobile-social-max);
+  }
+
+  .stargate-button img,
+  .discord-button img,
+  .twitter-button img {
+    max-width: var(--mobile-social-max);
+  }
+
+  .youtube-button img {
+    max-width: min(92vw, 380px);
+  }
+
+  .bluetypea-image,
+  .aptos-sunset {
+    max-width: var(--mobile-decor-max);
+  }
+
   .chat {
     height: auto;
-    padding: 10px;
-    max-width: clamp(300px, 90vw, 500px);
+    padding: 12px;
+    max-width: min(92vw, var(--mobile-card-max));
     border-radius: 10px;
     overflow: visible;
     z-index: 0;
@@ -496,11 +545,11 @@ body {
 
   .mp3-player {
     margin-top: 0;
-    margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 72px);
+    margin-bottom: 24px;
   }
 
   .chat-log {
-    max-height: 150px;
+    max-height: 180px;
   }
 
   .username-input,
@@ -530,12 +579,17 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin: 15px auto;
+    margin: 10px auto;
   }
 
 }
 
 @media (max-width: 390px) {
+  :root {
+    --mobile-decor-max: 200px;
+    --mobile-social-max: 180px;
+  }
+
   .container,
   .fixed-elements {
     padding: 8px;
@@ -578,11 +632,15 @@ body {
   }
 
   .fixed-elements {
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 120px);
+    padding-bottom: 20px;
+  }
+
+  .fixed-elements::after {
+    height: var(--mobile-webamp-bottom-buffer, 200px);
   }
 
   .mp3-player {
-    margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 84px);
+    margin-bottom: 24px;
   }
 }
 

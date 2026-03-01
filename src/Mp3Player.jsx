@@ -126,6 +126,38 @@ const Mp3Player = ({ className = "" }) => {
   }, []);
 
   useEffect(() => {
+    if (typeof window === "undefined" || !isMobile) {
+      return undefined;
+    }
+
+    const rootStyle = document.documentElement.style;
+    const updateMobileBuffer = () => {
+      const viewport = window.visualViewport;
+      const chromeHeight = viewport
+        ? Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop)
+        : 0;
+      const buffer = Math.ceil(chromeHeight + 160);
+      rootStyle.setProperty("--mobile-webamp-bottom-buffer", `${buffer}px`);
+    };
+
+    updateMobileBuffer();
+    window.addEventListener("resize", updateMobileBuffer);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", updateMobileBuffer);
+      window.visualViewport.addEventListener("scroll", updateMobileBuffer);
+    }
+
+    return () => {
+      window.removeEventListener("resize", updateMobileBuffer);
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", updateMobileBuffer);
+        window.visualViewport.removeEventListener("scroll", updateMobileBuffer);
+      }
+      rootStyle.removeProperty("--mobile-webamp-bottom-buffer");
+    };
+  }, [isMobile]);
+
+  useEffect(() => {
     let isCancelled = false;
     let mediaSessionCleanup = null;
     let mediaSessionPoll = null;
